@@ -3,27 +3,27 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.repository.memberMapper">
-	<select id="selectAll" resultType="info">
+	<select id="selectAll" resultType="member">
 		select * from userinfo
 	</select>
 	
-	<select id="selectByNmae" resultType="info" parameterType="String">
+	<select id="selectByNmae" resultType="member" parameterType="String">
 		select * from userinfo where id like #{name} order by id
 	</select>
 	
-	<select id="selectById" resultType="info">
+	<select id="selectById" resultType="member" parameterType="String">
 		select * from userinfo where id=#{id}
 	</select>
 	
-	<insert id="insertInfo" parameterType="info">
+	<insert id="insertMember" parameterType="member">
 		insert into userinfo values(#{id}, #{password}, #{name}, #{address}, #{phone}, #{authority})
 	</insert>
 	
-	<update id="updateInfo" parameterType="info">
+	<update id="updateMember" parameterType="member">
 		update userinfo set  name=#{name}, address=#{address}, phone=#{phone}, authority=#{authority} where id=#{id}
 	</update>
 	
-	<delete id="deleteInfo" parameterType="Integer">
+	<delete id="deleteMember" parameterType="String">
 		delete form userinfo where id=#{id}
 	</delete>
 	
