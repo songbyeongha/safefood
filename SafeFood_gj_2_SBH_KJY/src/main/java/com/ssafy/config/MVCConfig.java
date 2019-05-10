@@ -20,7 +20,7 @@ public class MVCConfig extends WebMvcConfigurerAdapter {
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
 		resolver.setPrefix("/WEB-INF/view/");
 		resolver.setSuffix(".jsp");
-		return resolver; 
+		return resolver;
 		
 	}
    
