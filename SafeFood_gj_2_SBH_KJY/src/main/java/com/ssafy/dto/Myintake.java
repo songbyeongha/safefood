@@ -12,11 +12,9 @@ public class Myintake {
 		super();
 	}
 
-	public Myintake(Integer itno, String userinfoId, Date intakeDate, Integer foodCode) {
+	public Myintake(String userinfoId, Integer foodCode) {
 		super();
-		this.itno = itno;
 		this.userinfoId = userinfoId;
-		this.intakeDate = intakeDate;
 		this.foodCode = foodCode;
 	}
 

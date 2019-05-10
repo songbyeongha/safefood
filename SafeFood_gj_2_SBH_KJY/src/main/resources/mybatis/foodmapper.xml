@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.repository.FoodMapper">
+	<select id="selectAll" resultType="food">
+		select * from food
+	</select>
+	
+	<select id="select" resultType="food" parameterType="Integer">
+		select * from food where code=#{code}
+	</select>
+	
+	<select id="selectByName" resultType="food" parameterType="String">
+		select * from food where name like #{name} order by code
+	</select>
+	
+	<select id="selectByMaker" resultType="food" parameterType="String">
+		select * from food where maker like #{maker} order by code
+	</select>
+	
+	<select id="selectByMaterial" resultType="food" parameterType="String">
+		select * from food where material like #{material} order by code
+	</select>
+	
+	<insert id="insertFood" parameterType="food">
+		insert into food (code,name,supportpereat,calory,carbo,protein,fat,sugar,natrium,chole,fattyacid,transfat,maker,material,img)
+		values(#{code},#{name},#{supportpereat},#{calory},#{carbo},#{protein},#{fat},#{sugar},#{natrium},#{chole},#{fattyacid},#{transfat},#{maker},#{material},#{img})
+	</insert>
+	
+	<update id="updateFood" parameterType="food">
+		update food set name=#{name}, supportpereat=#{supportpereat}, calory=#{calory},
+		 carbo=#{carbo}, protein=#{protein}, fat=#{fat}, sugar=#{sugar},
+		 natrium=#{natrium}, chole=#{chole}, fattyacid=#{fattyacid},
+		 transfat=#{transfat}, maker=#{maker}, material=#{material}, img=#{img}, best_count=#{bestCount} where code=#{code}
+	</update>
+	
+	<delete id="deleteFood" parameterType="Integer">
+		delete from food where code=#{code}
+	</delete>
+	
+
+</mapper>
