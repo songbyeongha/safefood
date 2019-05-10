@@ -20,9 +20,10 @@ public class MVCConfig extends WebMvcConfigurerAdapter {
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
 		resolver.setPrefix("/WEB-INF/view/");
 		resolver.setSuffix(".jsp");
-		return resolver;
+		return resolver; 
+		
 	}
-
+   
 	// static 자료들 맵핑
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
