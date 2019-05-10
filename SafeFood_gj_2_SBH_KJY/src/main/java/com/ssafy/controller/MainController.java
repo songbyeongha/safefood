@@ -184,9 +184,16 @@ public class MainController {
 
 		// 회원가입 처리
 		@PostMapping("/joinus")
-		public String joinus(Model model, RedirectAttributes redir, Member member) {
+		public String joinus(Model model, RedirectAttributes redir, Member member, String[] allergy) {
 			int result = memberService.joinDayTime(member);
+			for (String data : allergy) {
+				logger.trace("member.getId()321321312 {}", member.getId());
+				logger.trace("data321321312 {}", data);
+				allergyService.insert(member.getId(), data);
+				logger.trace("data {}", data);
+			}
 			logger.trace("result {}",result);
+
 			return "redirect:/index.jsp";
 		}
 

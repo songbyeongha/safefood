@@ -9,7 +9,7 @@ import com.ssafy.dto.Allergy;
 @Mapper
 public interface AllergyMapper {
 	public int insert(Allergy allergy);
-	public int delete(Allergy allergy);
-	public String select(Allergy allergy);
-	public List<String> selectAll(Integer userno);
+	public int delete(String userid, String name);
+	public String select(String userid, String name);
+	public List<String> selectAll(String userno);
 }

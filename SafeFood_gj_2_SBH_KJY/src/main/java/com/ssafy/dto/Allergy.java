@@ -14,12 +14,12 @@ public class Allergy {
 		this.name = name;
 	}
 
-	public String getUserinfo_id() {
+	public String getUserinfoId() {
 		return userinfoId;
 	}
 
-	public void setUserinfo_id(String userinfo_id) {
-		this.userinfoId = userinfo_id;
+	public void setUserinfoId(String userinfoId) {
+		this.userinfoId = userinfoId;
 	}
 
 	public String getName() {

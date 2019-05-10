@@ -11,10 +11,8 @@
 		select * from allergy where userinfo_id=#{id} and name=#{name}
 	</select>
 
-
-
 	<insert id="insert" parameterType="allergy">
-		insert into allergy (userinfo_id, name) values(#{id},#{name})
+		insert into allergy (userinfo_id, name) values(#{userinfoId},#{name})
 	</insert>
 
 	<delete id="delete" parameterType="allergy">

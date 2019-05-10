@@ -13,16 +13,6 @@ public class AllergyServiceImpl implements AllergyService{
 
 	@Autowired
 	AllergyMapper mapper;
-	
-	@Override
-	public String select(Allergy allergy) {
-		return mapper.select(allergy);
-	}
-
-	@Override
-	public List<String> selectAll(Integer userno) {
-		return mapper.selectAll(userno);
-	}
 
 	@Override
 	public int insert(Allergy allergy) {
@@ -30,8 +20,20 @@ public class AllergyServiceImpl implements AllergyService{
 	}
 
 	@Override
-	public int delete(Allergy allergy) {
-		return mapper.delete(allergy);
+	public int delete(String userinfoId, String name) {
+		return mapper.delete(userinfoId, name);
 	}
+
+	@Override
+	public String select(String userinfoId, String name) {
+		return mapper.select(userinfoId, name);
+	}
+
+	@Override
+	public List<String> selectAll(String userinfoId) {
+		return mapper.selectAll(userinfoId);
+	}
+	
+	
 
 }
