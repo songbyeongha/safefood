@@ -6,22 +6,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.dto.Allergy;
-import com.ssafy.repository.allergyMapper;
+import com.ssafy.repository.AllergyMapper;
 
 @Service
-public class allergyServiceImpl implements allergyService {
+public class AllergyServiceImpl implements AllergyService {
 
 	@Autowired
-	allergyMapper mapper;
+	AllergyMapper mapper;
 
 	@Override
-	public List<Allergy> selectAll() {
-		return mapper.selectAll();
+	public String select(Allergy allergy) {
+		return mapper.select(allergy);
 	}
 
 	@Override
-	public List<Allergy> select(String id, String name) {
-		return mapper.select(id, name);
+	public List<String> selectAll(Integer userno) {
+		return mapper.selectAll(userno);
 	}
 
 	@Override
@@ -30,9 +30,11 @@ public class allergyServiceImpl implements allergyService {
 	}
 
 	@Override
-	public int delete(String id) {
-		return mapper.delete(id);
+	public int delete(Allergy allergy) {
+		return mapper.delete(allergy);
 	}
+
+
 
 	
 	

@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.dto.Member;
-import com.ssafy.repository.memberMapper;
+import com.ssafy.repository.MemberMapper;
 
 @Service
-public class memberServiceImpl implements memberService {
+public class MemberServiceImpl implements MemberService {
 
 	@Autowired
-	memberMapper mapper;
+	MemberMapper mapper;
 
 	@Override
 	public List<Member> selectAll() {
@@ -20,12 +20,12 @@ public class memberServiceImpl implements memberService {
 	}
 
 	@Override
-	public List<Member> selectByName(String name) {
-		return mapper.selectByName(name);
+	public Member selectByPhone(String phone) {
+		return mapper.selectByPhone(phone);
 	}
 
 	@Override
-	public List<Member> selectById(String id) {
+	public Member selectById(String id) {
 		return mapper.selectById(id);
 	}
 
@@ -43,6 +43,24 @@ public class memberServiceImpl implements memberService {
 	public int deleteMember(String id) {
 		return mapper.deleteMember(id);
 	}
-	
+
+	@Override
+	public int joinDayTime(Member member) {
+		int result = mapper.insertMember(member);
+		Member selected = mapper.selectById(member.getId());
+		return result;
+	}
+
+	@Override
+	public Member login(String id, String password) {
+		Member member = mapper.selectById(id);
+		if (member != null && member.getPassword().equals(password)) {
+			return member;
+		} else {
+			return null;
+		}
+	}
+
+
 	
 }

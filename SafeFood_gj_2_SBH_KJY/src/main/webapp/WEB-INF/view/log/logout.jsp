@@ -25,7 +25,7 @@
 	<h1>로그 아웃 되었습니다.</h1>
 	<div id="button_section">
 	
-		<input type="button" value="메인화면" onClick="location.href='/safefood_web_spring_gj_sbh_kjy/index.jsp'">
+		<input type="button" value="메인화면" onClick="location.href='index.jsp'">
 	</div>
 </article>
 <jsp:include page="/WEB-INF/view/include/footer.jsp"/>
