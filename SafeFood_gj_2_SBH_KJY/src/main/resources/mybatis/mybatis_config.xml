@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
@@ -18,4 +19,25 @@
  		<mapper resource="mybatis/membermapper.xml" />
  		<mapper resource="mybatis/allergymapper.xml" />
 	</mappers>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+	<typeAliases>
+		<typeAlias type="com.ssafy.dto.Member" alias="member" />
+		<typeAlias type="com.ssafy.dto.Allergy" alias="allergy" />
+		<typeAlias type="com.ssafy.dto.Food" alias="food" />
+		<typeAlias type="com.ssafy.dto.Myintake" alias="myintake" />
+	</typeAliases>
+
+	<mappers>
+ 		<mapper resource="mybatis/foodmapper.xml" />
+	</mappers>
+>>>>>>> branch 'master' of https://lab.ssafy.com/wnsdud00700/safefood_gj_02_sbh_kjy.git
 </configuration>
