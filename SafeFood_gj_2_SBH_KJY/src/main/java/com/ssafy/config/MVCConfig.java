@@ -21,7 +21,6 @@ public class MVCConfig extends WebMvcConfigurerAdapter {
 		resolver.setPrefix("/WEB-INF/view/");
 		resolver.setSuffix(".jsp");
 		return resolver;
-		
 	}
    
 	// static 자료들 맵핑

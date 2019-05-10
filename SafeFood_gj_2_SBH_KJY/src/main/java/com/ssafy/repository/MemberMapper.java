@@ -8,10 +8,10 @@ import com.ssafy.dto.Member;
 
 
 @Mapper 
-public interface memberMapper {
+public interface MemberMapper {
 	public List<Member> selectAll();
-	public List<Member> selectByName(String name);
-	public List<Member> selectById(String id);
+	public Member selectByPhone(String phone);
+	public Member selectById(String id);
 	public int insertMember(Member member);
 	public int updateMember(Member member);
 	public int deleteMember(String id);
