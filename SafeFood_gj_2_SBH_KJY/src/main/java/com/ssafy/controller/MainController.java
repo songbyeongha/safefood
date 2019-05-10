@@ -186,6 +186,7 @@ public class MainController {
 		@PostMapping("/joinus")
 		public String joinus(Model model, RedirectAttributes redir, Member member, String[] allergy) {
 			int result = memberService.joinDayTime(member);
+			logger.trace("allergy {}", allergy);
 			for (String data : allergy) {
 				logger.trace("member.getId()321321312 {}", member.getId());
 				logger.trace("data321321312 {}", data);
@@ -211,36 +212,36 @@ public class MainController {
 		public String userInfo(Model model) {
 			return "/log/userInfo";
 		}
-//
-////		// 유저정보기
-////		@PostMapping("/userInfo")
-////		public String modify(Model model, UserInfo info, HttpSession session, RedirectAttributes redir) {
-////			return "/log/userInfo";
-////		}
-//
-//		@GetMapping("/usermodify")
-//		public String modifyForm(Model model) {
-//			return "/log/usermodify";
-//		}
-//
-//		// TODO: 20 회원 정보 수정 처리
-//		@PostMapping("/usermodify")
-//		public String modify(Model model, UserInfo info, HttpSession session) {
-//			userService.update(info);
-//			session.setAttribute("userInfo", info);
-//			return "redirect:/log/userInfo";
-//		}
-//
-//		@GetMapping("/userremove")
-//		public String removeForm(Model model) {
-//			return "/log/userremove";
-//		}
-//
-//		// TODO: 20 회원 정보 수정 처리
-//		@PostMapping("/userremove")
-//		public String remove(Model model, String user_id, HttpSession session) {
-//			userService.delete(user_id);
-//			return "redirect:/index.jsp";
-//		}
+
+		// 유저정보기
+		@PostMapping("/userInfo")
+		public String modify(Model model, Member member, HttpSession session, RedirectAttributes redir) {
+			return "/log/userInfo";
+		}
+
+		@GetMapping("/usermodify")
+		public String modifyForm(Model model) {
+			return "/log/usermodify";
+		}
+
+		// TODO: 20 회원 정보 수정 처리
+		@PostMapping("/usermodify")
+		public String modify(Model model, Member member, HttpSession session) {
+			memberService.updateMember(member);
+			session.setAttribute("userInfo", member);
+			return "redirect:/log/userInfo";
+		}
+
+		@GetMapping("/userremove")
+		public String removeForm(Model model) {
+			return "/log/userremove";
+		}
+
+		// TODO: 20 회원 정보 수정 처리
+		@PostMapping("/userremove")
+		public String remove(Model model, String user_id, HttpSession session) {
+			memberService.deleteMember(user_id);
+			return "redirect:/index.jsp";
+		}
 
 }

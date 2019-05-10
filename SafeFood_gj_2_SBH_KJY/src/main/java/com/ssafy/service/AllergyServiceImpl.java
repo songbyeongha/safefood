@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ssafy.dto.Allergy;
 import com.ssafy.repository.AllergyMapper;
 
 @Service
@@ -15,8 +14,8 @@ public class AllergyServiceImpl implements AllergyService{
 	AllergyMapper mapper;
 
 	@Override
-	public int insert(Allergy allergy) {
-		return mapper.insert(allergy);
+	public int insert(String userinfoId, String name) {
+		return mapper.insert(userinfoId, name);
 	}
 
 	@Override
