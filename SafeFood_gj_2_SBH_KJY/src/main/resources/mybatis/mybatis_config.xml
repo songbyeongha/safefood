@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+	<typeAliases>
+		<typeAlias type="com.ssafy.dto.Member" alias="info" />
+		<typeAlias type="com.ssafy.dto.Allergy" alias="allergy" />
+		<typeAlias type="com.ssafy.dto.Food" alias="food" />
+		<typeAlias type="com.ssafy.dto.Board" alias="board" />
+		<typeAlias type="com.ssafy.dto.Myintake" alias="myintake" />
+	</typeAliases>
+
+	<mappers>
+ 		<mapper resource="mybatis/hrmmapper.xml" />
+ 		
+	</mappers>
+</configuration>
