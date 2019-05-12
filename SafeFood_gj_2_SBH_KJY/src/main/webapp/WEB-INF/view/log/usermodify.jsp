@@ -62,7 +62,7 @@ $(function(){
         <div class="col-sm-6 col-md-offset-3">
         	<c:url value="/usermodify" var="usermodify"></c:url>
             <form action="${usermodify }" method="post">
-            	<input type = "hidden" name ="hiddenId" value=""> 
+            	<input type = "hidden" name ="hiddenId" value="${userInfo.id }"> 
                 <div class="form-group">
                     <label for="InputEmail">이메일 주소(아이디)</label>
                     <input type="email" class="form-control" id="InputEmail" placeholder="이메일 주소를 입력해주세요" value="${userInfo.id }" disabled="disabled" name="id">

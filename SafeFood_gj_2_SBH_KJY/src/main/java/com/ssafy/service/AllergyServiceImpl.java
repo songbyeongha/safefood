@@ -14,23 +14,23 @@ public class AllergyServiceImpl implements AllergyService{
 	AllergyMapper mapper;
 
 	@Override
-	public int insert(String userinfoId, String name) {
-		return mapper.insert(userinfoId, name);
+	public int insert(String id, String name) {
+		return mapper.insert(id, name);
 	}
 
 	@Override
-	public int delete(String userinfoId, String name) {
-		return mapper.delete(userinfoId, name);
+	public int delete(String id, String name) {
+		return mapper.delete(id, name);
 	}
 
 	@Override
-	public String select(String userinfoId, String name) {
-		return mapper.select(userinfoId, name);
+	public String select(String id, String name) {
+		return mapper.select(id, name);
 	}
 
 	@Override
-	public List<String> selectAll(String userinfoId) {
-		return mapper.selectAll(userinfoId);
+	public List<String> selectAll(String id) {
+		return mapper.selectAll(id);
 	}
 	
 	

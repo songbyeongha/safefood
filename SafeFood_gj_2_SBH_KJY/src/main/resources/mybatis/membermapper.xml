@@ -11,6 +11,10 @@
 		select * from userinfo where id like #{name}
 	</select>
 	
+		<select id="selectByPhone" resultType="member" parameterType="String">
+		select * from userinfo where phone=#{phone}
+	</select>
+	
 	<select id="selectById" resultType="member" parameterType="String">
 		select * from userinfo where id=#{id}
 	</select>
@@ -20,7 +24,7 @@
 	</insert>
 	
 	<update id="updateMember" parameterType="member">
-		update userinfo set  name=#{name}, address=#{address}, phone=#{phone} where id=#{id}
+		update userinfo set password=#{password}, name=#{name}, address=#{address}, phone=#{phone} where id=#{id}
 	</update>
 	
 	<delete id="deleteMember" parameterType="String">

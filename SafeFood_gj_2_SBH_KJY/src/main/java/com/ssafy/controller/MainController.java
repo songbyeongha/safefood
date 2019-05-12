@@ -28,7 +28,7 @@ import com.ssafy.service.FoodService;
 import com.ssafy.service.MemberService;
 import com.ssafy.service.MyintakeService;
 
-@Controller
+//@Controller
 public class MainController {
 
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
@@ -136,6 +136,11 @@ public class MainController {
 		return "Error";
 	}
 
+<<<<<<< HEAD
+	///////////////////////// 준영쓰 ///////////////////////////////////
+
+=======
+>>>>>>> branch 'master' of https://lab.ssafy.com/wnsdud00700/safefood_gj_02_sbh_kjy.git
 	@RequestMapping("/")
 	public String index(Model model) {
 		return "redirect:/index.jsp";
@@ -143,7 +148,11 @@ public class MainController {
 	
 	
 	/////////////////////////  준영쓰        ///////////////////////////////////
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> branch 'master' of https://lab.ssafy.com/wnsdud00700/safefood_gj_02_sbh_kjy.git
 	// 로그인 폼 제공
 	@GetMapping("/login")
 	public String loginForm(Model model, @CookieValue(required = false) String loginUser, HttpSession session) {
@@ -217,12 +226,8 @@ public class MainController {
 	}
 
 	@PostMapping("/findid")
-	public String findid(Model model,String name,String phone) {
-		String id = "";
-		System.out.println("id : " +  " " + id);
-		if(phone.equals(memberService.selectByPhone(phone))){
-			id = memberService.selectByPhone(phone).getId();
-		}
+	public String findid(Model model, String phone) {
+		String id = memberService.selectByPhone(phone).getId();
 		model.addAttribute("id", id);
 		return "/log/knowid";
 	}
@@ -244,23 +249,19 @@ public class MainController {
 	}
 
 	@PostMapping("/findpassword")
-	public String findpass(Model model, String name, String phone) {
-		return "/log/findpassword";
-	}
-
-	@GetMapping("/knowpass")
-	public String knowpassForm(Model model, String name) {
-		Member member = memberService.selectById(name);
-		model.addAttribute("name", name);
+	public String findpass(Model model, String id, String name) {
+		String password = memberService.selectById(id).getPassword();
+		model.addAttribute("password", password);
 		return "/log/knowpass";
 	}
 
-	@PostMapping("/knowpass")
-	public String findpass(Model model, String name) {
+	@GetMapping("/knowpass")
+	public String knowpassForm(Model model, String id) {
 
-		return "/log/knowid";
+		return "/log/knowpass";
 	}
 
+	
 	@GetMapping("/userInfo")
 	public String userInfo(Model model) {
 		return "/log/userInfo";
@@ -279,10 +280,40 @@ public class MainController {
 
 	// TODO: 20 회원 정보 수정 처리
 	@PostMapping("/usermodify")
-	public String modify(Model model, Member member, HttpSession session) {
-		memberService.updateMember(member);
-		session.setAttribute("userInfo", member);
-		return "redirect:/log/userInfo";
+	public String modify(Model model, Member member, HttpSession session, String[] allergy, String hiddenId) {
+		Member user = new Member(hiddenId, member.getPassword(), member.getName(),member.getAddress(), member.getPhone());
+		int result = memberService.updateMember(user);
+		session.setAttribute("userInfo", user);
+		logger.trace("member {}", user);
+		String path = "/log/usermodify";
+		if(result == 1) {
+			Member userid = memberService.selectById(hiddenId);
+			List<String> list = userid.getAllergy();
+			boolean[] checkArr = new boolean[allergy.length];
+			if(list.size() == 0) {
+				for(int j = 0; j< allergy.length; j++) {
+					allergyService.insert(hiddenId, allergy[j]);
+				}
+			}else {
+				for(int i =0; i< list.size(); i++) {
+					boolean flag = false;
+					for(int j =0; j< allergy.length; j++) {
+						if(list.get(i).equals(allergy[j]))
+							flag = true;
+						if(!checkArr[j]) {
+							allergyService.insert(hiddenId, allergy[j]);
+							checkArr[j] = true;
+						}
+					}
+					if(!flag) {
+						allergyService.delete(hiddenId, list.get(i));
+					}
+					logger.trace("allergy[i]");
+				}
+			}
+			path = "/log/userInfo";
+		}
+		return path;
 	}
 
 	@GetMapping("/userremove")

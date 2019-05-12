@@ -15,6 +15,15 @@ public class Member {
 		super();
 	}
 
+	public Member(String id, String password, String name, String address, String phone) {
+		super();
+		this.id = id;
+		this.password = password;
+		this.name = name;
+		this.address = address;
+		this.phone = phone;
+	}
+	
 	public Member(String id, String password, String name, String address, String phone, Integer authority) {
 		super();
 		this.id = id;

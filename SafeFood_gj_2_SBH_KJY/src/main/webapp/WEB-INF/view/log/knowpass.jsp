@@ -24,15 +24,6 @@
 <title>비밀번호 찾기</title>
 </head>
 <body>
-<%
-	String loginId = (String)session.getAttribute("loginId");
-
-	
-
-	String password = (String)request.getAttribute("pass");
-	
-	
-%>
 	<div class="w3-content w3-container w3-margin-top">
 		
 			<div class="w3-container w3-card-4">
@@ -41,7 +32,7 @@
 				</div>
 				
 				<br>
-				<h2></h2>
+				<h2>비밀번호 : ${password }</h2>
 				
 				<br>
 			</div>
