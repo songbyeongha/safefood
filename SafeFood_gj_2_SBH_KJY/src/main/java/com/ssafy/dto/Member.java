@@ -1,5 +1,7 @@
 package com.ssafy.dto;
 
+import java.util.List;
+
 public class Member {
 	private String id;
 	private String password;
@@ -7,6 +9,7 @@ public class Member {
 	private String address;
 	private String phone;
 	private Integer authority;
+	private List<String> allergy;
 	
 	public Member() {
 		super();
@@ -68,6 +71,14 @@ public class Member {
 
 	public void setAuthority(Integer authority) {
 		this.authority = authority;
+	}
+
+	public List<String> getAllergy() {
+		return allergy;
+	}
+
+	public void setAllergy(List<String> allergy) {
+		this.allergy = allergy;
 	}
 
 	@Override

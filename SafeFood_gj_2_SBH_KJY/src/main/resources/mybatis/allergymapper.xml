@@ -12,7 +12,11 @@
 	</select>
 
 	<insert id="insert" parameterType="allergy">
+<<<<<<< HEAD
+		insert into allergy(userinfo_id, name) values(#{userinfoId},#{name})
+=======
 		insert into allergy (id, name) values(#{id},#{name})
+>>>>>>> branch 'master' of https://lab.ssafy.com/wnsdud00700/safefood_gj_02_sbh_kjy.git
 	</insert>
 
 	<delete id="delete" parameterType="allergy">

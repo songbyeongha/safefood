@@ -24,8 +24,8 @@
 <article>
 	<h1>로그인에 실패 하였습니다. 다시 시도하여 주십시오.</h1>
 	<div id="button_section">
-		<c:url value="/loginfail" var="loginfail"></c:url>
-		<input type="button" value="로그인 화면으로" onClick="location.href=${loginfail}">
+		<c:url value="/login" var="login"></c:url>
+		<input type="button" value="로그인 화면으로" onClick="location.href=${login }">
 	</div>
 </article>
 <jsp:include page="/WEB-INF/view/include/footer.jsp"/>

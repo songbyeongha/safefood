@@ -23,25 +23,17 @@
 <title>비밀번호 찾기</title>
 </head>
 <body>
-<%
-	String loginId = (String)session.getAttribute("loginId");
-
-	
-
-	String id = (String)request.getAttribute("id");
-	
-	
-%>
 	<div class="w3-content w3-container w3-margin-top">
-		
+			
 			<div class="w3-container w3-card-4">
 				<div class="w3-center w3-large w3-margin-top">
 					<h3>아이디 찾기</h3>
 				</div>
-				
+					아이디 : ${id }
 				<br>
-				<h2></h2>
-				
+
+                </div>
+				</form>
 				<br>
 			</div>
 	
