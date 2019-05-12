@@ -8,5 +8,5 @@ public interface MyintakeService {
 	int insert(Myintake myintake);
 	int delete(Myintake myintake);
 	public Myintake select(Myintake myintake);
-	public List<Integer> selectAll(Integer id);
+	public List<Myintake> selectAll(String id);
 }

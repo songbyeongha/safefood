@@ -40,7 +40,7 @@
 
 		$.ajax({
 			type : "get",
-			url : "./main.do?action=search",
+			url : "<c:url value='/intake' />",
 			data : {
 				"select" : '<%=request.getParameter("select")%>',
 				"input" : '<%=request.getParameter("input")%>'

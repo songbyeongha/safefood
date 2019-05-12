@@ -18,5 +18,6 @@
  		<mapper resource="mybatis/foodmapper.xml" />
  		<mapper resource="mybatis/membermapper.xml" />
  		<mapper resource="mybatis/allergymapper.xml" />
+ 		<mapper resource="mybatis/myintakemapper.xml" />
 	</mappers>
 </configuration>

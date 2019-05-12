@@ -36,7 +36,7 @@
 	</style>
 <script>
 	$(document).ready(function() {
-		let userno = "";
+		let id = "";
 		$('.slider').bxSlider({
 			auto : true,
 			speed : 500,
@@ -50,7 +50,7 @@
 			type : "get",
 			url : "<c:url value='/intake' />",
 			data : {
-				"userno" : "${userInfo.userno}"
+				"id" : "${userInfo.id}"
 			},
 			success : function(data) {
 				console.log(data);
@@ -88,7 +88,7 @@
 							url : "<c:url value='/intakeDel' />",
 							data : {
 								code : $(this).attr("code-data"),
-								userno : "${userInfo.userno}"
+								id : "${userInfo.id}"
 							},
 							success : function(data) {
 								alert(data);

@@ -82,19 +82,21 @@ public class MainController {
 
 
 	@GetMapping("/intake")
-	public String intake(Model model, String userno) {
-		List<Integer> list = myintakeService.selectAll(Integer.parseInt(userno));
+	public String intake(Model model, String id) {
+		List<Myintake> list = myintakeService.selectAll(id);
 		List<Food> food = new ArrayList<>();
-		for (Integer i : list) {
-			food.add(foodService.select(i));
+		logger.trace("list : "+ list);
+		for (Myintake i : list) {
+			food.add(foodService.select(i.getCode()));
 		}
 		model.addAttribute("data", gson.toJson(food));
 		return "msg";
 	}
 
 	@PostMapping("/intakeInsert")
-	public String intakeInsert(Model model, String userno, String code) {
-		int result = myintakeService.insert(new Myintake(userno, Integer.parseInt(code)));
+	public String intakeInsert(Model model, String id, String code) {
+		logger.trace("asdfasdf : "+id+", code : "+ code);
+		int result = myintakeService.insert(new Myintake(id, Integer.parseInt(code)));
 		if (result == -1) {
 			model.addAttribute("data", "이미 추가 되었습니다.");
 		} else {
@@ -104,8 +106,8 @@ public class MainController {
 	}
 
 	@PostMapping("/intakeDel")
-	public String intakeDelete(Model model, String userno, String code) {
-		int result = myintakeService.delete(new Myintake(userno, Integer.parseInt(code)));
+	public String intakeDelete(Model model, String id, String code) {
+		int result = myintakeService.delete(new Myintake(id, Integer.parseInt(code)));
 		if (result == 0) {
 			model.addAttribute("data", "삭제되지 않았습니다.");
 		} else {
@@ -129,7 +131,10 @@ public class MainController {
 	public String errorHandling(Model model) {
 		return "Error";
 	}
-	
+	@RequestMapping("/")
+	public String index(Model model) {
+		return "redirect:/index.jsp";
+	}
 	
 	
 	/////////////////////////  준영쓰        ///////////////////////////////////

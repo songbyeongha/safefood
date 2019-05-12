@@ -456,7 +456,7 @@ body .frame .content h1 {
 					type : "GET",
 					url : "<c:url value='/allergy' />",
 					data : {
-						"loginId" : "${userInfo.userno}",
+						"id" : "${userInfo.id}",
 						"text" : material
 					},
 					success : function(data) {
@@ -494,7 +494,7 @@ body .frame .content h1 {
 				type : "post",
 				url : "<c:url value='/intakeInsert' />",
 				data : {
-					userno : "${userInfo.userno}",
+					id : "${userInfo.id}",
 					code : $(this).attr("code-data")
 					
 				},

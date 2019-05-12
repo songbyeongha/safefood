@@ -8,15 +8,15 @@
 	</select>
 
 	<select id="select" resultType="allergy" parameterType="String">
-		select * from allergy where userinfo_id=#{id} and name=#{name}
+		select * from allergy where id=#{id} and name=#{name}
 	</select>
 
 	<insert id="insert" parameterType="allergy">
-		insert into allergy (userinfo_id, name) values(#{userinfoId},#{name})
+		insert into allergy (id, name) values(#{id},#{name})
 	</insert>
 
 	<delete id="delete" parameterType="allergy">
-		delete from allergy where userinfo_id=#{id} and name=#{name}
+		delete from allergy where id=#{id} and name=#{name}
 	</delete>
 
 </mapper>

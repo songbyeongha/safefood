@@ -35,7 +35,7 @@ public class MyintakeServiceImpl implements MyintakeService{
 	}
 
 	@Override
-	public List<Integer> selectAll(Integer id) {
+	public List<Myintake> selectAll(String id) {
 		// TODO Auto-generated method stub
 		return mapper.selectAll(id);
 	}

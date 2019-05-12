@@ -1,25 +1,25 @@
 package com.ssafy.dto;
 
 public class Allergy {
-	private String userinfoId;
+	private String id;
 	private String name;
 	
 	public Allergy() {
 		super();
 	}
 
-	public Allergy(String userinfoId, String name) {
+	public Allergy(String id, String name) {
 		super();
-		this.userinfoId = userinfoId;
+		this.id = id;
 		this.name = name;
 	}
 
-	public String getUserinfoId() {
-		return userinfoId;
+	public String getId() {
+		return id;
 	}
 
-	public void setUserinfoId(String userinfoId) {
-		this.userinfoId = userinfoId;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -32,7 +32,7 @@ public class Allergy {
 
 	@Override
 	public String toString() {
-		return "Allergy [userinfo_id=" + userinfoId + ", name=" + name + "]";
+		return "Allergy [id=" + id + ", name=" + name + "]";
 	}
 	
 }

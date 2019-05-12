@@ -64,9 +64,8 @@
 							type : "post",
 							url : "<c:url value='/intakeInsert' />",
 							data : {
-								userno : "${userInfo.id}",
+								id : "${userInfo.id}",
 								code : $(this).attr("code-data")
-								
 							},
 							success : function(data) {
 								alert(data);
