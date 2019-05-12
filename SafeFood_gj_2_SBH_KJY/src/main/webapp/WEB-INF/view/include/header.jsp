@@ -38,8 +38,8 @@
 	               	<ul>
 	               		<c:url value="/logout" var="logout"></c:url>
                         <li><a href="${logout }">LOGOUT</a></li>
-                        <c:url value="/userInfo" var="userInfo"/>
-                        <li><a href="${userInfo}">MYPAGE</a></li>
+                     	<c:url value="/userInfo" var="userInfo"/>
+                     	<li><a href="${userInfo}">MYPAGE</a></li>
                     </ul>
                     </c:if>
                     <c:if test="${empty userInfo}">
