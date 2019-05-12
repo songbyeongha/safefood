@@ -28,7 +28,7 @@ import com.ssafy.service.FoodService;
 import com.ssafy.service.MemberService;
 import com.ssafy.service.MyintakeService;
 
-//@Controller
+@Controller
 public class MainController {
 
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
