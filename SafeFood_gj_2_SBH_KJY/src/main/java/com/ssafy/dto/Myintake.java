@@ -1,6 +1,6 @@
 package com.ssafy.dto;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Myintake {
 	private Integer itno;
@@ -15,6 +15,13 @@ public class Myintake {
 	public Myintake(String id, Integer code) {
 		super();
 		this.id = id;
+		this.code = code;
+	}
+	
+	public Myintake(String id, Date intakeDate, Integer code) {
+		super();
+		this.id = id;
+		this.intakeDate = intakeDate;
 		this.code = code;
 	}
 

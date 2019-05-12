@@ -1,6 +1,7 @@
 package com.ssafy.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -54,20 +55,20 @@ public class MainController {
 		List<Food> list = null;
 		switch(select) {
 		case "name":
-			list = foodService.selectByName(input);
+			list = foodService.selectByName("%"+input+"%");
 			break;
 		case "maker":
-			list = foodService.selectByMaker(input);
+			list = foodService.selectByMaker("%"+input+"%");
 			break;
 		case "material":
-			list = foodService.selectByMaterial(input);
+			list = foodService.selectByMaterial("%"+input+"%");
 			break;
 		}
 		String str = gson.toJson(list);
 		model.addAttribute("data", str);
 		return "msg";
 	}
-
+	
 	@GetMapping("/foodList")
 	public String foodList(Model model) {
 		return "food/food_list";
@@ -87,7 +88,10 @@ public class MainController {
 		List<Food> food = new ArrayList<>();
 		logger.trace("list : "+ list);
 		for (Myintake i : list) {
-			food.add(foodService.select(i.getCode()));
+			Food tempFood = foodService.select(i.getCode());
+			tempFood.setIntakeDate(i.getIntakeDate());
+			food.add(tempFood);
+			
 		}
 		model.addAttribute("data", gson.toJson(food));
 		return "msg";
@@ -106,8 +110,8 @@ public class MainController {
 	}
 
 	@PostMapping("/intakeDel")
-	public String intakeDelete(Model model, String id, String code) {
-		int result = myintakeService.delete(new Myintake(id, Integer.parseInt(code)));
+	public String intakeDelete(Model model, String id, String code, Date intakeDate) {
+		int result = myintakeService.delete(new Myintake(id,intakeDate, Integer.parseInt(code)));
 		if (result == 0) {
 			model.addAttribute("data", "삭제되지 않았습니다.");
 		} else {

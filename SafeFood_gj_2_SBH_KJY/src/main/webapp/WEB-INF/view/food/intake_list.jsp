@@ -61,6 +61,7 @@
 					let maker = item.maker;
 					let material = item.material;
 					let image = item.img;
+					let intakeDate = item.intakeDate;
 					let str = "";
 					
 					str += "<div class='col-lg-6'><a href='<c:url value='/foodDetail' />?code="+encodeURI(code)+"'><div>";
@@ -77,7 +78,7 @@
 							+ material
 							+ "</div>";
 					str += "</div></div></a>";
-					str += "<div class='contentButton'><button type='button' class='btn btn-info intakeDelButton' code-data="+code+">삭제</button></div>";
+					str += "<div class='contentButton'><button type='button' class='btn btn-info intakeDelButton' code-data="+code+" date-data='"+intakeDate+"'>삭제</button></div>";
 					$("#productPlace").append(str);
 				});
 				$(".intakeDelButton").each(function(){
@@ -88,7 +89,8 @@
 							url : "<c:url value='/intakeDel' />",
 							data : {
 								code : $(this).attr("code-data"),
-								id : "${userInfo.id}"
+								id : "${userInfo.id}",
+								intakeDate : $(this).attr("date-data")
 							},
 							success : function(data) {
 								alert(data);

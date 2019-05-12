@@ -37,8 +37,15 @@
 					let material = item.material;
 					let image = item.img;
 					let str = "";
-					if (idx < 3) {
-						str += "<div style='position: relative;'><a href='<c:url value='/foodDetail' />?code="+encodeURI(code)+"'><div>";
+					if (idx < 4) {
+						str += "<div class='bhProductContent'>";
+						str += "<div class='bhProductText'>"+ maker + "<h2>"+ name + "</h2>"+ material;
+						str += "</div>";
+						str += "<img class='bhProductImg' src='static/"+image+"'/>";
+						str += "<div class='contentButton'><button type='button' class='btn btn-info intakeButton' code-data="+code+">추가</button><button type='button' class='btn btn-info'>찜</button></div></div>";
+						str += "</div>";
+						
+						/*str += "<div style='position: relative;'><a href='<c:url value='/foodDetail' />?code="+encodeURI(code)+"'><div>";
 						str += "<div class='productImg' data-code='"+code+"'><img src='static/"+image+"'/>";
 						str += "<div>"
 								+ maker
@@ -52,7 +59,7 @@
 								+ material
 						str += "</div>";
 						str += "</div></div></a>";
-						str += "<div class='contentButton'><button type='button' class='btn btn-info intakeButton' code-data="+code+">추가</button><button type='button' class='btn btn-info'>찜</button></div></div>";
+						str += "<div class='contentButton'><button type='button' class='btn btn-info intakeButton' code-data="+code+">추가</button><button type='button' class='btn btn-info'>찜</button></div></div>";*/
 						$("#productPlace").append(str);
 					}
 					
@@ -129,5 +136,5 @@
         </div>
     </div>
     <div class="search"></div>
-    <div id="productPlace" class="container"></div>
+    <div id="productPlace" class="container productWrapper"></div>
     <jsp:include page="/WEB-INF/view/include/footer.jsp"/>

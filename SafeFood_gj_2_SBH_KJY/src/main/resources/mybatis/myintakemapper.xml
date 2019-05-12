@@ -16,7 +16,7 @@
 	</insert>
 
 	<delete id="delete" parameterType="myintake">
-		delete from myintake where id=#{id} and code=#{code}
+		delete from myintake where id=#{id} and code=#{code} and intake_date=#{intakeDate}
 	</delete>
 
 </mapper>

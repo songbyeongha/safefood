@@ -1,5 +1,7 @@
 package com.ssafy.dto;
 
+import java.util.Date;
+
 public class Food {
 	private Integer code;
 	private String name;
@@ -17,6 +19,7 @@ public class Food {
 	private String material;
 	private String img;
 	private Integer bestCount;
+	private Date intakeDate;
 	
 	public Food() {
 		super();
@@ -42,6 +45,14 @@ public class Food {
 		this.material = material;
 		this.img = img;
 		this.bestCount = bestCount;
+	}
+
+	public Date getIntakeDate() {
+		return intakeDate;
+	}
+
+	public void setIntakeDate(Date intakeDate) {
+		this.intakeDate = intakeDate;
 	}
 
 	public Integer getCode() {
