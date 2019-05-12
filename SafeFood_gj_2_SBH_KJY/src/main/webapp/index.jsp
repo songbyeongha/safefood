@@ -11,8 +11,8 @@
 	.contentButton{
 	    bottom: 15px;
 	}
-</style>e
-	<script> se 
+</style>
+	<script>
         $(document).ready(function() {
        
 		$('.slider').bxSlider({
