@@ -136,11 +136,8 @@ public class MainController {
 		return "Error";
 	}
 
-<<<<<<< HEAD
 	///////////////////////// 준영쓰 ///////////////////////////////////
 
-=======
->>>>>>> branch 'master' of https://lab.ssafy.com/wnsdud00700/safefood_gj_02_sbh_kjy.git
 	@RequestMapping("/")
 	public String index(Model model) {
 		return "redirect:/index.jsp";
@@ -148,11 +145,8 @@ public class MainController {
 	
 	
 	/////////////////////////  준영쓰        ///////////////////////////////////
-<<<<<<< HEAD
 	
-=======
 
->>>>>>> branch 'master' of https://lab.ssafy.com/wnsdud00700/safefood_gj_02_sbh_kjy.git
 	// 로그인 폼 제공
 	@GetMapping("/login")
 	public String loginForm(Model model, @CookieValue(required = false) String loginUser, HttpSession session) {
