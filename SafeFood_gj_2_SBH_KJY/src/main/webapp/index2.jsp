@@ -4,6 +4,7 @@
 
 <html>
     <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <style>
             .div{
                 width: 158px; height: 204px; float: left;
@@ -134,7 +135,6 @@
             function onDragStart(target,e){
                 e.dataTransfer.setData("text",target.id); 
             }
-            var num=1;
             function onDrop(target,e){
                 var id = e.dataTransfer.getData('Text');
             	console.log(id);
@@ -143,32 +143,25 @@
             	setTimeout(function() {
             		target.classList.remove('shake');
            		}, 500);
-                //target.appendChild(document.getElementById(id)); 
-                d2ChildElement(target);
                 e.preventDefault(); 
               
             }
-            var yum="";
-            function d2ChildElement(target){
-				
-           }
+            function drag(ev) {
+                $('#drag1').css('cursor', 'pointer');
+            }
         </script>
 
     </head>
     <body>
-        <div id="d1" class="div" ondragenter="return false;" 
-             ondragover="return false;" ondrop="onDrop(this,event)">
-            <c:url value="/static/images/header-logo.jpg" var="logo"/>
-            <img src="${logo }"  id="rabbit1"   draggable="true" 
-                 ondragstart="onDragStart(this,event)" />
-        </div>
+        <c:url value="/static/images/header-logo.jpg" var="logo"/>
         <c:url value="/static/images/basket.png" var="basket"/>
+    	<img id="drag1" class="drag" src="${logo }" draggable="true" ondragstart="drag(event)" />
         <div>
         	<img src="${basket }"  id="d2" ondragenter="return false;" 
              ondragover="return false;" ondrop="onDrop(this,event)"/>
         </div>
         <div id="d3" class="div">
-        	<img src="${logo }"  id="rabbit2"   draggable="true" 
+        	<img src="${logo }"  id="rabbit2" draggable="true" 
                  ondragstart="onDragStart(this,event)" />
         </div>
     </body>

@@ -10,11 +10,30 @@
 <style>
 	.contentButton{
 	    bottom: 15px;
-	}
+	}/* 
+	.productWrapper .bhProductContent{
+		cursor: url(static/images/basket.png) 0 0,auto;
+	} */
 </style>
-	<script>
+<script>
+	function onDragStart(target,e){
+        e.dataTransfer.setData("text",target.id);
+    }
+    function onDrop(target,e){
+        var id = e.dataTransfer.getData('Text');
+    	console.log(id);
+    	
+    	target.classList.add('shake');
+    	setTimeout(function() {
+    		target.classList.remove('shake');
+   		}, 500);
+        e.preventDefault(); 
+      
+    }
         $(document).ready(function() {
-       
+        	
+	        
+            
 		$('.slider').bxSlider({
 			auto : true,
 			speed : 500,
@@ -37,12 +56,15 @@
 					let material = item.material;
 					let image = item.img;
 					let str = "";
-					if (idx < 4) {
+					if (idx < 10) {
 						str += "<div class='bhProductContent'>";
-						str += "<div class='bhProductText'>"+ maker + "<h2>"+ name + "</h2>"+ material;
+						str += "<div class='ProductImgCover'></div>"
+						//"+ maker + "
+						str += "<div class='bhProductText'><h2>"+ name + "</h2>"+ material;
 						str += "</div>";
-						str += "<img class='bhProductImg' src='static/"+image+"'/>";
-						str += "<div class='contentButton'><button type='button' class='btn btn-info intakeButton' code-data="+code+">추가</button><button type='button' class='btn btn-info'>찜</button></div></div>";
+						str += "<img class='bhProductImg' src='static/"+image+"' id='"+code+"' draggable='true' ondragstart='onDragStart(this,event)'/>";
+						//<div class='contentButton'><button type='button' class='btn btn-info intakeButton' code-data="+code+">추가</button><button type='button' class='btn btn-info'>찜</button></div>
+						str += "</div>";
 						str += "</div>";
 						
 						/*str += "<div style='position: relative;'><a href='<c:url value='/foodDetail' />?code="+encodeURI(code)+"'><div>";
@@ -136,5 +158,9 @@
         </div>
     </div>
     <div class="search"></div>
-    <div id="productPlace" class="container productWrapper"></div>
+    <div id="productPlace" class="productWrapper"></div>
+    <c:url value="/static/images/basket.png" var="basket"/>
+    <div>
+    	<img src="${basket }"  id="d2" ondragenter="return false;" ondragover="return false;" ondrop="onDrop(this,event)"/>
+    </div>
     <jsp:include page="/WEB-INF/view/include/footer.jsp"/>
