@@ -34,8 +34,8 @@
 </head>
 <body>
 	<div class="w3-content w3-container w3-margin-top">
-		<c:url value="/findpass" var="findpass"></c:url>
-		<form name="findform" action="${findpass }" method="post">
+		<c:url value="/findpassword" var="findpassword"></c:url>
+		<form name="findform" action="${findpassword }" method="post">
 			<div class="w3-container w3-card-4">
 				<div class="w3-center w3-large w3-margin-top">
 					<h3>비밀번호 찾기</h3>
