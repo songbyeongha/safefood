@@ -140,8 +140,10 @@ public class MainController {
 
 	@PostMapping("/wishInsert")
 	public String wishInsert(Model model, String id, String code) {
-		logger.trace("asdfasdf : " + id + ", code : " + code);
-		int result = wishService.insert(new Wish(id, Integer.parseInt(code)));
+		Wish item = wishService.select(new Wish(id, Integer.parseInt(code)));
+		int result = -1;
+		if(item==null)
+			result = wishService.insert(new Wish(id, Integer.parseInt(code)));
 		if (result == -1) {
 			model.addAttribute("data", "이미 추가 되었습니다.");
 		} else {
