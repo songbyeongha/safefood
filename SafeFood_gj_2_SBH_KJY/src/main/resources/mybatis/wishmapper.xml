@@ -7,7 +7,7 @@
 		select * from wish
 	</select>
 
-	<select id="select" resultType="wish" parameterType="String">
+	<select id="select" resultType="wish" parameterType="wish">
 		select * from wish where id=#{id} and code=#{code}
 	</select>
 

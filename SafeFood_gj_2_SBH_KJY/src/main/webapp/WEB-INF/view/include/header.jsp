@@ -76,8 +76,9 @@
                         <li class="col-lg-2"><a href="${notice }">공지 사항</a></li>
 	                    <c:url value="/foodList?select=name&input=" var="foodList"/> 
                         <li class="col-lg-2"><a href="${foodList }">상품 정보</a></li>
-                        <li class="col-lg-3"><a href="#">베스트 섭취 정보</a></li>
                        	<c:if test="${!empty userInfo}">
+                       	<c:url value="/foodWish" var="foodWish"/> 
+                        <li class="col-lg-2"><a href="${foodWish }">찜 목록</a></li>
                        	<c:url value="/foodIntake" var="foodIntake"/> 
                         <li class="col-lg-2"><a href="${foodIntake }">내 섭취 정보</a></li>
                         <li class="col-lg-2"><a href="#">예상 섭취 정보</a></li>
