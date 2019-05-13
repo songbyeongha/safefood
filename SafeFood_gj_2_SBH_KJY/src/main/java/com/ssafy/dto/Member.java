@@ -1,6 +1,6 @@
 package com.ssafy.dto;
 
-import java.util.List;
+import java.util.Arrays;
 
 public class Member {
 	private String id;
@@ -9,7 +9,7 @@ public class Member {
 	private String address;
 	private String phone;
 	private Integer authority;
-	private List<String> allergy;
+	private String[] allergy;
 	
 	public Member() {
 		super();
@@ -24,6 +24,20 @@ public class Member {
 		this.phone = phone;
 	}
 	
+
+	
+	
+	public Member(String id, String password, String name, String address, String phone, String[] allergy) {
+		super();
+		this.id = id;
+		this.password = password;
+		this.name = name;
+		this.address = address;
+		this.phone = phone;
+		this.authority = authority;
+		this.allergy = allergy;
+	}
+
 	public Member(String id, String password, String name, String address, String phone, Integer authority) {
 		super();
 		this.id = id;
@@ -82,18 +96,19 @@ public class Member {
 		this.authority = authority;
 	}
 
-	public List<String> getAllergy() {
+	public String[] getAllergy() {
 		return allergy;
 	}
 
-	public void setAllergy(List<String> allergy) {
+	public void setAllergy(String[] allergy) {
 		this.allergy = allergy;
 	}
 
 	@Override
 	public String toString() {
 		return "Member [id=" + id + ", password=" + password + ", name=" + name + ", address=" + address + ", phone="
-				+ phone + ", authority=" + authority + "]";
+				+ phone + ", authority=" + authority + ", allergy=" + Arrays.toString(allergy) + "]";
 	}
-	
+
+
 }

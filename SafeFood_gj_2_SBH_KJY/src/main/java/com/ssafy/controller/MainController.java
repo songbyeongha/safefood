@@ -1,9 +1,11 @@
 package com.ssafy.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -55,20 +57,20 @@ public class MainController {
 		List<Food> list = null;
 		switch (select) {
 		case "name":
-			list = foodService.selectByName("%"+input+"%");
+			list = foodService.selectByName("%" + input + "%");
 			break;
 		case "maker":
-			list = foodService.selectByMaker("%"+input+"%");
+			list = foodService.selectByMaker("%" + input + "%");
 			break;
 		case "material":
-			list = foodService.selectByMaterial("%"+input+"%");
+			list = foodService.selectByMaterial("%" + input + "%");
 			break;
 		}
 		String str = gson.toJson(list);
 		model.addAttribute("data", str);
 		return "msg";
 	}
-	
+
 	@GetMapping("/foodList")
 	public String foodList(Model model) {
 		return "food/food_list";
@@ -85,12 +87,12 @@ public class MainController {
 	public String intake(Model model, String id) {
 		List<Myintake> list = myintakeService.selectAll(id);
 		List<Food> food = new ArrayList<>();
-		logger.trace("list : "+ list);
+		logger.trace("list : " + list);
 		for (Myintake i : list) {
 			Food tempFood = foodService.select(i.getCode());
 			tempFood.setIntakeDate(i.getIntakeDate());
 			food.add(tempFood);
-			
+
 		}
 		model.addAttribute("data", gson.toJson(food));
 		return "msg";
@@ -98,7 +100,7 @@ public class MainController {
 
 	@PostMapping("/intakeInsert")
 	public String intakeInsert(Model model, String id, String code) {
-		logger.trace("asdfasdf : "+id+", code : "+ code);
+		logger.trace("asdfasdf : " + id + ", code : " + code);
 		int result = myintakeService.insert(new Myintake(id, Integer.parseInt(code)));
 		if (result == -1) {
 			model.addAttribute("data", "이미 추가 되었습니다.");
@@ -110,7 +112,7 @@ public class MainController {
 
 	@PostMapping("/intakeDel")
 	public String intakeDelete(Model model, String id, String code, Date intakeDate) {
-		int result = myintakeService.delete(new Myintake(id,intakeDate, Integer.parseInt(code)));
+		int result = myintakeService.delete(new Myintake(id, intakeDate, Integer.parseInt(code)));
 		if (result == 0) {
 			model.addAttribute("data", "삭제되지 않았습니다.");
 		} else {
@@ -139,19 +141,19 @@ public class MainController {
 	public String index(Model model) {
 		return "redirect:/index.jsp";
 	}
-	
-	
-	/////////////////////////  준영쓰        ///////////////////////////////////
-	
+
+	///////////////////////// 준영쓰 ///////////////////////////////////
 
 	// 로그인 폼 제공
 	@GetMapping("/login")
 	public String loginForm(Model model, @CookieValue(required = false) String loginUser, HttpSession session) {
 		logger.trace("login cookie: {}", loginUser);
 		// 쿠키가 있다? --> 로그인 경험 있다. --> 세션 등록 후 main으로
+
 		if (loginUser != null) {
 			Member member = memberService.selectById(loginUser);
 			session.setAttribute("userInfo", member);
+		
 			logger.trace("김준영 1 {}", loginUser);
 			return "index";
 		} else {
@@ -168,6 +170,10 @@ public class MainController {
 		Member result = memberService.login(user_id, password);
 		if (result != null) {
 			session.setAttribute("userInfo", result);
+			List<String> allergy = allergyService.selectAll(result.getId());
+			
+			logger.trace("allergy : {}", allergy);
+			session.setAttribute("allergy", allergy);
 		} else {
 			return "redirect:loginfail";
 		}
@@ -207,7 +213,7 @@ public class MainController {
 			path = "redirect:/index.jsp";
 			return path;
 		}
-		
+		redir.addAttribute("alarm", "회원가입되었습니다. 로그인해주세요.");
 		return path;
 	}
 
@@ -252,59 +258,66 @@ public class MainController {
 		return "/log/knowpass";
 	}
 
-	
+
+	// 유저정보기
 	@GetMapping("/userInfo")
-	public String userInfo(Model model) {
+	public String modify(Model model) {
 		return "/log/userInfo";
 	}
-
-//		// 유저정보기
-//		@PostMapping("/userInfo")
-//		public String modify(Model model, Member member, HttpSession session, RedirectAttributes redir) {
-//			return "/log/userInfo";
-//		}
-
-	@GetMapping("/usermodify")
-	public String modifyForm(Model model) {
-		return "/log/usermodify";
-	}
+	
+//	// 유저정보기
+//	@PostMapping("/userInfo")
+//	public String modify(Model model, Member member, HttpSession session, RedirectAttributes redir) {
+//		
+//		return "/log/userInfo";
+//		
+//	}
 
 	// TODO: 20 회원 정보 수정 처리
-	@PostMapping("/usermodify")
-	public String modify(Model model, Member member, HttpSession session, String[] allergy, String hiddenId) {
-		Member user = new Member(hiddenId, member.getPassword(), member.getName(),member.getAddress(), member.getPhone());
-		int result = memberService.updateMember(user);
-		session.setAttribute("userInfo", user);
-		logger.trace("member {}", user);
-		String path = "/log/usermodify";
-		if(result == 1) {
-			Member userid = memberService.selectById(hiddenId);
-			List<String> list = userid.getAllergy();
-			boolean[] checkArr = new boolean[allergy.length];
-			if(list.size() == 0) {
-				for(int j = 0; j< allergy.length; j++) {
-					allergyService.insert(hiddenId, allergy[j]);
-				}
-			}else {
-				for(int i =0; i< list.size(); i++) {
-					boolean flag = false;
-					for(int j =0; j< allergy.length; j++) {
-						if(list.get(i).equals(allergy[j]))
-							flag = true;
-						if(!checkArr[j]) {
-							allergyService.insert(hiddenId, allergy[j]);
-							checkArr[j] = true;
-						}
-					}
-					if(!flag) {
-						allergyService.delete(hiddenId, list.get(i));
-					}
-					logger.trace("allergy[i]");
-				}
-			}
-			path = "/log/userInfo";
+	@PostMapping("/updateUser")
+	public String modify(Model model, HttpSession session,  HttpServletRequest request) {
+		String id = request.getParameter("id");
+		String password = request.getParameter("password");
+		String name = request.getParameter("name");
+		String address = request.getParameter("address");
+		String phone = request.getParameter("phone");
+		String[] allergy = request.getParameterValues("allergy");
+		logger.trace("allergy {}", allergy);
+		List<String> allergyList = null;
+		if (allergy != null) {
+			allergyList = new ArrayList<>(Arrays.asList(allergy));
 		}
-		return path;
+		
+		System.out.println(allergyList);
+		session.setAttribute("id", id);
+		session.setAttribute("pass", password);
+		session.setAttribute("name", name);
+		session.setAttribute("address", address);
+		session.setAttribute("phone", phone);
+		session.setAttribute("allergy", allergyList);
+		Member member = null;
+		if (allergy != null) {
+			member = new Member(id, password, name, address, phone, allergy);
+		} else {
+			member = new Member(id, password, name, address, phone);
+		}
+		memberService.updateMember(member);
+		
+		for (String data : allergy) {
+			allergyService.delete(member.getId(), data);
+		}
+		
+		if (allergy != null) {
+			for (String data : allergy) {
+				allergyService.insert(member.getId(), data);
+			}
+		}
+		return "/index.jsp";
+	}
+	
+	@GetMapping("/usermodify")
+	public String usermodifyForm(Model model) {
+		return "log/usermodify";
 	}
 
 	@GetMapping("/userremove")
@@ -314,8 +327,12 @@ public class MainController {
 
 	// TODO: 20 회원 정보 수정 처리
 	@PostMapping("/userremove")
-	public String remove(Model model, String user_id, HttpSession session) {
-		memberService.deleteMember(user_id);
+	public String remove(Model model, HttpSession session) {
+		String id = (String) session.getAttribute("id");
+		
+		
+		memberService.deleteMember(id);
+		
 		return "redirect:/index.jsp";
 	}
 
