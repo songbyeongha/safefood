@@ -22,10 +22,12 @@ import com.google.gson.Gson;
 import com.ssafy.dto.Food;
 import com.ssafy.dto.Member;
 import com.ssafy.dto.Myintake;
+import com.ssafy.dto.Wish;
 import com.ssafy.service.AllergyService;
 import com.ssafy.service.FoodService;
 import com.ssafy.service.MemberService;
 import com.ssafy.service.MyintakeService;
+import com.ssafy.service.WishService;
 
 @Controller
 public class MainController {
@@ -41,6 +43,8 @@ public class MainController {
 	FoodService foodService;
 	@Autowired
 	MyintakeService myintakeService;
+	@Autowired
+	WishService wishService;
 
 	Gson gson = new Gson();
 
@@ -118,6 +122,48 @@ public class MainController {
 			model.addAttribute("data", "삭제 되었습니다.");
 		}
 		return "msg";
+	}
+	
+	@GetMapping("/wish")
+	public String wish(Model model, String id) {
+		List<Wish> list = wishService.selectAll(id);
+		List<Food> food = new ArrayList<>();
+		logger.trace("list : " + list);
+		for (Wish i : list) {
+			Food tempFood = foodService.select(i.getCode());
+			food.add(tempFood);
+
+		}
+		model.addAttribute("data", gson.toJson(food));
+		return "msg";
+	}
+
+	@PostMapping("/wishInsert")
+	public String wishInsert(Model model, String id, String code) {
+		logger.trace("asdfasdf : " + id + ", code : " + code);
+		int result = wishService.insert(new Wish(id, Integer.parseInt(code)));
+		if (result == -1) {
+			model.addAttribute("data", "이미 추가 되었습니다.");
+		} else {
+			model.addAttribute("data", "추가 되었습니다.");
+		}
+		return "msg";
+	}
+
+	@PostMapping("/wishDel")
+	public String wishDelete(Model model, String id, String code) {
+		int result = wishService.delete(new Wish(id, Integer.parseInt(code)));
+		if (result == 0) {
+			model.addAttribute("data", "삭제되지 않았습니다.");
+		} else {
+			model.addAttribute("data", "삭제 되었습니다.");
+		}
+		return "msg";
+	}
+	
+	@GetMapping("/foodWish")
+	public String foodWish(Model model) {
+		return "food/wish_list";
 	}
 
 	@GetMapping("/foodDetail")

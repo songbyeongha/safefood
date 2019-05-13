@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.repository.WishMapper">
+	<select id="selectAll" resultType="wish">
+		select * from wish
+	</select>
+
+	<select id="select" resultType="wish" parameterType="String">
+		select * from wish where id=#{id} and code=#{code}
+	</select>
+
+	<insert id="insert" parameterType="wish">
+		insert into wish (id, code) values(#{id},#{code})
+	</insert>
+
+	<delete id="delete" parameterType="wish">
+		delete from wish where id=#{id} and code=#{code}
+	</delete>
+
+</mapper>

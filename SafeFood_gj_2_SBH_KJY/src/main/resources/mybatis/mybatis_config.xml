@@ -12,6 +12,7 @@
 		<typeAlias type="com.ssafy.dto.Allergy" alias="allergy" />
 		<typeAlias type="com.ssafy.dto.Food" alias="food" />
 		<typeAlias type="com.ssafy.dto.Myintake" alias="myintake" />
+		<typeAlias type="com.ssafy.dto.Wish" alias="wish" />
 	</typeAliases>
 
 	<mappers>
@@ -19,5 +20,6 @@
  		<mapper resource="mybatis/membermapper.xml" />
  		<mapper resource="mybatis/allergymapper.xml" />
  		<mapper resource="mybatis/myintakemapper.xml" />
+ 		<mapper resource="mybatis/wishmapper.xml" />
 	</mappers>
 </configuration>
