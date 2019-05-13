@@ -71,7 +71,7 @@
 							+ material
 							+ "</div>";
 					str += "</div></div></a>";
-					str += "<div class='contentButton'><button type='button' class='btn btn-info intakeButton' code-data="+code+">추가</button><button type='button' class='btn btn-info wishButton'>찜</button></div></div>";
+					str += "<div class='contentButton'><button type='button' class='btn btn-info intakeButton' code-data="+code+">추가</button><button type='button' class='btn btn-info wishButton' code-data="+code+">찜</button></div></div>";
 					$("#productPlace").append(str);
 				});
 				$(".intakeButton").each(function(){
