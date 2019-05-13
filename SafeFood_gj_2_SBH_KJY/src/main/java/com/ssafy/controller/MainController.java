@@ -324,10 +324,21 @@ public class MainController {
 	}
 	
 	@PostMapping("/usermodify")
-	public String usermodify(Model model, HttpSession session ) {
+	public String usermodify(Model model, HttpSession session, Member member, String[] allergy) {
+		int result = memberService.updateMember(member);
+		logger.trace("result : {}", result);
+		String path = "/log/userInfo";
+		if(result == 1) {
+			for(String data : allergy) {
+				allergyService.delete(member.getId(), data);
+			}
+			
+			for (String data : allergy) {
+				allergyService.insert(member.getId(), data);
+			}
+		}
 		
-	
-		return "/log/userInfo";
+		return path;
 
 	}
 
