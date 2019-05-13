@@ -1,11 +1,9 @@
 package com.ssafy.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -170,7 +168,7 @@ public class MainController {
 		Member result = memberService.login(user_id, password);
 		if (result != null) {
 			session.setAttribute("userInfo", result);
-			List<String> allergy = allergyService.selectAll(result.getId());
+			List<String> allergy = allergyService.selectId(result.getId());
 			
 			logger.trace("allergy : {}", allergy);
 			session.setAttribute("allergy", allergy);
@@ -273,51 +271,17 @@ public class MainController {
 //		
 //	}
 
-	// TODO: 20 회원 정보 수정 처리
-	@PostMapping("/updateUser")
-	public String modify(Model model, HttpSession session,  HttpServletRequest request) {
-		String id = request.getParameter("id");
-		String password = request.getParameter("password");
-		String name = request.getParameter("name");
-		String address = request.getParameter("address");
-		String phone = request.getParameter("phone");
-		String[] allergy = request.getParameterValues("allergy");
-		logger.trace("allergy {}", allergy);
-		List<String> allergyList = null;
-		if (allergy != null) {
-			allergyList = new ArrayList<>(Arrays.asList(allergy));
-		}
-		
-		System.out.println(allergyList);
-		session.setAttribute("id", id);
-		session.setAttribute("pass", password);
-		session.setAttribute("name", name);
-		session.setAttribute("address", address);
-		session.setAttribute("phone", phone);
-		session.setAttribute("allergy", allergyList);
-		Member member = null;
-		if (allergy != null) {
-			member = new Member(id, password, name, address, phone, allergy);
-		} else {
-			member = new Member(id, password, name, address, phone);
-		}
-		memberService.updateMember(member);
-		
-		for (String data : allergy) {
-			allergyService.delete(member.getId(), data);
-		}
-		
-		if (allergy != null) {
-			for (String data : allergy) {
-				allergyService.insert(member.getId(), data);
-			}
-		}
-		return "/index.jsp";
-	}
-	
 	@GetMapping("/usermodify")
 	public String usermodifyForm(Model model) {
-		return "log/usermodify";
+		return "/log/usermodify";
+	}
+	
+	@PostMapping("/usermodify")
+	public String usermodify(Model model, HttpSession session ) {
+		
+	
+		return "/log/userInfo";
+
 	}
 
 	@GetMapping("/userremove")
@@ -329,7 +293,6 @@ public class MainController {
 	@PostMapping("/userremove")
 	public String remove(Model model, HttpSession session) {
 		String id = (String) session.getAttribute("id");
-		
 		
 		memberService.deleteMember(id);
 		
