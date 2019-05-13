@@ -21,16 +21,27 @@
     <link rel="stylesheet" href="${mainCss }"/>
     <c:url value="/static/js/jquery.bxslider.js" var="bxsliderJs"/>
     <script src="${bxsliderJs }"></script>
+    <c:url value="/static/js/main.js" var="mainJs"/>
+    <script src="${mainJs }"></script>
     <script>
 		let alarm="${alarm }";
 		if(alarm) {
 			alert(alarm);
 		}
+		$(function(){
+			layerCenter();
+		});
 	</script>
 </head>
 
 <body>
 	<header>
+		<div class="layerPopUp">
+			<div class="layerPopUpContent">
+				texttexttexttexttexttexttexttext
+			</div>
+			<button onClick="layerAlertClose()" class="layerPopUpButton">확인</button>
+		</div>
         <div class="headerTop">
             <div class="container">
                 <nav id="infoLogin">

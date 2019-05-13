@@ -16,24 +16,7 @@
 	} */
 </style>
 <script>
-	function onDragStart(target,e){
-        e.dataTransfer.setData("text",target.id);
-    }
-    function onDrop(target,e){
-        var id = e.dataTransfer.getData('Text');
-    	console.log(id);
-    	
-    	target.classList.add('shake');
-    	setTimeout(function() {
-    		target.classList.remove('shake');
-   		}, 500);
-        e.preventDefault(); 
-      
-    }
-        $(document).ready(function() {
-        	
-	        
-            
+	$(document).ready(function() {    
 		$('.slider').bxSlider({
 			auto : true,
 			speed : 500,
@@ -47,7 +30,7 @@
 			type : "get",
 			url : "<c:url value='/searchAll' />",
 			success : function(data) {
-				console.log(data);
+				//console.log(data);
 				let food = JSON.parse(data);
 				$(food).each(function(idx, item) {
 					let code = item.code;
@@ -97,7 +80,7 @@
 								code : $(this).attr("code-data")
 							},
 							success : function(data) {
-								alert(data);
+								layerAlertOpen(data);
 							},
 							error : function() {
 								console.log("error")
@@ -160,7 +143,5 @@
     <div class="search"></div>
     <div id="productPlace" class="productWrapper"></div>
     <c:url value="/static/images/basket.png" var="basket"/>
-    <div>
-    	<img src="${basket }"  id="d2" ondragenter="return false;" ondragover="return false;" ondrop="onDrop(this,event)"/>
-    </div>
+    <img class='basket' src="${basket }"  id="d2" ondragenter="return false;" ondragover="return false;" ondrop="onDrop(this,event)" onclick="layerAlertOpen('상품을 드래그해서 넣어주세요')"/>
     <jsp:include page="/WEB-INF/view/include/footer.jsp"/>

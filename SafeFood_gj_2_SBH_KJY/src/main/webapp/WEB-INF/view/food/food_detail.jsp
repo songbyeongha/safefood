@@ -469,13 +469,13 @@ body .frame .content h1 {
 						$("#allergyText").html(str);
 					},
 					error : function() {
-						alert("error")
+						layerAlertOpen("error")
 					}
 				});
 
 			},
 			error : function() {
-				alert("error");
+				layerAlertOpen("error");
 			}
 
 		});
@@ -499,7 +499,7 @@ body .frame .content h1 {
 					
 				},
 				success : function(data) {
-					alert(data);
+					layerAlertOpen(data);
 				},
 				error : function() {
 					console.log("error")

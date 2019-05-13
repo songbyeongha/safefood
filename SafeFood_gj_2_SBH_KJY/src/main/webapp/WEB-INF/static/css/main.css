@@ -545,3 +545,43 @@ section .section-title {
     transform: translate(-0.5px, -0.5px) rotate(0.5deg); }
   0%, 100% {
     transform: translate(0, 0) rotate(0); } }
+
+.basket{
+	z-index: 150;
+    width: 100px;
+    position: fixed;
+    right: 1vw;
+    top: 85vh;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px #b53914;
+    border-radius: 50px;
+}
+.layerPopUp{
+    display: none;
+    position: fixed;
+    background: #192734;
+    z-index: 50;
+    width: 300px;
+    border-radius: 10px;
+    border: 2px solid #213242;
+    text-align: center;
+    padding: 15px;
+    color: #fff;
+    box-shadow: 0px 0px 20px #fff;
+}
+.layerPopUpContent{
+    line-height: 4;
+    font-size: 18px;
+}
+.layerPopUpButton{
+    border: 0;
+    border-radius: 6px;
+    background: #fff;
+    color: #000;
+    font-weight: bold;
+    padding: 5px 15px;
+    cursor: pointer;
+}
+.layerPopUpButton:hover{
+    background: #d6c9c9;
+}

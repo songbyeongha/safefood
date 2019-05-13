@@ -85,7 +85,7 @@
 								code : $(this).attr("code-data")
 							},
 							success : function(data) {
-								alert(data);
+								layerAlertOpen(data);
 							},
 							error : function() {
 								console.log("error")

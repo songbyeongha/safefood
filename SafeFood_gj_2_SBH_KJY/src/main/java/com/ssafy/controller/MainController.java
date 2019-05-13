@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
@@ -135,9 +134,7 @@ public class MainController {
 	public String errorHandling(Model model) {
 		return "Error";
 	}
-
-	///////////////////////// 준영쓰 ///////////////////////////////////
-
+	
 	@RequestMapping("/")
 	public String index(Model model) {
 		return "redirect:/index.jsp";

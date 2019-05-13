@@ -74,7 +74,7 @@
 				});
 			},
 			error : function() {
-				alert("error")
+				layerAlertOpen("error")
 			}
 		});
 		$.urlParam = function(name){

@@ -36,6 +36,9 @@
 	</style>
 <script>
 	$(document).ready(function() {
+		$('.layerPopUpButton').click(function(){
+			window.location.reload();
+		});
 		let id = "";
 		$('.slider').bxSlider({
 			auto : true,
@@ -93,8 +96,8 @@
 								intakeDate : $(this).attr("date-data")
 							},
 							success : function(data) {
-								alert(data);
-								window.location.reload();
+								layerAlertOpen(data);
+								
 							},
 							error : function() {
 								console.log("error")
@@ -104,7 +107,7 @@
 				});
 			},
 			error : function() {
-				alert("error")
+				layerAlertOpen("error")
 			}
 		});
 
