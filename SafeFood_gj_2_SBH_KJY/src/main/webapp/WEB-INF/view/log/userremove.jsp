@@ -21,20 +21,20 @@
             </div>
         </div>
         <div class="col-sm-6 col-md-offset-3">
-        	<c:url value="userremove" var="userremove"></c:url>
+        	<c:url value="/userremove" var="userremove"></c:url>
             <form action="userremove" method="POST">
             	<input type="hidden" value="" name="hiddenId">
                 <div class="form-group">
                     <label for="InputEmail">이메일 주소(아이디)</label>
-                    <input type="email" class="form-control" id="InputEmail" placeholder="이메일 주소를 입력해주세요" value="${userInfo.id }" disabled="disabled" name = "user_id">
+                    <input type="email" class="form-control" id="InputEmail" placeholder="이메일 주소를 입력해주세요" value="${userInfo.id }" readonly="readonly" name = "user_id">
                 </div>
                 <div class="form-group">
                     <label for="inputPassword">비밀번호</label>
-                    <input type="password" class="form-control" id="inputPassword" placeholder="영문 숫자 포함 6자리 이상" name="password">
+                    <input type="password" class="form-control" id="inputPassword" placeholder="영문 숫자 포함 4자리 이상" name="password">
                 </div>
                 <div class="form-group">
                     <label for="inputName">이름</label>
-                    <input type="text" class="form-control" id="inputName" placeholder="User Name" value="${userInfo.name }" disabled="disabled">
+                    <input type="text" class="form-control" id="inputName" placeholder="User Name" value="${userInfo.name }" readonly="readonly"">
                 </div>
                
 

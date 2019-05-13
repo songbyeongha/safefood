@@ -65,7 +65,7 @@ $(function(){
             	<input type = "hidden" name ="hiddenId" value="${userInfo.id }"> 
                 <div class="form-group">
                     <label for="InputEmail">이메일 주소(아이디)</label>
-                    <input type="email" class="form-control" id="InputEmail" placeholder="이메일 주소를 입력해주세요" value="${userInfo.id }" disabled="disabled" name="id">
+                    <input type="text" class="form-control" id="InputEmail" placeholder="이메일 주소를 입력해주세요" value="${userInfo.id }" readonly="readonly" name="id">
                 </div>
                 <div class="form-group">
                     <label for="inputPassword">비밀번호</label>

@@ -29,7 +29,7 @@ import com.ssafy.service.MemberService;
 import com.ssafy.service.MyintakeService;
 import com.ssafy.service.WishService;
 
-@Controller
+//@Controller
 public class MainController {
 
 	
@@ -326,18 +326,19 @@ public class MainController {
 	@PostMapping("/usermodify")
 	public String usermodify(Model model, HttpSession session, Member member, String[] allergy) {
 		int result = memberService.updateMember(member);
-		logger.trace("result : {}", result);
-		String path = "/log/userInfo";
+		session.setAttribute("userInfo", member);
+		logger.trace("user : {}", member);
+		String path =  "redirect:/index.jsp";
+		for(String data : allergy) {
+			allergyService.delete(member.getId(), data);
+		}
 		if(result == 1) {
-			for(String data : allergy) {
-				allergyService.delete(member.getId(), data);
-			}
-			
 			for (String data : allergy) {
 				allergyService.insert(member.getId(), data);
 			}
 		}
 		
+		session.setAttribute("allergy", allergy);
 		return path;
 
 	}
@@ -351,8 +352,8 @@ public class MainController {
 	@PostMapping("/userremove")
 	public String remove(Model model, HttpSession session) {
 		String id = (String) session.getAttribute("id");
-		
 		memberService.deleteMember(id);
+		
 		
 		return "redirect:/index.jsp";
 	}
