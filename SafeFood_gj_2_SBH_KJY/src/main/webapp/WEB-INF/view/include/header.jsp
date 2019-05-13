@@ -38,7 +38,6 @@
 	<header>
 		<div class="layerPopUp">
 			<div class="layerPopUpContent">
-				texttexttexttexttexttexttexttext
 			</div>
 			<button onClick="layerAlertClose()" class="layerPopUpButton">확인</button>
 		</div>

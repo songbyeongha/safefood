@@ -69,7 +69,7 @@
 					}
 					
 				});
-				$(".intakeButton").each(function(){
+				/* $(".intakeButton").each(function(){
 					$(this).click(function(e){
 						e.preventDefault();
 						$.ajax({
@@ -87,7 +87,7 @@
 							}
 						});
 					});
-				});
+				}); */
 			},
 			error : function() {
 				console.log("error")
@@ -142,6 +142,8 @@
     </div>
     <div class="search"></div>
     <div id="productPlace" class="productWrapper"></div>
-    <c:url value="/static/images/basket.png" var="basket"/>
-    <img class='basket' src="${basket }"  id="d2" ondragenter="return false;" ondragover="return false;" ondrop="onDrop(this,event)" onclick="layerAlertOpen('상품을 드래그해서 넣어주세요')"/>
+   	<c:url value="/static/images/basket.png" var="basket"/>
+    <c:if test="${!empty userInfo}">
+    	<img class='basket' src="${basket }"  id="${userInfo.id}" ondragenter="return false;" ondragover="return false;" ondrop="onDrop(this,event)" onclick="layerAlertOpen('상품을 드래그해서 넣어주세요')"/>
+    </c:if>
     <jsp:include page="/WEB-INF/view/include/footer.jsp"/>
