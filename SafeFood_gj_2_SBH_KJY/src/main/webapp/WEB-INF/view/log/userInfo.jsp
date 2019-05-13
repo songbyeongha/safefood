@@ -45,40 +45,40 @@ $(function(){
             	<input type="hidden" name="action" value="modify">
                 <div class="form-group">
                     <label for="InputEmail">이메일 주소(아이디)</label>
-                    <input type="text" class="form-control" id="inputEmail" placeholder="이메일 주소를 입력해주세요" value="${userInfo.id }" name="id">
+                    <input type="text" class="form-control" id="inputEmail" placeholder="이메일 주소를 입력해주세요" value="${userInfo.id }" name="id" disabled="disabled">
                 </div>
                  <div class="form-group">
                     <label for="InputEmail">비밀번호</label>
-                    <input type="password" class="form-control" id="inputpassword" name="password" placeholder="비밀번호를 입력해주세요" value="${userInfo.password }" name="password" required="required">
+                    <input type="password" class="form-control" id="inputpassword" name="password" placeholder="비밀번호를 입력해주세요" value="${userInfo.password }" name="password" disabled="disabled">
                 </div>
                 <div class="form-group">
                     <label for="inputName">이름</label>
-                    <input type="name" class="form-control" id="inputName" name="name" placeholder="이름을 입력하세요" value="${userInfo.name }" name="name" required="required">
+                    <input type="name" class="form-control" id="inputName" name="name" placeholder="이름을 입력하세요" value="${userInfo.name }" name="name" disabled="disabled">
                 </div>
                 <div class="form-group">
                     <label for="inputAddress">주소</label>
-                    <input type="text" class="form-control" id="inputAddress" name="address" placeholder="주소를 입력하세요" value="${userInfo.address }" required="required">
+                    <input type="text" class="form-control" id="inputAddress" name="address" placeholder="주소를 입력하세요" value="${userInfo.address }" disabled="disabled">
                 </div>
                 <div class="form-group">
                     <label for="inputPhone">전화번호</label>
-                    <input type="text" class="form-control" id="inputPhone" placeholder="010-xxxx-xxxx" value="${userInfo.phone }" name="phone" required="required">
+                    <input type="text" class="form-control" id="inputPhone" placeholder="010-xxxx-xxxx" value="${userInfo.phone }" name="phone" disabled="disabled">
                 </div>
 				 <div class="form-group">
                     <fieldset>
-                    	<label class="checkbox-inline"><input type="checkbox" id="Checkbox1" value="대두" name="allergy">대두</label>
-						<label class="checkbox-inline"><input type="checkbox" id="Checkbox2" value="땅콩" name="allergy">땅콩</label>
-						<label class="checkbox-inline"><input type="checkbox" id="Checkbox3" value="우유" name="allergy">우유</label>
-						<label class="checkbox-inline"><input type="checkbox" id="Checkbox4" value="게" name="allergy">게</label>
-						<label class="checkbox-inline"><input type="checkbox" id="Checkbox5" value="새우" name="allergy">새우</label>
-						<label class="checkbox-inline"><input type="checkbox" id="Checkbox6" value="참치" name="allergy">참치</label>
-						<label class="checkbox-inline"><input type="checkbox" id="Checkbox7" value="연어" name="allergy">연어</label>
-						<label class="checkbox-inline"><input type="checkbox" id="Checkbox8" value="쑥" name="allergy">쑥</label>
-						<label class="checkbox-inline"><input type="checkbox" id="Checkbox9" value="소고기" name="allergy">소고기</label>
-						<label class="checkbox-inline"><input type="checkbox" id="Checkbox10" value="닭고기" name="allergy">닭고기</label>
-						<label class="checkbox-inline"><input type="checkbox" id="Checkbox11" value="돼지고기" name="allergy">돼지고기</label>
-						<label class="checkbox-inline"><input type="checkbox" id="Checkbox12" value="복숭아" name="allergy">복숭아</label>
-						<label class="checkbox-inline"><input type="checkbox" id="Checkbox13" value="민들레" name="allergy">민들레</label>
-						<label class="checkbox-inline"><input type="checkbox" id="Checkbox14" value="계란흰자" name="allergy">계란흰자</label>
+                    	<label class="checkbox-inline"><input type="checkbox" id="Checkbox1" value="대두" name="allergy" disabled="disabled">대두</label>
+						<label class="checkbox-inline"><input type="checkbox" id="Checkbox2" value="땅콩" name="allergy" disabled="disabled">땅콩</label>
+						<label class="checkbox-inline"><input type="checkbox" id="Checkbox3" value="우유" name="allergy" disabled="disabled">우유</label>
+						<label class="checkbox-inline"><input type="checkbox" id="Checkbox4" value="게" name="allergy" disabled="disabled">게</label>
+						<label class="checkbox-inline"><input type="checkbox" id="Checkbox5" value="새우" name="allergy" disabled="disabled">새우</label>
+						<label class="checkbox-inline"><input type="checkbox" id="Checkbox6" value="참치" name="allergy" disabled="disabled">참치</label>
+						<label class="checkbox-inline"><input type="checkbox" id="Checkbox7" value="연어" name="allergy" disabled="disabled">연어</label>
+						<label class="checkbox-inline"><input type="checkbox" id="Checkbox8" value="쑥" name="allergy" disabled="disabled">쑥</label>
+						<label class="checkbox-inline"><input type="checkbox" id="Checkbox9" value="소고기" name="allergy" disabled="disabled">소고기</label>
+						<label class="checkbox-inline"><input type="checkbox" id="Checkbox10" value="닭고기" name="allergy" disabled="disabled">닭고기</label>
+						<label class="checkbox-inline"><input type="checkbox" id="Checkbox11" value="돼지고기" name="allergy" disabled="disabled">돼지고기</label>
+						<label class="checkbox-inline"><input type="checkbox" id="Checkbox12" value="복숭아" name="allergy" disabled="disabled">복숭아</label>
+						<label class="checkbox-inline"><input type="checkbox" id="Checkbox13" value="민들레" name="allergy" disabled="disabled">민들레</label>
+						<label class="checkbox-inline"><input type="checkbox" id="Checkbox14" value="계란흰자" name="allergy" disabled="disabled">계란흰자</label>
                     </fieldset>
                 </div> 
                 <div class="form-group text-center">
@@ -87,7 +87,8 @@ $(function(){
 	                    <a href="${userremove }" class="btn btn-primary">회원탈퇴</a>
 	                </span>
 	                <span>
-	                	<input type="submit" class="btn btn-primary" value="정보 수정">
+	                	<c:url value="/usermodify" var="usermodify"></c:url>
+	                    <a href="${usermodify }" class="btn btn-primary">회원수정</a>
 	                </span>
                 </div>
             </form>
