@@ -32,6 +32,7 @@ import com.ssafy.service.MyintakeService;
 @Controller
 public class MainController {
 
+	
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
 	@Autowired
