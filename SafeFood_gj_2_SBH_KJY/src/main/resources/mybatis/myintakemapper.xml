@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.repository.MyintakeMapper">
 	<select id="selectAll" resultType="myintake">
-		select * from myintake
+		select * from myintake where id=#{id}
 	</select>
 
 	<select id="select" resultType="myintake" parameterType="String">

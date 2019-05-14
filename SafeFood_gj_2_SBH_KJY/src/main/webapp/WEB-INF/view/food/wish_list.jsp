@@ -36,9 +36,6 @@
 	</style>
 <script>
 	$(document).ready(function() {
-		$('.layerPopUpButton').click(function(){
-			window.location.reload();
-		});
 		let id = "";
 		$('.slider').bxSlider({
 			auto : true,
@@ -56,7 +53,6 @@
 				"id" : "${userInfo.id}"
 			},
 			success : function(data) {
-				console.log(data);
 				let food = JSON.parse(data);
 				$(food).each(function(idx, item) {
 					let code = item.code;
@@ -80,8 +76,27 @@
 							+ material
 							+ "</div>";
 					str += "</div></div></a>";
-					str += "<div class='contentButton'><button type='button' class='btn btn-info wishDelButton' code-data="+code+">삭제</button></div>";
+					str += "<div class='contentButton'><button type='button' class='btn btn-info intakeButton' code-data="+code+">추가</button><button type='button' class='btn btn-info wishDelButton' code-data="+code+">삭제</button></div>";
 					$("#productPlace").append(str);
+				});
+				$(".intakeButton").each(function(){
+					$(this).click(function(e){
+						e.preventDefault();
+						$.ajax({
+							type : "post",
+							url : "<c:url value='/intakeInsert' />",
+							data : {
+								id :"${userInfo.id}",
+								code : $(this).attr("code-data")
+							},
+							success : function(data) {
+								layerAlertOpen(data);
+							},
+							error : function() {
+								console.log("error")
+							}
+						});
+					});
 				});
 				$(".wishDelButton").each(function(){
 					$(this).click(function(e){
@@ -95,7 +110,9 @@
 							},
 							success : function(data) {
 								layerAlertOpen(data);
-								
+								$(".layerPopUpButton").click(function(){
+									location.reload();
+								});
 							},
 							error : function() {
 								console.log("error")

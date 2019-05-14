@@ -185,6 +185,11 @@ public class MainController {
 		return "Error";
 	}
 	
+	@GetMapping("/notice")
+	public String notice(Model model) {
+		return "notice/notice";
+	}
+	
 	@RequestMapping("/")
 	public String index(Model model) {
 		return "redirect:/index.jsp";

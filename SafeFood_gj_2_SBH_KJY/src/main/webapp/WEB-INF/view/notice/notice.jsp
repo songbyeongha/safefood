@@ -5,13 +5,12 @@
 <c:url value="/static/images/faq.png" var="faq" />
 <div id='app'>
 	<div class="boardImg">
-		<img src="/SF_WS_03/static/images/faq.png" />
+		<img src="/static/images/faq.png" />
 	</div>
 	<div class='boardTitle'>
 		<h5 v-html='currenttitle'></h5>
 	</div>
 	<component v-bind:is="currentview"></component>
-	
 
 </div>
 <script src="https://unpkg.com/vue"></script>
