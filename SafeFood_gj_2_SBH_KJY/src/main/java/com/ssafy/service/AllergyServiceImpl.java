@@ -19,8 +19,8 @@ public class AllergyServiceImpl implements AllergyService{
 	}
 
 	@Override
-	public int delete(String id, String name) {
-		return mapper.delete(id, name);
+	public int delete(String id) {
+		return mapper.delete(id);
 	}
 
 	@Override

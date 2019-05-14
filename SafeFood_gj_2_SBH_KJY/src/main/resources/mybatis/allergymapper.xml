@@ -16,7 +16,7 @@
 	</insert>
 
 	<delete id="delete" parameterType="allergy">
-		delete from allergy where id=#{id} and name=#{name}
+		delete from allergy where id=#{id}
 	</delete>
 
 </mapper>
