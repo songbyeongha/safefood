@@ -164,6 +164,19 @@ public class MainController {
 		return "msg";
 	}
 	
+	@GetMapping("/allergy")
+	public String allergy(Model model, String loginId, String text) {
+		List<String> list = allergyService.selectId(loginId);
+		List<String> find = new ArrayList<>();
+		for (int i = 0; i < list.size(); i++) {
+			if (text.contains(list.get(i))) {
+				find.add(list.get(i));
+			}
+		}
+		model.addAttribute("data", gson.toJson(find));
+		return "/msg";
+	}
+	
 	@GetMapping("/foodWish")
 	public String foodWish(Model model) {
 		return "food/wish_list";

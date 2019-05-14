@@ -408,7 +408,7 @@ section .section-title {
     box-shadow: 0px 0px 20px #fff;
     width: 100%;
     background: #0c5a86;
-    padding: 3px;
+    padding: 2px;
     opacity: 1;
     transition: opacity 1s ease-in-out;
     -moz-transition: opacity 1s ease-in-out;

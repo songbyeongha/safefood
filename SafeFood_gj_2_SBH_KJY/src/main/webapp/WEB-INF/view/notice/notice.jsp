@@ -14,8 +14,7 @@
 
 </div>
 <script src="https://unpkg.com/vue"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script type="text/x-template" id="listhrmtemplate">
 <div>
