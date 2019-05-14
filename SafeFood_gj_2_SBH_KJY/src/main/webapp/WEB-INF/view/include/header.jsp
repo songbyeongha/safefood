@@ -15,6 +15,10 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<c:url value="/static/js/jquery.js" var="jqueryJs" />
+<script src="${jqueryJs }"></script>
+<c:url value="/static/js/jquery-ui.min.js" var="jqueryuiJs" />
+<script src="${jqueryuiJs }"></script>
 <c:url value="/static/css/main.css" var="mainCss" />
 <c:url value="/static/css/jquery.bxslider.css" var="bxsliderCss" />
 <link rel="stylesheet" href="${bxsliderCss }">

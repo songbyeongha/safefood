@@ -47,15 +47,8 @@
 	<button @click='show_add()'>글쓰기</button>
 	<button @click='delete_list()'>삭제</button>
 </div>
-<<<<<<< HEAD
 </script>
-=======
-</div>
 
-
-</script>
-<c:url value="/static/js/addhrmtemplate.js" var="addhrmtemplateJs"/>
->>>>>>> branch 'master' of https://lab.ssafy.com/wnsdud00700/safefood_gj_02_sbh_kjy.git
 <script type="text/x-template" id="addhrmtemplate">
 <div>
 <div class="layerPopUp1 layerPopUp">
@@ -202,12 +195,7 @@ var listhrm = Vue.component('listhrm',{
       },
       mounted () {
         axios
-<<<<<<< HEAD
-          .get('http://121.147.32.115:9090/api/boards')
-          //.get('./emp.json')
-=======
           .get('http://localhost:9090/api/boards/page/1')
->>>>>>> branch 'master' of https://lab.ssafy.com/wnsdud00700/safefood_gj_02_sbh_kjy.git
           .then(response => {
         	  this.info = response.data.data
         	  this.maxpage=response.data.maxpage;
@@ -283,7 +271,7 @@ var detailhrm = Vue.component('detailhrm',{
       },
       mounted () {
     	  axios
-		    .get('http://121.147.32.115:9090/api/boards/'+App.qnaId)
+		    .get('http://localhost:9090/api/boards/'+App.qnaId)
 		    .then(response => (this.board = response.data.data))
 		    .catch(error => {
 		      console.log(error)
@@ -356,7 +344,7 @@ var addhrm = Vue.component('addhrm',{
 	
 	mounted () {
 		axios
-		.get('http://121.147.32.115:9090/api/boards')
+		.get('http://localhost:9090/api/boards')
 		.then(response => (this.info = response.data))
 		.catch(error => {
 			console.log(error)
@@ -417,9 +405,5 @@ var App=new Vue({
          }
      }
 })
-<<<<<<< HEAD
  </script>
-=======
-</script>
->>>>>>> branch 'master' of https://lab.ssafy.com/wnsdud00700/safefood_gj_02_sbh_kjy.git
 <jsp:include page="/WEB-INF/view/include/footer.jsp" />

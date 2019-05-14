@@ -10,6 +10,10 @@
 	<select id="select" resultType="myintake" parameterType="String">
 		select * from myintake where id=#{id} and code=#{code}
 	</select>
+	
+	<select id="selectPaging" resultType="myintake">
+		select * from myintake where intake_date between #{startDate} and #{endDate} and id=#{id} limit #{page},10
+	</select>
 
 	<insert id="insert" parameterType="myintake">
 		insert into myintake (id, code) values(#{id},#{code})

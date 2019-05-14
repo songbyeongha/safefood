@@ -1,5 +1,6 @@
 package com.ssafy.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,12 @@ public class MyintakeServiceImpl implements MyintakeService{
 	public List<Myintake> selectAll(String id) {
 		// TODO Auto-generated method stub
 		return mapper.selectAll(id);
+	}
+
+	@Override
+	public List<Myintake> selectPaging(String id, String startDate, String endDate, Integer page) {
+		// TODO Auto-generated method stub
+		return mapper.selectPaging(id, startDate, endDate, page);
 	}
 
 
