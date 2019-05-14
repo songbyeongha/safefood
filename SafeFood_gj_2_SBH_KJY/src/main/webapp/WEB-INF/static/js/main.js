@@ -9,7 +9,7 @@ function onDrop(target,e){
 	}, 500);
 	$.ajax({
 		type : "post",
-		url : "/intakeInsert",
+		url : "/wishInsert",
 		data : {
 			id : $(target).attr('id'),
 			code : tCode
@@ -23,9 +23,11 @@ function onDrop(target,e){
 	});
     e.preventDefault();
 }
+
 function layerAlertOpen(msg){
 	$('.layerPopUpContent').text(msg);
 	$('.layerPopUp').show();
+	$('.layerPopUpButton').focus();
 }
 function layerAlertClose(){
 	$('.layerPopUp').hide();
@@ -33,6 +35,6 @@ function layerAlertClose(){
 function layerCenter(){
 	let width = $('.layerPopUp').width();
 	let height = $('.layerPopUp').height();
-	console.log(height);
 	$('.layerPopUp').css({'left':($(window).width() - width)/2, 'top':($(window).height()/2)-height});
 }
+

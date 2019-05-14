@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.repository.WishMapper">
 	<select id="selectAll" resultType="wish">
-		select * from wish
+		select * from wish where id=#{id}
 	</select>
 
 	<select id="select" resultType="wish" parameterType="wish">

@@ -29,7 +29,7 @@ import com.ssafy.service.MemberService;
 import com.ssafy.service.MyintakeService;
 import com.ssafy.service.WishService;
 
-//@Controller
+@Controller
 public class MainController {
 
 	
@@ -182,6 +182,11 @@ public class MainController {
 	@RequestMapping("/myerror")
 	public String errorHandling(Model model) {
 		return "Error";
+	}
+	
+	@GetMapping("/notice")
+	public String notice(Model model) {
+		return "notice/notice";
 	}
 	
 	@RequestMapping("/")
