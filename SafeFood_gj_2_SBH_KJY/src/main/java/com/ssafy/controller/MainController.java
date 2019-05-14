@@ -1,5 +1,7 @@
 package com.ssafy.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -196,9 +198,9 @@ public class MainController {
 	}
 
 	@GetMapping("/intake")
-	public ResponseEntity<Map<String, Object>> intakeList(Model model,String id){
-		List<Myintake> list = myintakeService.selectAll(id);
-		List<Food> food = new ArrayList<>(); logger.trace("list : " + list);
+	public ResponseEntity<Map<String, Object>> intakeList(Model model,String id, String startDate, String endDate, Integer page){
+		List<Myintake> list = myintakeService.selectPaging(id, startDate.trim()+" 00:00:00", endDate.trim()+" 23:59:59", (page-1)*10);
+		List<Food> food = new ArrayList<>();
 		for (Myintake i : list) { 
 			Food tempFood = foodService.select(i.getCode());
 			tempFood.setIntakeDate(i.getIntakeDate());
@@ -206,6 +208,7 @@ public class MainController {
 		} 
 		Map<String, Object> resultMap = new HashMap<>();
 		resultMap.put("data", food);
+		resultMap.put("maxpage", food.size()/10+1);
 		
 		ResponseEntity<Map<String, Object>> ent = null;
 		if(list.size()>0) {

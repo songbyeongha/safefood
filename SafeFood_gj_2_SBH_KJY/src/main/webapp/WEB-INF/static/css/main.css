@@ -594,3 +594,15 @@ section .section-title {
 .layerPopUpButton:hover{
     background: #d6c9c9;
 }
+.pagebox{
+	text-align: center;
+    margin-top: 20px;
+}
+.pagebox span{
+    background: #265a88;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 2px;
+}

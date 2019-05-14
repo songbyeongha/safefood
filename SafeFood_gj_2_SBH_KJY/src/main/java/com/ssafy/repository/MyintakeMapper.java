@@ -1,5 +1,6 @@
 package com.ssafy.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -12,4 +13,5 @@ public interface MyintakeMapper {
 	int delete(Myintake myintake);
 	public Myintake select(Myintake myintake);
 	public List<Myintake> selectAll(String id);
+	public List<Myintake> selectPaging(String id, String startDate, String endDate, Integer page);
 }
