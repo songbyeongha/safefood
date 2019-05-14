@@ -34,6 +34,7 @@ public class MVCConfig extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(sessionInterceptor).addPathPatterns("/session/*");
+		registry.addInterceptor(sessionInterceptor).addPathPatterns("/session/*", "/foodDetail", "/foodIntake", "/foodWish");
+		
 	}
 }

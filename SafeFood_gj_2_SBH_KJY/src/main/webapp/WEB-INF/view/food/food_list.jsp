@@ -57,6 +57,7 @@
 					let image = item.img;
 					let str = "";
 					
+					
 					str += "<div class='col-lg-6'><a href='<c:url value='/foodDetail' />?code="+encodeURI(code)+"'><div>";
 					str += "<div class='productImg' data-code='"+code+"'><img src='static/"+image+"'/>";
 					str += "<div>"

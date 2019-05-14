@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
@@ -29,7 +30,7 @@ import com.ssafy.service.MemberService;
 import com.ssafy.service.MyintakeService;
 import com.ssafy.service.WishService;
 
-//@Controller
+@Controller
 public class MainController {
 
 	
@@ -360,4 +361,12 @@ public class MainController {
 		return "redirect:/index.jsp";
 	}
 
+	@RequestMapping(value="/log/login")
+	public ModelAndView needLogin() throws Exception {
+		ModelAndView mav = new ModelAndView("/log/login");
+		mav.addObject("msg", "로기인 후 이용해 주세요.");
+		
+		return mav;
+	}
+	
 }
