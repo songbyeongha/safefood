@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="/WEB-INF/view/include/header.jsp" />
 <c:url value="/static/images/faq.png" var="faq" />
-<div id='app'>
+<div id='app' class="container">
 	<div class="boardImg">
 		<img src="/static/images/faq.png" />
 	</div>
@@ -36,14 +36,32 @@
 </tr>
 </table>
 </div>
-<div>
+<div class="pagebox">
+<span @click="changepage(1)" class="page glyphicon glyphicon-backward"></span>
+<span v-show="pagelist[0]!=1" @click="rowpagelist(-5)" class="page glyphicon glyphicon-chevron-left"></span>
+<span @click="changepage(page)" class="page" v-for="page in pagelist" v-bind:class="{curpage:page===curpage}">{{page}}</span>
+<span v-show="pagelist[0]+5<maxpage" @click="rowpagelist(5)" class="page glyphicon glyphicon-chevron-right"></span>
+<span @click="changepage(maxpage)" class="page glyphicon glyphicon glyphicon-forward"></span>
+</div>
 <div class='search_box'>
 	<button @click='show_add()'>글쓰기</button>
-	<button @click='show_add()'>삭제</button>
+	<button @click='delete_list()'>삭제</button>
 </div>
+<<<<<<< HEAD
 </script>
+=======
+</div>
+
+
+</script>
+<c:url value="/static/js/addhrmtemplate.js" var="addhrmtemplateJs"/>
+>>>>>>> branch 'master' of https://lab.ssafy.com/wnsdud00700/safefood_gj_02_sbh_kjy.git
 <script type="text/x-template" id="addhrmtemplate">
 <div>
+<div class="layerPopUp1 layerPopUp">
+<div class="layerPopUpContent"></div>
+<button class="layerPopUpButton" @click='show_list()'>확인</button>
+</div>
 <div>
 <form action="" method="post" id="_frmForm" name="frmForm" @submit.prevent="addhrmtemplate">
 <table class="board_list_table">
@@ -67,6 +85,7 @@
 </form>
 </div>
 </div>
+
 </script>
 <script>
 	
@@ -95,14 +114,18 @@
 </div>
 </script>
 <script type="text/javascript">
-
 var listhrm = Vue.component('listhrm',{
     template: '#listhrmtemplate',
     data(){
         return {
           info: [],
           loading: true,
-          errored: false 
+          errored: false,
+          checkNum : [],
+          maxpage:[],
+          curpage:1,
+          pagelist:[],
+          iscurpage:""
         }
       },
       methods:{
@@ -114,7 +137,63 @@ var listhrm = Vue.component('listhrm',{
     	  show_add:function(){
     		  App.currentview = 'addhrm';
     		  App.showlist(1);
-    	  }
+    	  },
+    	  delete_list:function(){
+    		  
+    		  //this.checkNum
+    		  App.currentview = 'listhrm';
+    		  App.showlist(0);  
+    	  },
+    	  rowpagelist(interval){
+    		  var startpage=this.pagelist[0]+interval;
+    		  var endpage=this.pagelist[4]+interval;
+    		  for(var ii=startpage;ii<=endpage;ii++){
+    		  	if(ii<=0){
+    		  		endpage++;
+    		  	}else if(ii>this.maxpage){
+    		  		startpage--;
+    		  	}
+    		  }
+    		  this.pagelist=[];
+    		  for(var i=startpage;i<=endpage;i++){
+    		  	if(i>0 && i<=this.maxpage){
+    		  		this.pagelist.push(i);
+    		  	} 
+    		  }
+   		  },
+   		  changepage(page){
+    		  axios
+    		  .get('http://localhost:9090/api/boards/page/'+page)
+    		  .then(response => {
+    			  this.info = response.data.data
+    		  	  this.maxpage=response.data.maxpage;
+    		  	  this.curpage=page;
+    		  }).catch(error => {
+    			  console.log(error)
+   			  })
+   			  .finally(() =>{ 
+    			  this.changepagelist();
+   			  });
+		  },
+		  changepagelist(){
+			  this.pagelist=[];
+			  var startpage=this.curpage-2;
+			  var endpage=this.curpage+2;
+
+			  for(var ii=startpage;ii<=endpage;ii++){
+			  	if(ii<=0){
+			  		endpage++;
+			  	}else if(ii>this.maxpage){
+			  		startpage--;
+			  	}
+			  }
+
+			  for(var i=startpage;i<=endpage;i++){
+			  	if(i>0 && i<=this.maxpage){
+			  		this.pagelist.push(i);
+			 	} 
+			  }
+		  }		  
       },
       filters: {
     	  formatDate(value) {
@@ -123,16 +202,24 @@ var listhrm = Vue.component('listhrm',{
       },
       mounted () {
         axios
+<<<<<<< HEAD
           .get('http://121.147.32.115:9090/api/boards')
           //.get('./emp.json')
+=======
+          .get('http://localhost:9090/api/boards/page/1')
+>>>>>>> branch 'master' of https://lab.ssafy.com/wnsdud00700/safefood_gj_02_sbh_kjy.git
           .then(response => {
         	  this.info = response.data.data
+        	  this.maxpage=response.data.maxpage;
           })
           .catch(error => {
             console.log(error)
             this.errored = true
           })
-          .finally(() => this.loading = false)
+          .finally(() => {
+        	  this.loading = false
+        	  this.changepagelist()
+          })
       }
 });
 /*var idhrm = Vue.component('idhrm',{
@@ -263,7 +350,7 @@ var addhrm = Vue.component('addhrm',{
 			titls:null,
 			content:'',
 			ctitle:'',
-			writer:'aaa'
+			writer:'${userInfo.id}'
 		}
 	},
 	
@@ -287,6 +374,18 @@ var addhrm = Vue.component('addhrm',{
 				content: this.content,
 				writer: this.writer
 			})
+			.then(response => {
+				if(response.data.status=='OK'){
+					console.log("ok");
+					layerAlertOpen1("글쓰기 성공");
+					layerCenter();
+				}
+			})
+			.catch(error => {
+				console.log(error)
+				this.errored = true
+			})
+			.finally(() => this.loading = false);
 		},
 		show_list:function(){
 	  		App.currentview = 'listhrm';
@@ -318,5 +417,9 @@ var App=new Vue({
          }
      }
 })
+<<<<<<< HEAD
  </script>
+=======
+</script>
+>>>>>>> branch 'master' of https://lab.ssafy.com/wnsdud00700/safefood_gj_02_sbh_kjy.git
 <jsp:include page="/WEB-INF/view/include/footer.jsp" />
