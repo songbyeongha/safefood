@@ -10,26 +10,25 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 @Component
-public class SessionInterceptor extends HandlerInterceptorAdapter {
-	private static final Logger logger = LoggerFactory.getLogger(SessionInterceptor.class);
+public class AdminInterceptor extends HandlerInterceptorAdapter {
+	private static final Logger logger = LoggerFactory.getLogger(AdminInterceptor.class);
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		boolean userFlag = false;
-		System.out.println("page interceptor");
+		boolean adminFlag = false;
+		System.out.println("admin interceptor");
 		
-		if(request.getSession().getAttribute("userInfo") != null) {
+		if(request.getSession().getAttribute("userInfo") != null && (Integer)request.getSession().getAttribute("authority") == 1) {
 			System.out.println("세션 인증!!");
-			userFlag = true;
+			adminFlag = true;
 		}
 		else {
 			System.out.println("no session");
 			response.sendRedirect(request.getContextPath()+"/index.jsp");
-			
-			userFlag = false;
+			adminFlag = false;
 		}
-		return userFlag;
+		return adminFlag;
 	}
 	
 	@Override
@@ -43,6 +42,4 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 	}
 
 }
-
-
 

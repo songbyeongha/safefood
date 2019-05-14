@@ -9,6 +9,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import com.ssafy.intercepter.AdminInterceptor;
 import com.ssafy.intercepter.SessionInterceptor;
 
 @Configuration
@@ -31,10 +32,12 @@ public class MVCConfig extends WebMvcConfigurerAdapter {
 
 	@Autowired
 	SessionInterceptor sessionInterceptor;
-
+	@Autowired
+	AdminInterceptor adminInterceptor;
+	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(sessionInterceptor).addPathPatterns("/session/*", "/foodDetail", "/foodIntake", "/foodWish");
-		
+		registry.addInterceptor(sessionInterceptor).addPathPatterns("/session/*", "/foodDetail", "/foodIntake", "/foodWish" );
+		registry.addInterceptor(adminInterceptor).addPathPatterns("/adminpage");
 	}
 }

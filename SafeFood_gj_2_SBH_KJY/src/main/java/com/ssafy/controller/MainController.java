@@ -415,9 +415,48 @@ public class MainController {
 	@RequestMapping(value="/log/login")
 	public ModelAndView needLogin() throws Exception {
 		ModelAndView mav = new ModelAndView("/log/login");
-		mav.addObject("msg", "로기인 후 이용해 주세요.");
+		mav.addObject("msg", "로그인 후 이용해 주세요.");
 		
 		return mav;
 	}
+	
+	/////////////////////////////// 관리자
+	
+	@GetMapping("/adminlog")
+	public String adminlogForm(Model model, @CookieValue(required = false) String loginUser, HttpSession session) {
+		logger.trace("login cookie: {}", loginUser);
+
+		if (loginUser != null) {
+			Member member = memberService.selectById(loginUser);
+			session.setAttribute("userInfo", member);
+		
+			logger.trace("김준영 1 {}", loginUser);
+			return "admin/adminpage";
+		} else {
+			// 쿠키가 없다? --> 로그인 필요. --> 폼 제공 --> TODO 15
+			logger.trace("김준영 2 {}", loginUser);
+			return "admin/adminlog";
+		}
+	}
+
+	@PostMapping("/adminlog")
+	public String adminlog(Model model, String user_id, String password, HttpServletResponse res, HttpSession session) {
+
+		Member result = memberService.login(user_id, password);
+		if (result != null) {
+			session.setAttribute("userInfo", result);
+		} else {
+			return "redirect:loginfail";
+		}
+		return "redirect:/adminpage";
+	}
+
+	
+	@GetMapping("/adminpage")
+	public String adminpageForm(Model model) {
+		return "/admin/adminpage";
+	}
+	
+	
 	
 }

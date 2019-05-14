@@ -25,7 +25,7 @@
             <form action="userremove" method="POST">
             	<input type="hidden" value="" name="hiddenId">
                 <div class="form-group">
-                    <label for="InputEmail">이메일 주소(아이디)</label>
+                  ssssss<label for="InputEmail">이메일 주소(아이디)</label>
                     <input type="email" class="form-control" id="InputEmail" placeholder="이메일 주소를 입력해주세요" value="${userInfo.id }" readonly="readonly" name = "user_id">
                 </div>
                 <div class="form-group">

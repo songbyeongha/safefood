@@ -9,7 +9,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 public class MapParser {
 	public final static String PHARM_URL = "http://data.jeonnam.go.kr/rest/namdoEcofood/getNdEcofoodMenuFile";
-    public final static String KEY = "EtRZY%2BqalPzUQWFnIWfoopanQsuvKGOuxz0ynJXX2QtRqr0YXklt3lDiYKzLKZmUZA%2Fat8BfWBxGeg172IZrkw%3D%3D";
+    public final static String KEY = "ydbSTYPg7SixNHmoLQpJDjl%2BHOjdDUMHwVrc4p0kN3GYSfOFHiHt82PySMn6DQdp6W9T%2BlXdj28GxDkKjHhOJA%3D%3D";
  
     public MapParser() {
         try {
