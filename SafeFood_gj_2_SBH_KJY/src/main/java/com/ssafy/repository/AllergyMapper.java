@@ -10,4 +10,5 @@ public interface AllergyMapper {
 	public int delete(String id);
 	public String select(String id, String name);
 	public List<String> selectId(String id);
+	public List<String> selectid(String id);
 }

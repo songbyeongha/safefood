@@ -32,6 +32,11 @@ public class AllergyServiceImpl implements AllergyService{
 	public List<String> selectId(String id) {
 		return mapper.selectId(id);
 	}
+
+	@Override
+	public List<String> selectid(String id) {
+		return mapper.selectid(id);
+	}
 	
 	
 

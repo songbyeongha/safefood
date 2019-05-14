@@ -3,12 +3,16 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.repository.AllergyMapper">
+	<select id="selectid" resultType="String" parameterType="String">
+		select name from allergy where id=#{id}
+	</select>
+	
 	<select id="selectId" resultType="allergy" parameterType="String">
 		select * from allergy where id=#{id}
 	</select>
 
 	<select id="select" resultType="allergy" parameterType="String">
-		select * from allergy where id=#{id} and name=#{name}
+		select * from allergy where id=#{id}
 	</select>
 
 	<insert id="insert" parameterType="allergy">

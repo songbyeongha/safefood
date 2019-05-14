@@ -86,14 +86,6 @@ public class MainController {
 		model.addAttribute("data", str);
 		return "msg";
 	}
-	
-	@GetMapping("/allergy")
-	public String allergy(Model model, String id) {
-		List<String> list = allergyService.selectId(id);
-		logger.trace("list : {}", list);
-		model.addAttribute("data", list);
-		return "msg";
-	}
 
 	@GetMapping("/intake")
 	public String intake(Model model, String id) {
@@ -173,10 +165,14 @@ public class MainController {
 	}
 	
 	@GetMapping("/allergy")
-	public String allergy(Model model, String loginId, String text) {
-		List<String> list = allergyService.selectId(loginId);
+	public String allergy(Model model, String id, String text) {
+		logger.trace("text : {}", text);
+		
+		List<String> list = allergyService.selectid(id);
+		logger.trace("list : {}", list);
 		List<String> find = new ArrayList<>();
 		for (int i = 0; i < list.size(); i++) {
+			logger.trace("list.get : {}. {}",i, list.get(i));
 			if (text.contains(list.get(i))) {
 				find.add(list.get(i));
 			}
@@ -209,6 +205,12 @@ public class MainController {
 	@GetMapping("/notice")
 	public String notice(Model model) {
 		return "notice/notice";
+	}
+	
+	//모범 음식점 연결
+	@GetMapping("/foodmap")
+	public String foodmapForm(Model model) {
+		return "map/restaurant";
 	}
 	
 	@RequestMapping("/")

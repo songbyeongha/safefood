@@ -462,7 +462,7 @@ body .frame .content h1 {
 					success : function(data) {
 						let str = "";
 						let findStr = JSON.parse(data);
-						console.log(data);
+						console.log("asdfas : "+data);
 						$(findStr).each(function(idx, item) {
 							str += "<span class='allergyThing'>"+item+"</span>";					
 						});

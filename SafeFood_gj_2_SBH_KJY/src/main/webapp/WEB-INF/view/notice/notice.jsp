@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="/WEB-INF/view/include/header.jsp" />
 <c:url value="/static/images/faq.png" var="faq" />
@@ -11,7 +10,6 @@
 		<h5 v-html='currenttitle'></h5>
 	</div>
 	<component v-bind:is="currentview"></component>
-
 </div>
 <script src="https://unpkg.com/vue"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
@@ -44,7 +42,6 @@
 	<button @click='show_add()'>삭제</button>
 </div>
 </script>
-
 <script type="text/x-template" id="addhrmtemplate">
 <div>
 <div>
@@ -64,14 +61,16 @@
 </tr>
 </table>
 <div class='search_box'>
-<button type="submit" name="button">확인</button>
+<button type="submit" name="button" @click='show_list()'>확인</button>
 <button @click='show_list()'>취소</button>
 </div>
 </form>
 </div>
 </div>
 </script>
-
+<script>
+	
+</script>
 <script type="text/x-template" id="detailtemplate">
 <div>
 	<div>
@@ -124,7 +123,7 @@ var listhrm = Vue.component('listhrm',{
       },
       mounted () {
         axios
-          .get('http://localhost:9090/api/boards')
+          .get('http://121.147.32.115:9090/api/boards')
           //.get('./emp.json')
           .then(response => {
         	  this.info = response.data.data
@@ -197,7 +196,7 @@ var detailhrm = Vue.component('detailhrm',{
       },
       mounted () {
     	  axios
-		    .get('http://localhost:9090/api/boards/'+App.qnaId)
+		    .get('http://121.147.32.115:9090/api/boards/'+App.qnaId)
 		    .then(response => (this.board = response.data.data))
 		    .catch(error => {
 		      console.log(error)
@@ -270,7 +269,7 @@ var addhrm = Vue.component('addhrm',{
 	
 	mounted () {
 		axios
-		.get('http://localhost:9090/api/boards')
+		.get('http://121.147.32.115:9090/api/boards')
 		.then(response => (this.info = response.data))
 		.catch(error => {
 			console.log(error)
@@ -320,7 +319,4 @@ var App=new Vue({
      }
 })
  </script>
-
-
-
 <jsp:include page="/WEB-INF/view/include/footer.jsp" />
