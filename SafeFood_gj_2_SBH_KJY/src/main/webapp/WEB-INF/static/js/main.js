@@ -24,6 +24,12 @@ function onDrop(target,e){
     e.preventDefault();
 }
 
+function layerAlertOpen1(msg){
+	$('.layerPopUpContent').text(msg);
+	$('.layerPopUp1').show();
+	$('.layerPopUpButton').focus();
+}
+
 function layerAlertOpen(msg){
 	$('.layerPopUpContent').text(msg);
 	$('.layerPopUp').show();

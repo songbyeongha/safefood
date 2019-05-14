@@ -4,10 +4,6 @@
 <jsp:include page="/WEB-INF/view/include/header.jsp" />
 <script>
 	$(document).ready(function() {
-		$('.layerPopUpButton').click(function(){
-			window.location.reload();
-		});
-		let id = "";
 		$('.slider').bxSlider({
 			auto : true,
 			speed : 500,
@@ -16,7 +12,11 @@
 			infiniteLoop:true,
 			controls: false,
 		});
-		
+		/*	
+		let id = "";
+		$('.layerPopUpButton').click(function(){
+			window.location.reload();
+		});
 		$.ajax({
 			type : "get",
 			url : "<c:url value='/intake' />",
@@ -78,8 +78,8 @@
 			}
 		});
 
+	*/
 	});
-	
 </script>
 <div class="search_place">
 	<div class="slider">
@@ -121,12 +121,12 @@
 		<th>지방</th>
 	</tr>
 	<tr v-for="food in info">
-		<td><input type="checkbox"></td>
+		<td>{{food.intakeDate|formatDate}}</td>
 		<td v-html="food.name" @click="show_detail(food.code)" ></td>
-		<td v-html="food.name"></td>
-		<td>{food.intakeDate|formatDate}}</td>
-		<td>{{ food.name }}</td>
-		<td></td>
+		<td v-html="food.calory"></td>
+		<td v-html="food.carbo"></td>
+		<td v-html="food.protein"></td>
+		<td v-html="food.fat"></td>
 	</tr>
 </table>
 </div>
@@ -171,7 +171,7 @@ var listhrm = Vue.component('listhrm',{
           })
           //.get('./emp.json')
           .then(response => {
-        	  console.log(response);
+        	  console.log(response.data.data);
         	  this.info = response.data.data
           })
           .catch(error => {
@@ -184,7 +184,7 @@ var listhrm = Vue.component('listhrm',{
 var App=new Vue({
 	el: '#productPlace',
 	data: {
-		currenttitle:'게시판>리스트',
+		currenttitle:'섭취정보',
 		qnaId:'',
 		currentview: 'listhrm',
 		   allviews:['listhrm','addhrm','modifyhrm','detailhrm'],

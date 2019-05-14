@@ -2,7 +2,9 @@ package com.ssafy.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -10,6 +12,8 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -87,20 +91,20 @@ public class MainController {
 		return "msg";
 	}
 
-	@GetMapping("/intake")
-	public String intake(Model model, String id) {
-		List<Myintake> list = myintakeService.selectAll(id);
-		List<Food> food = new ArrayList<>();
-		logger.trace("list : " + list);
-		for (Myintake i : list) {
-			Food tempFood = foodService.select(i.getCode());
-			tempFood.setIntakeDate(i.getIntakeDate());
-			food.add(tempFood);
-
-		}
-		model.addAttribute("data", gson.toJson(food));
-		return "msg";
-	}
+	
+//	@GetMapping("/intake")
+//	public String intake(Model model, String id) {
+//		List<Myintake> list = myintakeService.selectAll(id);
+//		List<Food> food = new ArrayList<>(); logger.trace("list : " + list);
+//		for (Myintake i : list) { 
+//			Food tempFood = foodService.select(i.getCode());
+//			tempFood.setIntakeDate(i.getIntakeDate());
+//			food.add(tempFood);
+//		} 
+//		model.addAttribute("data", gson.toJson(food));
+//		return "msg"; 
+//	}
+	 
 
 	@PostMapping("/intakeInsert")
 	public String intakeInsert(Model model, String id, String code) {
@@ -187,6 +191,27 @@ public class MainController {
 		return "food/food_detail";
 	}
 
+	@GetMapping("/intake")
+	public ResponseEntity<Map<String, Object>> intakeList(Model model,String id){
+		List<Myintake> list = myintakeService.selectAll(id);
+		List<Food> food = new ArrayList<>(); logger.trace("list : " + list);
+		for (Myintake i : list) { 
+			Food tempFood = foodService.select(i.getCode());
+			tempFood.setIntakeDate(i.getIntakeDate());
+			food.add(tempFood);
+		} 
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("data", food);
+		
+		ResponseEntity<Map<String, Object>> ent = null;
+		if(list.size()>0) {
+			ent = new ResponseEntity<Map<String, Object>>(resultMap,HttpStatus.OK);			//200
+		}else {
+			ent = new ResponseEntity<Map<String, Object>>(resultMap,HttpStatus.NO_CONTENT);	//204
+		}
+		return ent;
+	}
+	
 	@GetMapping("/foodIntake")
 	public String foodIntake(Model model) {
 		return "food/intake_list";
