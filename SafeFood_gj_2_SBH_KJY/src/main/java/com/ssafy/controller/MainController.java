@@ -86,6 +86,14 @@ public class MainController {
 		model.addAttribute("data", str);
 		return "msg";
 	}
+	
+	@GetMapping("/allergy")
+	public String allergy(Model model, String id) {
+		List<String> list = allergyService.selectId(id);
+		logger.trace("list : {}", list);
+		model.addAttribute("data", list);
+		return "msg";
+	}
 
 	@GetMapping("/intake")
 	public String intake(Model model, String id) {
@@ -349,17 +357,15 @@ public class MainController {
 		int result = memberService.updateMember(member);
 		session.setAttribute("userInfo", member);
 		logger.trace("user : {}", member);
-		String path =  "redirect:/index.jsp";
-		for(String data : allergy) {
-			allergyService.delete(member.getId(), data);
-		}
+		String path =  "/log/userInfo";
+		allergyService.delete(member.getId());
 		if(result == 1) {
 			for (String data : allergy) {
 				allergyService.insert(member.getId(), data);
 			}
 		}
-		
-		session.setAttribute("allergy", allergy);
+		List<String> allergy1 = allergyService.selectId(member.getId());
+		session.setAttribute("allergy", allergy1);
 		return path;
 
 	}
@@ -374,7 +380,7 @@ public class MainController {
 	public String remove(Model model, HttpSession session) {
 		String id = (String) session.getAttribute("id");
 		memberService.deleteMember(id);
-		
+		allergyService.delete(id);
 		
 		return "redirect:/index.jsp";
 	}
