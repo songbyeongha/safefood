@@ -19,7 +19,7 @@ public class Food {
 	private String material;
 	private String img;
 	private Integer bestCount;
-	private Date intakeDate;
+	private String intakeDate;
 	
 	public Food() {
 		super();
@@ -47,11 +47,11 @@ public class Food {
 		this.bestCount = bestCount;
 	}
 
-	public Date getIntakeDate() {
+	public String getIntakeDate() {
 		return intakeDate;
 	}
 
-	public void setIntakeDate(Date intakeDate) {
+	public void setIntakeDate(String intakeDate) {
 		this.intakeDate = intakeDate;
 	}
 

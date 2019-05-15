@@ -48,7 +48,7 @@ public class MyintakeServiceImpl implements MyintakeService{
 	}
 
 	@Override
-	public int total(String id, String startDate, String endDate) {
+	public List<Myintake> total(String id, String startDate, String endDate) {
 		// TODO Auto-generated method stub
 		return mapper.total(id,startDate,endDate);
 	}

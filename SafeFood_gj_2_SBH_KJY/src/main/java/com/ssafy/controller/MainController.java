@@ -109,9 +109,7 @@ public class MainController {
 
 	@PostMapping("/intakeInsert")
 	public String intakeInsert(Model model, String id, String code) {
-		logger.trace("asdfasdf : " + id + ", code : " + code);
 		Food food = foodService.select(Integer.parseInt(code));
-		
 		int result = myintakeService.insert(new Myintake(id, Integer.parseInt(code)));
 		if (result == -1) {
 			model.addAttribute("data", "식품이 섭취되지 않았습니다.");
@@ -123,13 +121,13 @@ public class MainController {
 		return "msg";
 	}
 
-	@PostMapping("/intakeDel")
-	public String intakeDelete(Model model, String id, String code, Date intakeDate) {
+	@GetMapping("/intakeDel")
+	public String intakeDelete(Model model, String id, String code, String intakeDate) {
 		int result = myintakeService.delete(new Myintake(id, intakeDate, Integer.parseInt(code)));
 		if (result == 0) {
-			model.addAttribute("data", "삭제되지 않았습니다.");
+			model.addAttribute("data", "0");
 		} else {
-			model.addAttribute("data", "삭제 되었습니다.");
+			model.addAttribute("data", "1");
 		}
 		return "msg";
 	}
@@ -138,7 +136,6 @@ public class MainController {
 	public String wish(Model model, String id) {
 		List<Wish> list = wishService.selectAll(id);
 		List<Food> food = new ArrayList<>();
-		logger.trace("list : " + list);
 		for (Wish i : list) {
 			Food tempFood = foodService.select(i.getCode());
 			food.add(tempFood);
@@ -146,6 +143,27 @@ public class MainController {
 		}
 		model.addAttribute("data", gson.toJson(food));
 		return "msg";
+	}
+	
+	@GetMapping("/wish2")
+	public ResponseEntity<Map<String, Object>> wish2(Model model,String id){
+
+		List<Wish> list = wishService.selectAll(id);
+		List<Food> food = new ArrayList<>();
+		for (Wish i : list) { 
+			Food tempFood = foodService.select(i.getCode());
+			food.add(tempFood);
+		} 
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("data", food);
+		
+		ResponseEntity<Map<String, Object>> ent = null;
+		if(list.size()>0) {
+			ent = new ResponseEntity<Map<String, Object>>(resultMap,HttpStatus.OK);			//200
+		}else {
+			ent = new ResponseEntity<Map<String, Object>>(resultMap,HttpStatus.NO_CONTENT);	//204
+		}
+		return ent;
 	}
 
 	@PostMapping("/wishInsert")
@@ -204,15 +222,24 @@ public class MainController {
 	public ResponseEntity<Map<String, Object>> intakeList(Model model,String id, String startDate, String endDate, Integer page){
 
 		List<Myintake> list = myintakeService.selectPaging(id, startDate.trim()+" 00:00:00", endDate.trim()+" 23:59:59", (page-1)*10);
+		List<Myintake> total = myintakeService.total(id, startDate.trim()+" 00:00:00", endDate.trim()+" 23:59:59");
 		List<Food> food = new ArrayList<>();
+		List<Food> totalFood = new ArrayList<>();
 		for (Myintake i : list) { 
 			Food tempFood = foodService.select(i.getCode());
 			tempFood.setIntakeDate(i.getIntakeDate());
 			food.add(tempFood);
 		} 
+		for (Myintake i : total) { 
+			Food tempFood = foodService.select(i.getCode());
+			tempFood.setIntakeDate(i.getIntakeDate());
+			totalFood.add(tempFood);
+		}
 		Map<String, Object> resultMap = new HashMap<>();
 		resultMap.put("data", food);
-		resultMap.put("maxpage", (myintakeService.total(id, startDate.trim()+" 00:00:00", endDate.trim()+" 23:59:59")-1)/10+1);
+		resultMap.put("totalInfo", totalFood);
+		resultMap.put("totalCnt",total.size());
+		resultMap.put("maxpage", (total.size()-1)/10+1);
 		
 		ResponseEntity<Map<String, Object>> ent = null;
 		if(list.size()>0) {
@@ -278,16 +305,12 @@ public class MainController {
 		Member result = memberService.login(user_id, password);
 		
 		if (result != null) {
-			logger.trace("authority : {}", result.getAuthority());
 			if(result.getAuthority() == 1) {
 				session.setAttribute("admininfo", result);
-				logger.trace("result : {}", result);
 			}
 			else if(result.getAuthority() == 2){
 				session.setAttribute("userInfo", result);
 				List<String> allergy = allergyService.selectId(result.getId());
-				logger.trace("result : {}", result);
-				logger.trace("allergy : {}", allergy);
 				session.setAttribute("allergy", allergy);
 			}
 			

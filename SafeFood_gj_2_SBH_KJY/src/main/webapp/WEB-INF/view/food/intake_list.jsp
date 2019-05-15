@@ -49,6 +49,11 @@
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script type="text/x-template" id="listhrmtemplate">
 <div>
+<div>
+<div class="layerPopUp1 layerPopUp">
+<div class="layerPopUpContent"></div>
+<button class="layerPopUpButton" @click='show_list()'>확인</button>
+</div>
 <div class="dataPlace">
 	<input type="text" id="datepicker1">
 	~
@@ -57,8 +62,9 @@
 </div>
 <div>
 <table class='board_list_table'>
-<col width="17%"><col width="17%"><col width="17%"><col width="17%"><col width="16%"><col width="16%">
+<col width="4%"><col width="16%"><col width="16%"><col width="16%"><col width="16%"><col width="16%"><col width="16%">
 	<tr>
+		<th><input type="checkbox" @click="selectAll" v-model="allSelected"></th>
 		<th>섭취일</th>
 		<th>식품명</th>
 		<th>칼로리</th>
@@ -67,8 +73,9 @@
 		<th>지방</th>
 	</tr>
 	<tr v-for="food in info">
+		<td><input type="checkbox" v-model="foodNos" @click="select" :value="[food.intakeDate,food.code]"></td>
 		<td>{{food.intakeDate|formatDate}}</td>
-		<td v-html="food.name" @click="show_detail(food.code)" ></td>
+		<td v-html="food.name"></td>
 		<td v-html="food.calory"></td>
 		<td v-html="food.carbo"></td>
 		<td v-html="food.protein"></td>
@@ -79,26 +86,32 @@
 <div>
 <div class="pagebox">
 <span @click="changepage(1)" class="page glyphicon glyphicon-backward"></span>
-<span v-show="pagelist[0]!=1" @click="rowpagelist(-5)" class="page glyphicon glyphicon-chevron-left"></span>
 <span @click="changepage(page)" class="page" v-for="page in pagelist" v-bind:class="{curpage:page===curpage}">{{page}}</span>
-<span v-show="pagelist[0]+5<maxpage" @click="rowpagelist(5)" class="page glyphicon glyphicon-chevron-right"></span>
 <span @click="changepage(maxpage)" class="page glyphicon glyphicon glyphicon-forward"></span>
 </div>
 <div class='search_box'>
-	<button @click='show_add()'>삭제</button>
+	<button @click='delete_list()'>삭제</button>
 </div>
 </script>
 <script type="text/javascript">
 google.charts.load('current', {'packages':['corechart']});
 google.charts.setOnLoadCallback(drawVisualization);
-let preList = ['섭취후'];
-let afterList = ['섭취전'];
+let arrayDate = [
+	['영양정보', '칼로리', '탄수화물', '단백질', '지방', '당류', '나트륨', '콜레스테롤', '포화 지방산', '트랜스지방']
+	];
+let intakeDate="";
+let calory=0,carbo=0,protein=0,fat=0,sugar=0,natrium=0,chole=0,fattyacid=0,transfat=0;
+let caloryB=calCalory("${userInfo.gender}",${userInfo.weight},${userInfo.kidney},${userInfo.age},${userInfo.level});
+let carboB=calCarbo("${userInfo.gender}", ${userInfo.age});
+let proteinB=calProtein("${userInfo.gender}", ${userInfo.age});
+let fatB=calFat("${userInfo.gender}", ${userInfo.age});
+let sugarB=calSugar(caloryB);
+let natriumB=1500;
+let choleB=calChole(${userInfo.age});
+let fattyacidB=calFattyacid(${userInfo.age},caloryB);
+let transfatB=calTransfat(caloryB);
 function drawVisualization() {
-	var data = google.visualization.arrayToDataTable([
-		['영양정보', '칼로리', '탄수화물', '단백질', '지방', '당류', '나트륨', '콜레스테롤', '포화 지방산', '트랜스지방'],
-		['섭취전', 90, 80, 110, 90, 110, 90, 60, 90, 100],
-		['섭취후', 100, 100, 120, 100, 130, 100, 80, 110, 120]
-	]);
+	var data = google.visualization.arrayToDataTable(arrayDate);
 	var options = {
 			title : '섭취량 그래프',
 			vAxis: {title: '일일 섭취 권장량(100%)'},
@@ -110,22 +123,6 @@ function drawVisualization() {
 	chart.draw(data, options);
 }
 
-$( document ).ready(function() {
-    $.ajax({
-        url: 'http://localhost:8080/foodwishget', // 요청 할 주소
-        type: 'GET', // GET, PUT
-        data: {
-        	
-   		}, // 전송할 데이터
-		success: function (result) {
-			$.each(result[0], function (key, value) {
-				afterList.push(value);
-			});
-			console.log(list);
-		}, // 요청 완료 시
-        error: function(resTxt) {} // 요청 실패.
-    });
-});
 $(function() {
 	$.datepicker.setDefaults({
         dateFormat: 'yy-mm-dd'
@@ -151,20 +148,58 @@ var listhrm = Vue.component('listhrm',{
     data(){
         return {
           info: [],
+          totalInfo : [],
           loading: true,
           errored: false,
           checkNum : [],
           maxpage:[],
+          totalCnt:[],
           curpage:1,
           pagelist:[],
-          iscurpage:""
+          iscurpage:"",
+          selected: [],
+          allSelected: false,
+          foodNos: []
         }
       },
       methods:{
+    	  show_list:function(){
+  		    window.location.reload();
+  	  	  },
     	  delete_list:function(){
-    		  App.currentview = 'listhrm';
-    		  App.showlist(0);  
+    		  let flag = false;
+    		  for(var no in this.foodNos) {
+    			  console.log(this.foodNos)
+    			  console.log("${userInfo.id}");
+    			  console.log(this.foodNos[no][1]);
+    			  console.log(this.foodNos[no][0]);
+    			  axios.get("<c:url value='/intakeDel' />",{
+    			  		params: {
+    						id : "${userInfo.id}",
+    						code : this.foodNos[no][1],
+    						intakeDate : this.foodNos[no][0]
+    			  		}
+    			  })
+    			  flag = true;
+              }
+    		  if(flag)
+    		  	  layerAlertOpen1("삭제되었습니다.");
+    		  else
+    			  layerAlertOpen1("선택해주세요.");
     	  },
+    	  selectAll: function() {
+	            this.foodNos = [];
+
+	            if (!this.allSelected) {
+	                for (food in this.info) {
+	                    this.foodNos.push([this.info[food].intakeDate,this.info[food].code]);
+	                }
+	                console.log(this.foodNos);
+	            }
+	      },
+	      select: function() {
+	            this.allSelected = false;
+	      },
     	  rowpagelist(interval){
     		  var startpage=this.pagelist[0]+interval;
     		  var endpage=this.pagelist[4]+interval;
@@ -194,8 +229,69 @@ var listhrm = Vue.component('listhrm',{
 			  })
     		  .then(response => {
     			  this.info = response.data.data
-    		  	  this.maxpage=response.data.maxpage;
+    			  this.totalInfo = response.data.totalInfo
+    			  this.totalCnt = response.data.totalCnt
+    		  	  this.maxpage = response.data.maxpage;
     		  	  this.curpage=page;
+    		  	  let temp = [];
+    		  	  arrayDate = [
+    		  		['영양정보', '칼로리', '탄수화물', '단백질', '지방', '당류', '나트륨', '콜레스테롤', '포화 지방산', '트랜스지방']
+    		  		];
+    		  	  intakeDate=this.totalInfo[0].intakeDate.substr(0,10);
+    		  	  calory=0,carbo=0,protein=0,fat=0,sugar=0,natrium=0,chole=0,fattyacid=0,transfat=0;
+    		  	  
+    		  	  for(i=0;i<this.totalCnt;i++){
+    		  		let tempDate = this.totalInfo[i].intakeDate.substr(0,10);
+    		  		
+    		  		if(intakeDate==tempDate){
+    		  			calory+=this.totalInfo[i].calory;
+    		  			carbo+=this.totalInfo[i].carbo;
+    		  			protein+=this.totalInfo[i].protein;
+    		  			fat+=this.totalInfo[i].fat;
+    		  			sugar+=this.totalInfo[i].sugar;
+    		  			natrium+=this.totalInfo[i].natrium;
+    		  			chole+=this.totalInfo[i].chole;
+    		  			fattyacid+=this.totalInfo[i].fattyacid;
+    		  			transfat+=this.totalInfo[i].transfat;
+    		  		}else{
+    		  			temp = [intakeDate,
+    		  				percent(calory,caloryB),
+    		  				percent(carbo,carboB),
+    		  				percent(protein,proteinB),
+    		  				percent(fat,fatB),
+    		  				percent(sugar,sugarB),
+		  					percent(natrium,natriumB),
+ 		  					percent(chole,choleB),
+    		  				percent(fattyacid,fattyacidB),
+    		  				percent(transfat,transfatB)
+							];
+        		  	    arrayDate.push(temp);
+        		  	    temp = [];
+        		  	    intakeDate=tempDate;
+    		  			calory=this.totalInfo[i].calory;
+    		  			carbo=this.totalInfo[i].carbo;
+    		  			protein=this.totalInfo[i].protein;
+    		  			fat=this.totalInfo[i].fat;
+    		  			sugar=this.totalInfo[i].sugar;
+    		  			natrium=this.totalInfo[i].natrium;
+    		  			chole=this.totalInfo[i].chole;
+    		  			fattyacid=this.totalInfo[i].fattyacid;
+    		  			transfat=this.totalInfo[i].transfat;
+    		  		}
+    		  	  }
+		  		  temp = [intakeDate,
+		  				percent(calory,caloryB),
+		  				percent(carbo,carboB),
+		  				percent(protein,proteinB),
+		  				percent(fat,fatB),
+		  				percent(sugar,sugarB),
+	  					percent(natrium,natriumB),
+		  					percent(chole,choleB),
+		  				percent(fattyacid,fattyacidB),
+		  				percent(transfat,transfatB)
+						];
+    		  	  arrayDate.push(temp);
+    		  	  drawVisualization();
     		  }).catch(error => {
     			  console.log(error)
    			  })
@@ -233,16 +329,45 @@ var listhrm = Vue.component('listhrm',{
         axios
           .get("<c:url value='/intake' />",{
 		  		params: {
+		  			page: 1,
 					id : "${userInfo.id}",
 					startDate : getTimeStamp(),
-					endDate : getTimeStamp(),
-					page: 1
+					endDate : getTimeStamp()
 				}
           })
           .then(response => {
-        	  this.info = response.data.data;
-        	  this.maxpage=response.data.maxpage;
-        	  this.changepagelist();
+        	  for(let i=1;i<=response.data.maxpage;i++){
+        		  this.pagelist.push(i);  
+        	  }
+        	  this.info = response.data.data
+			  this.totalInfo = response.data.totalInfo
+			  this.totalCnt = response.data.totalCnt
+		  	  this.maxpage = response.data.maxpage;
+		  	  intakeDate=this.totalInfo[0].intakeDate.substr(0,10);
+		  	  for(i=0;i<this.totalCnt;i++){
+	  			calory+=this.totalInfo[i].calory;
+	  			carbo+=this.totalInfo[i].carbo;
+	  			protein+=this.totalInfo[i].protein;
+	  			fat+=this.totalInfo[i].fat;
+	  			sugar+=this.totalInfo[i].sugar;
+	  			natrium+=this.totalInfo[i].natrium;
+	  			chole+=this.totalInfo[i].chole;
+	  			fattyacid+=this.totalInfo[i].fattyacid;
+	  			transfat+=this.totalInfo[i].transfat;
+		  	  }
+	  		  temp = [intakeDate,
+	  				percent(calory,caloryB),
+	  				percent(carbo,carboB),
+	  				percent(protein,proteinB),
+	  				percent(fat,fatB),
+	  				percent(sugar,sugarB),
+  					percent(natrium,natriumB),
+	  					percent(chole,choleB),
+	  				percent(fattyacid,fattyacidB),
+	  				percent(transfat,transfatB)
+					];
+		  	  arrayDate.push(temp);
+		  	  drawVisualization();
           })
           .catch(error => {
         	  console.log(error)

@@ -13,7 +13,7 @@ public class Member {
 	private Integer weight;
 	private Integer kidney;
 	private String gender;
-	private Integer level;
+	private Double level;
 	private String[] allergy;
 	
 	public Member() {
@@ -30,7 +30,7 @@ public class Member {
 	}
 
 	public Member(String id, String password, String name, String address, String phone, Integer authority, Integer age,
-			Integer weight, Integer kidney, String gender, Integer level, String[] allergy) {
+			Integer weight, Integer kidney, String gender, Double level, String[] allergy) {
 		super();
 		this.id = id;
 		this.password = password;
@@ -136,11 +136,11 @@ public class Member {
 		this.gender = gender;
 	}
 
-	public Integer getLevel() {
+	public Double getLevel() {
 		return level;
 	}
 
-	public void setLevel(Integer level) {
+	public void setLevel(Double level) {
 		this.level = level;
 	}
 

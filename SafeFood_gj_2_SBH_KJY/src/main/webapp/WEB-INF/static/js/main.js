@@ -64,3 +64,79 @@ function leadingZeros(n, digits) {
 	}
 	return zero + n;
 }
+
+function percent(molecule,denominator){
+	return molecule/denominator*100;
+}
+
+function calCalory(gender, weight, kidney, age, level){
+	if(gender == "남성"){
+		return (66+(13.8*weight)+(5*kidney)-(6.8*age))*level;
+	}else{
+		return (655+(9.6*weight)+(1.8*kidney)-(4.7*kidney))*level;
+	}	
+}
+
+function calCarbo(gender, age){
+	if(gender == "남성"){
+		if(age>19)
+			return 410;
+		else
+			return 420;
+	}else{
+		if(age>19)
+			return 330;
+		else
+			return 315;
+	}	
+}
+
+function calProtein(gender, age){
+	if(gender == "남성"){
+		if(age>19)
+			return 55;
+		else
+			return 60;
+	}else{
+		if(age>19)
+			return 50;
+		else
+			return 45;
+	}	
+}
+
+function calFat(gender, age){
+	if(gender == "남성"){
+		if(age>19)
+			return 850;
+		else
+			return 150;
+	}else{
+		if(age>19)
+			return 105;
+		else
+			return 115;
+	}	
+}
+
+function calSugar(calory){
+	return calory*0.1;
+}
+
+function calChole(age){
+	if(age>19)
+		return 300;
+	else
+		return 10;
+}
+
+function calFattyacid(age, calory){
+	if(age>19)
+		return calory*0.07;
+	else
+		return calory*0.08;
+}
+
+function calTransfat(calory){
+		return calory*0.01;
+}

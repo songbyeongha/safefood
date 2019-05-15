@@ -5,7 +5,7 @@ import java.util.Date;
 public class Myintake {
 	private Integer itno;
 	private String id;
-	private Date intakeDate;
+	private String intakeDate;
 	private Integer code;
 	
 	public Myintake() {
@@ -18,7 +18,7 @@ public class Myintake {
 		this.code = code;
 	}
 	
-	public Myintake(String id, Date intakeDate, Integer code) {
+	public Myintake(String id, String intakeDate, Integer code) {
 		super();
 		this.id = id;
 		this.intakeDate = intakeDate;
@@ -41,11 +41,11 @@ public class Myintake {
 		this.id = id;
 	}
 
-	public Date getIntakeDate() {
+	public String getIntakeDate() {
 		return intakeDate;
 	}
 
-	public void setIntakeDate(Date intakeDate) {
+	public void setIntakeDate(String intakeDate) {
 		this.intakeDate = intakeDate;
 	}
 
