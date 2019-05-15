@@ -460,13 +460,11 @@ public class MainController {
 		return "/admin/adminpage";
 	}
 	
-	@GetMapping("/foodwish")
+	@GetMapping("/foodwishget")
 	@ResponseBody
 	public List<Map<String, Object> > wish_form(Model model, HttpSession session) {
 		Member member = (Member) session.getAttribute("userInfo");
-		logger.trace("member : {}", member);
-		List<Map<String, Object> > wish = wishService.selectsum(member.getId());
-		logger.trace("logout: {}", wish);
+		List<Map<String, Object>> wish = wishService.selectsum(member.getId());
 		return wish;
 	}
 }

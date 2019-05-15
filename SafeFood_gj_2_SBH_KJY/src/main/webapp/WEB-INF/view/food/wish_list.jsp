@@ -155,12 +155,14 @@
 	<script type="text/javascript">
 		google.charts.load('current', {'packages':['corechart']});
 		google.charts.setOnLoadCallback(drawVisualization);
-	
-		function drawVisualization() { 
+		let list = ['영양정보'];
+		function drawVisualization() {
+
+			
 			var data = google.visualization.arrayToDataTable([
-					['영양정보', '칼로리', '탄수화물', '단백질', '지방', '당류', '나트륨', '콜레스테롤', '포화 지방산', '트랜스지방'],
-					['영양정보',  165,     938,     522,    98,   450,   614.6,    13.8,     4,        13],
-				]);
+				['영양정보', '칼로리', '탄수화물', '단백질', '지방', '당류', '나트륨', '콜레스테롤', '포화 지방산', '트랜스지방'],
+				list
+			]);
 			var options = {
 					title : '찜목록 섭취그래프',
 					vAxis: {title: '수치'},
@@ -172,5 +174,25 @@
 			var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
 			chart.draw(data, options);
 		}
+		
+		$( document ).ready(function() {
+		    console.log( "데이터를 가져옵시다!" );
+		    $.ajax({
+		        url: 'http://localhost:8080/foodwishget', // 요청 할 주소
+		        type: 'GET', // GET, PUT
+		        data: {
+/* 		            Name: 'ajax',
+		            Age: '10'
+ */		        }, // 전송할 데이터
+				success: function (result) {
+					$.each(result[0], function (key, value) {
+						list.push(value);
+					});
+					console.log(list);
+				}, // 요청 완료 시
+		        error: function(resTxt) {} // 요청 실패.
+		    });
+		});
 	</script>
+	
 	<jsp:include page="/WEB-INF/view/include/footer.jsp"/>
