@@ -9,6 +9,11 @@ public class Member {
 	private String address;
 	private String phone;
 	private Integer authority;
+	private Integer age;
+	private Integer weight;
+	private Integer kidney;
+	private String gender;
+	private Integer level;
 	private String[] allergy;
 	
 	public Member() {
@@ -23,11 +28,9 @@ public class Member {
 		this.address = address;
 		this.phone = phone;
 	}
-	
 
-	
-	
-	public Member(String id, String password, String name, String address, String phone, String[] allergy) {
+	public Member(String id, String password, String name, String address, String phone, Integer authority, Integer age,
+			Integer weight, Integer kidney, String gender, Integer level, String[] allergy) {
 		super();
 		this.id = id;
 		this.password = password;
@@ -35,6 +38,11 @@ public class Member {
 		this.address = address;
 		this.phone = phone;
 		this.authority = authority;
+		this.age = age;
+		this.weight = weight;
+		this.kidney = kidney;
+		this.gender = gender;
+		this.level = level;
 		this.allergy = allergy;
 	}
 
@@ -96,6 +104,46 @@ public class Member {
 		this.authority = authority;
 	}
 
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	public Integer getWeight() {
+		return weight;
+	}
+
+	public void setWeight(Integer weight) {
+		this.weight = weight;
+	}
+
+	public Integer getKidney() {
+		return kidney;
+	}
+
+	public void setKidney(Integer kidney) {
+		this.kidney = kidney;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
+	}
+
 	public String[] getAllergy() {
 		return allergy;
 	}
@@ -107,8 +155,10 @@ public class Member {
 	@Override
 	public String toString() {
 		return "Member [id=" + id + ", password=" + password + ", name=" + name + ", address=" + address + ", phone="
-				+ phone + ", authority=" + authority + ", allergy=" + Arrays.toString(allergy) + "]";
+				+ phone + ", authority=" + authority + ", age=" + age + ", weight=" + weight + ", kidney=" + kidney
+				+ ", gender=" + gender + ", level=" + level + ", allergy=" + Arrays.toString(allergy) + "]";
 	}
+
 
 
 }

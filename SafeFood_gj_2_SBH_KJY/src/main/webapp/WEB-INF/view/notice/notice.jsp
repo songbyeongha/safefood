@@ -45,7 +45,7 @@
 <span @click="changepage(page)" class="page" v-for="page in pagelist" v-bind:class="{curpage:page===curpage}">{{page}}</span>
 <span @click="changepage(maxpage)" class="page glyphicon glyphicon glyphicon-forward"></span>
 </div>
-<c:if test="${!empty userInfo}">
+<c:if test="${!empty admininfo}">
 <div class='search_box'>
 	<button @click='show_add()'>글쓰기</button>
 	<button @click='delete_list()'>삭제</button>
@@ -103,7 +103,7 @@
 			</tr>
 		</table>
 		<div class='search_box'>
-			<c:if test="${!empty userInfo}">
+			<c:if test="${!empty admininfo}">
 			<button @click='modify_list()'>수정</button>
 			</c:if>
 			<button @click='show_list()'>리스트</button>

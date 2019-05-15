@@ -20,11 +20,11 @@
 	</select>
 	
 	<insert id="insertMember" parameterType="member">
-		insert into userinfo(id, password, name, address, phone) values(#{id}, #{password}, #{name}, #{address}, #{phone})
+		insert into userinfo(id, password, name, address, phone, age, weight, kidney, gender, level) values(#{id}, #{password}, #{name}, #{address}, #{phone}, #{age}, #{weight}, #{kidney}, #{gender}, #{level})
 	</insert>
 	
 	<update id="updateMember" parameterType="member">
-		update userinfo set password=#{password}, name=#{name}, address=#{address}, phone=#{phone} where id=#{id}
+		update userinfo set password=#{password}, name=#{name}, address=#{address}, phone=#{phone}, age=#{age}, weight=#{weight}, kidney=#{kidney}, gender=#{gender}, level=#{level} where id=#{id}
 	</update>
 	
 	<delete id="deleteMember" parameterType="String">

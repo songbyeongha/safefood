@@ -287,12 +287,21 @@ public class MainController {
 	public String login(Model model, String user_id, String password, HttpServletResponse res, HttpSession session) {
 
 		Member result = memberService.login(user_id, password);
+		
 		if (result != null) {
-			session.setAttribute("userInfo", result);
-			List<String> allergy = allergyService.selectId(result.getId());
+			logger.trace("authority : {}", result.getAuthority());
+			if(result.getAuthority() == 1) {
+				session.setAttribute("admininfo", result);
+				logger.trace("result : {}", result);
+			}
+			else if(result.getAuthority() == 2){
+				session.setAttribute("userInfo", result);
+				List<String> allergy = allergyService.selectId(result.getId());
+				logger.trace("result : {}", result);
+				logger.trace("allergy : {}", allergy);
+				session.setAttribute("allergy", allergy);
+			}
 			
-			logger.trace("allergy : {}", allergy);
-			session.setAttribute("allergy", allergy);
 		} else {
 			return "redirect:loginfail";
 		}

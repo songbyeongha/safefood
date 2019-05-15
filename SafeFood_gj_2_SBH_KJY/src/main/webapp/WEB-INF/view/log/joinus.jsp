@@ -78,9 +78,17 @@ $(function(){
     	});
     	
     });
+    $(".checkbox").click(function(){
+
+    	//체크했다면 자신을 제외한 다른 체크를 해제
+
+    	if($(this).attr('checked')) $(".checkbox").not(this).attr('checked','');
+
+    	});
 
 });	
 </script>
+
 <style>
 	.checkbox-inline+.checkbox-inline, .radio-inline+.radio-inline{
 	    margin-left: 0px;
@@ -126,6 +134,30 @@ $(function(){
                     <label for="inputPhone">전화번호</label>
                     <input type="tel" class="form-control" id="inputPhone" placeholder="010-xxxx-xxxx" name="phone">
                 </div>
+                <div class="form-group">
+                    <label for="inputPhone">나이</label>
+                    <input type="tel" class="form-control" id="inputPhone" placeholder="ex) 26" name="age">
+                </div>
+                <div class="form-group">
+                    <label for="inputPhone">체중</label>
+                    <input type="tel" class="form-control" id="inputPhone" placeholder="ex) 78" name="weight">
+                </div>
+                <div class="form-group">
+                    <label for="inputPhone">키</label>
+                    <input type="tel" class="form-control" id="inputPhone" placeholder="ex) 192" name="kidney">
+                </div>
+                <div class="form-group">
+                    <label for="inputPhone">성별</label>
+                    <fieldset>
+                    	<label class="checkbox-inline "><input type="checkbox" id="genbox1" value="남성" name="gender">남성</label>
+                    	<label class="checkbox-inline "><input type="checkbox" id="genbox2" value="여성" name="gender">여성</label>
+                    </fieldset>
+                </div>
+                <div class="form-group">
+                    <label for="inputPhone">활동레벨</label>
+                    <input type="tel" class="form-control" id="inputPhone" placeholder="ex) 40" name="level">
+                </div>
+                
 				<div class="form-group">
                     <label for="inputAllergy">알레르기</label>
                     <fieldset>
