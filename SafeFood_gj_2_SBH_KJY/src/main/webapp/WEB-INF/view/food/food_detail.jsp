@@ -194,13 +194,13 @@ body .frame .content h1 {
 			<div class="container">
 				<div id="graph">
 					<!-- 그래프 들어갈 부분 -->
-					<div class="frame col-lg-10">
+					<div class="frame col-lg-9">
 						<div class="content">
 							<h1>Nutrition Information</h1>
 							<svg id="svg"></svg>
 						</div>
 					</div>
-					<div id="calorie_detail" class="col-lg-2">
+					<div id="calorie_detail" class="col-lg-3">
 						<table>
 							<tr>
 								<td><label>일일 제공량</label></td>

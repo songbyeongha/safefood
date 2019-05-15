@@ -632,6 +632,12 @@ section .section-title {
 .dataPlace input{
     text-indent: 4px;
 }
+#chart_div{
+	width:50%;
+	height:500px;
+}
+
+
 @media ( max-width : 1650px) {
 	.productWrapper .bhProductContent{
 		width: 21%;
@@ -644,10 +650,16 @@ section .section-title {
 	.basket{
 		display: none;
 	}
+	#chart_div{
+		width:80%;
+	}
 }
 @media ( max-width : 850px) {
 	.productWrapper .bhProductContent{
 		width: 35%;
+	}
+	#chart_div{
+		width:90%;
 	}
 }
 @media ( max-width : 600px) {
@@ -655,3 +667,4 @@ section .section-title {
 		width: 51%;
 	}
 }
+

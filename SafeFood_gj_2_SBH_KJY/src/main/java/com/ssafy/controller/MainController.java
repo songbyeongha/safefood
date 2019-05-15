@@ -105,31 +105,20 @@ public class MainController {
 		String str = gson.toJson(foodService.select(Integer.parseInt(code)));
 		model.addAttribute("data", str);
 		return "msg";
-	}
-
-	
-//	@GetMapping("/intake")
-//	public String intake(Model model, String id) {
-//		List<Myintake> list = myintakeService.selectAll(id);
-//		List<Food> food = new ArrayList<>(); logger.trace("list : " + list);
-//		for (Myintake i : list) { 
-//			Food tempFood = foodService.select(i.getCode());
-//			tempFood.setIntakeDate(i.getIntakeDate());
-//			food.add(tempFood);
-//		} 
-//		model.addAttribute("data", gson.toJson(food));
-//		return "msg"; 
-//	}
-	 
+	} 
 
 	@PostMapping("/intakeInsert")
 	public String intakeInsert(Model model, String id, String code) {
 		logger.trace("asdfasdf : " + id + ", code : " + code);
+		Food food = foodService.select(Integer.parseInt(code));
+		
 		int result = myintakeService.insert(new Myintake(id, Integer.parseInt(code)));
 		if (result == -1) {
-			model.addAttribute("data", "이미 추가 되었습니다.");
+			model.addAttribute("data", "식품이 섭취되지 않았습니다.");
 		} else {
-			model.addAttribute("data", "추가 되었습니다.");
+			food.setBestCount(food.getBestCount()+1);
+			foodService.updateFood(food);
+			model.addAttribute("data", "섭취 성공");
 		}
 		return "msg";
 	}
