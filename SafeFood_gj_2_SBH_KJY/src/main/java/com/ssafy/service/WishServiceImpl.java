@@ -1,14 +1,13 @@
 package com.ssafy.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ssafy.dto.Myintake;
 import com.ssafy.dto.Wish;
-import com.ssafy.repository.MyintakeMapper;
 import com.ssafy.repository.WishMapper;
 
 @Service
@@ -42,6 +41,8 @@ public class WishServiceImpl implements WishService{
 		return mapper.selectAll(id);
 	}
 
-
-
+	@Override
+	public List<Map<String, Object> > selectsum(String id) {
+		return mapper.selectsum(id);
+	}
 }

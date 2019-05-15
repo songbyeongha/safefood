@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -458,6 +459,13 @@ public class MainController {
 		return "/admin/adminpage";
 	}
 	
-	
-	
+	@GetMapping("/foodwish")
+	@ResponseBody
+	public List<Map<String, Object> > wish_form(Model model, HttpSession session) {
+		Member member = (Member) session.getAttribute("userInfo");
+		logger.trace("member : {}", member);
+		List<Map<String, Object> > wish = wishService.selectsum(member.getId());
+		logger.trace("logout: {}", wish);
+		return wish;
+	}
 }

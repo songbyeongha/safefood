@@ -174,11 +174,7 @@ body .frame .content h1 {
 	</div>
 	<div class="container">
 
-		<div id="quantity">
-			<h5>Quantity</h5>
-			<input type="number" name="val" id="quantity" value="1">
-
-		</div>
+	
 		<div id="nav">
 			<nav id="menu_bar">
 				<button type='button' class='btn btn-info intakeButton' code-data="${param.code}">추가</button>

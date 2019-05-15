@@ -4,19 +4,31 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.repository.WishMapper">
 	<select id="selectAll" resultType="wish">
-		select * from wish where id=#{id}
+		select * from wish where
+		id=#{id}
 	</select>
 
 	<select id="select" resultType="wish" parameterType="wish">
-		select * from wish where id=#{id} and code=#{code}
+		select *
+		from wish where id=#{id} and code=#{code}
 	</select>
 
 	<insert id="insert" parameterType="wish">
-		insert into wish (id, code) values(#{id},#{code})
+		insert into wish (id, code)
+		values(#{id},#{code})
 	</insert>
 
 	<delete id="delete" parameterType="wish">
-		delete from wish where id=#{id} and code=#{code}
+		delete from wish where
+		id=#{id} and code=#{code}
 	</delete>
-
+	<select id="selectsum" resultType="map" parameterType="string">
+		select sum(food.calory), sum(food.carbo), sum(food.protein),
+		sum(food.fat),
+		sum(sugar), sum(food.natrium), sum(food.chole), sum(food.fattyacid),
+		sum(food.transfat)
+		from wish, food
+		where wish.code = food.code
+		and id=#{id};
+	</select>
 </mapper>
