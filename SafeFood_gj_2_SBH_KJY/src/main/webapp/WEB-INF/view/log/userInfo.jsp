@@ -31,6 +31,11 @@ $(function(){
 			}
 		}
 	});
+	
+
+	$("input[name=gender]").each(function(){
+		$(this).attr("checked", "checked");
+	});
 });
 </script>
 	<article class="container">
@@ -65,26 +70,26 @@ $(function(){
                 </div>
                 <div class="form-group">
                     <label for="inputPhone">나이</label>
-                    <input type="tel" class="form-control" id="inputPhone" placeholder="ex) 26" name="age" value="${userInfo.age }">
+                    <input type="tel" class="form-control" id="inputPhone" placeholder="ex) 26" name="age" value="${userInfo.age }" disabled="disabled"> 
                 </div>
                 <div class="form-group">
                     <label for="inputPhone">체중</label>
-                    <input type="tel" class="form-control" id="inputPhone" placeholder="ex) 78" name="weight" value="${userInfo.weight }">
+                    <input type="tel" class="form-control" id="inputPhone" placeholder="ex) 78" name="weight" value="${userInfo.weight }" disabled="disabled">
                 </div>
                 <div class="form-group">
                     <label for="inputPhone">키</label>
-                    <input type="tel" class="form-control" id="inputPhone" placeholder="ex) 192" name="kidney">
+                    <input type="tel" class="form-control" id="inputPhone" placeholder="ex) 192" name="kidney" value="${userInfo.kidney }" disabled="disabled">
                 </div>
                 <div class="form-group">
                     <label for="inputPhone">성별</label>
                     <fieldset>
-                    	<label class="checkbox-inline "><input type="checkbox" id="genbox1" value="남성" name="gender">남성</label>
-                    	<label class="checkbox-inline "><input type="checkbox" id="genbox2" value="여성" name="gender">여성</label>
+                    	<label class="checkbox-inline "><input type="checkbox" id="genbox1" value="남성" name="gender" disabled="disabled">남성</label>
+                    	<label class="checkbox-inline "><input type="checkbox" id="genbox2" value="여성" name="gender" disabled="disabled">여성</label>
                     </fieldset>
                 </div>
                 <div class="form-group">
                     <label for="inputPhone">활동레벨</label>
-                    <input type="tel" class="form-control" id="inputPhone" placeholder="ex) 40" name="level">
+                    <input type="tel" class="form-control" id="inputPhone" placeholder="ex) 40" name="level" value="${userInfo.level }" disabled="disabled">
                 </div>
 				 <div class="form-group">
                     <fieldset>
