@@ -433,11 +433,11 @@ public class MainController {
 			session.setAttribute("userInfo", member);
 		
 			logger.trace("김준영 1 {}", loginUser);
-			return "admin/adminpage";
+			return "/admin/adminpage";
 		} else {
 			// 쿠키가 없다? --> 로그인 필요. --> 폼 제공 --> TODO 15
 			logger.trace("김준영 2 {}", loginUser);
-			return "admin/adminlog";
+			return "/admin/adminlog";
 		}
 	}
 
@@ -446,14 +446,14 @@ public class MainController {
 
 		Member result = memberService.login(user_id, password);
 		if (result != null) {
-			session.setAttribute("userInfo", result);
+			session.setAttribute("adminInfo", result);
+			logger.trace("result : {}", result);
 		} else {
 			return "redirect:loginfail";
 		}
 		return "redirect:/adminpage";
 	}
 
-	
 	@GetMapping("/adminpage")
 	public String adminpageForm(Model model) {
 		return "/admin/adminpage";
