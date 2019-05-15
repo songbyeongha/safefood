@@ -60,6 +60,21 @@ public class MainController {
 		model.addAttribute("data", str);
 		return "msg";
 	}
+	
+	@GetMapping("/bestSearch")
+	public String bestSearch(Model model) {
+		String str = gson.toJson(foodService.bestSelect());
+		model.addAttribute("data", str);
+		return "msg";
+	}
+	
+	@PostMapping("/bestUp")
+	public String bestUp(Model model, Food food) {
+		food.setBestCount(food.getBestCount()+1);
+		String str = gson.toJson(foodService.updateFood(food));
+		model.addAttribute("data", str);
+		return "msg";
+	}
 
 	@GetMapping("/search")
 	public String foodSearch(Model model, String select, String input) {

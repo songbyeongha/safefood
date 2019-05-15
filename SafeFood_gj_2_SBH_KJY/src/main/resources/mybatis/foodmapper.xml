@@ -7,6 +7,10 @@
 		select * from food
 	</select>
 	
+	<select id="bestSelect" resultType="food">
+		select * from food order by best_count desc limit 0,12;
+	</select>
+	
 	<select id="select" resultType="food" parameterType="Integer">
 		select * from food where code=#{code}
 	</select>

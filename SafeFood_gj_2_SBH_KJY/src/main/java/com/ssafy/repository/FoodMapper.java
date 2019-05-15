@@ -9,6 +9,7 @@ import com.ssafy.dto.Food;
 @Mapper 
 public interface FoodMapper {
 	public List<Food> selectAll();
+	public List<Food> bestSelect();
 	public Food select(int code);
 	public List<Food> selectByName(String name);
 	public List<Food> selectByMaker(String maker);
