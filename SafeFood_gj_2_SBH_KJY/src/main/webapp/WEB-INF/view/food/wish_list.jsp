@@ -148,27 +148,28 @@
 	<h1>찜 목록</h1>
 
 <div id="productPlace" class="container"></div>
-<div id="chart_div" style="width:900px; height: 500px;" class="container"></div>
-		<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<div id="chart_div" class="container"></div>
+	<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 	<title>Insert title here</title>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script type="text/javascript">
 		google.charts.load('current', {'packages':['corechart']});
 		google.charts.setOnLoadCallback(drawVisualization);
-		let list = ['영양정보'];
+		let preList = ['섭취후'];
+		let afterList = ['섭취전'];
 		function drawVisualization() {
 
 			
 			var data = google.visualization.arrayToDataTable([
 				['영양정보', '칼로리', '탄수화물', '단백질', '지방', '당류', '나트륨', '콜레스테롤', '포화 지방산', '트랜스지방'],
-				list
+				['섭취전', 90, 80, 110, 90, 110, 90, 60, 90, 100],
+				['섭취후', 100, 100, 120, 100, 130, 100, 80, 110, 120]
 			]);
 			var options = {
-					title : '찜목록 섭취그래프',
-					vAxis: {title: '수치'},
+					title : '일일 섭취량 예상 그래프',
+					vAxis: {title: '일일 섭취 권장량(100%)'},
 					hAxis: {title: '종류'}, 
-					seriesType: 'bars',
-					series: {5: {type: 'line'}}
+					seriesType: 'bars'
 				};
 			
 			var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
@@ -176,7 +177,6 @@
 		}
 		
 		$( document ).ready(function() {
-		    console.log( "데이터를 가져옵시다!" );
 		    $.ajax({
 		        url: 'http://localhost:8080/foodwishget', // 요청 할 주소
 		        type: 'GET', // GET, PUT
@@ -186,7 +186,7 @@
  */		        }, // 전송할 데이터
 				success: function (result) {
 					$.each(result[0], function (key, value) {
-						list.push(value);
+						afterList.push(value);
 					});
 					console.log(list);
 				}, // 요청 완료 시

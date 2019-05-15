@@ -40,6 +40,10 @@
 	</div>
 	<component v-bind:is="currentview"></component>
 </div>
+<div id="chart_div" class="container"></div>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="https://unpkg.com/vue"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
@@ -85,6 +89,43 @@
 </div>
 </script>
 <script type="text/javascript">
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawVisualization);
+let preList = ['섭취후'];
+let afterList = ['섭취전'];
+function drawVisualization() {
+	var data = google.visualization.arrayToDataTable([
+		['영양정보', '칼로리', '탄수화물', '단백질', '지방', '당류', '나트륨', '콜레스테롤', '포화 지방산', '트랜스지방'],
+		['섭취전', 90, 80, 110, 90, 110, 90, 60, 90, 100],
+		['섭취후', 100, 100, 120, 100, 130, 100, 80, 110, 120]
+	]);
+	var options = {
+			title : '섭취량 그래프',
+			vAxis: {title: '일일 섭취 권장량(100%)'},
+			hAxis: {title: '날짜'}, 
+			seriesType: 'line'
+		};
+	
+	var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+	chart.draw(data, options);
+}
+
+$( document ).ready(function() {
+    $.ajax({
+        url: 'http://localhost:8080/foodwishget', // 요청 할 주소
+        type: 'GET', // GET, PUT
+        data: {
+        	
+   		}, // 전송할 데이터
+		success: function (result) {
+			$.each(result[0], function (key, value) {
+				afterList.push(value);
+			});
+			console.log(list);
+		}, // 요청 완료 시
+        error: function(resTxt) {} // 요청 실패.
+    });
+});
 $(function() {
 	$.datepicker.setDefaults({
         dateFormat: 'yy-mm-dd'
@@ -120,18 +161,7 @@ var listhrm = Vue.component('listhrm',{
         }
       },
       methods:{
-    	  /* show_detail:function(boardId){
-    		  App.qnaId=boardId; 
-    		  App.currentview = 'detailhrm';
-    		  App.showlist(3);
-    	  },
-    	  show_add:function(){
-    		  App.currentview = 'addhrm';
-    		  App.showlist(1);
-    	  } */
     	  delete_list:function(){
-    		  
-    		  //this.checkNum
     		  App.currentview = 'listhrm';
     		  App.showlist(0);  
     	  },
@@ -227,20 +257,14 @@ var App=new Vue({
 		currenttitle:'섭취정보',
 		qnaId:'',
 		currentview: 'listhrm',
-		   allviews:['listhrm','addhrm','modifyhrm','detailhrm'],
-		   cutt:['게시판>리스트','게시판>글쓰기','게시판>수정','게시판>보기']
+		   allviews:['listhrm']
 	},
 	components: {
-		//addhrm: addhrm,
-		//idhrm: idhrm,
-		//namehrm: namehrm,
-		listhrm: listhrm,
-		//detailhrm: detailhrm
+		listhrm: listhrm
 	},
 	methods:{
 	 	showlist: function(val) {
 	 		this.currentview=this.allviews[val];
-	 		this.currenttitle=this.cutt[val];
 	    }
 	}
 })
