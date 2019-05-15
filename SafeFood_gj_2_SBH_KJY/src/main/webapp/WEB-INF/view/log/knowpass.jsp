@@ -28,12 +28,13 @@
 		
 			<div class="w3-container w3-card-4">
 				<div class="w3-center w3-large w3-margin-top">
-					<h3>비밀번호 찾기</h3>
+					<h3 class="article-title">비밀번호 찾기</h3>
 				</div>
 				
 				<br>
-				<h2>비밀번호 : ${password }</h2>
-				
+				<center>
+				<h3 class="article-title">${password }</h3>
+				</center>
 				<br>
 			</div>
 	

@@ -97,6 +97,7 @@ $(function(){
 		margin-top:10px;
 	}
 </style>
+
 	<article class="container">
         <div>
             <div class="col-md-6 col-md-offset-3">
@@ -156,6 +157,9 @@ $(function(){
                 <div class="form-group">
                     <label for="inputPhone">활동레벨</label>
                     <input type="tel" class="form-control" id="inputPhone" placeholder="ex) 40" name="level">
+                	BMR x 1.4 비활동적인 남녀<br>
+					BMR x 1.6 어느 정도 활동적인 여성/ 남자의 경우에는 1.7<br>
+					BMR x 1.8 매우 활동적인 여성/ 남자의 경우에는 1.9
                 </div>
                 
 				<div class="form-group">
@@ -193,6 +197,7 @@ $(function(){
                 </div>
             </form>
         </div>
+
 
     </article>
 <jsp:include page="/WEB-INF/view/include/footer.jsp"/>
