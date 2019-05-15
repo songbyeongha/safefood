@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.ssafy.dto.Member;
+
 @Component
 public class AdminInterceptor extends HandlerInterceptorAdapter {
 	private static final Logger logger = LoggerFactory.getLogger(AdminInterceptor.class);
@@ -17,9 +19,9 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		boolean adminFlag = false;
-		System.out.println("admin interceptor");
-		
-		if(request.getSession().getAttribute("userInfo") != null && (Integer)request.getSession().getAttribute("authority") == 1) {
+		Member member = (Member) request.getSession().getAttribute("adminInfo");
+		logger.trace("admin : {}", member);
+		if(request.getSession().getAttribute("adminInfo") != null && member.getAuthority() == 1) {
 			System.out.println("세션 인증!!");
 			adminFlag = true;
 		}

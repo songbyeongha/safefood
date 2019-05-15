@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.ssafy.dto.Member;
+
 @Component
 public class SessionInterceptor extends HandlerInterceptorAdapter {
 	private static final Logger logger = LoggerFactory.getLogger(SessionInterceptor.class);
@@ -18,13 +20,16 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 			throws Exception {
 		boolean userFlag = false;
 		System.out.println("page interceptor");
-		
-		if(request.getSession().getAttribute("userInfo") != null) {
+		Member member = (Member) request.getSession().getAttribute("userInfo");
+		System.out.println("page : " + " "+(Integer)request.getSession().getAttribute("authority"));
+		if(request.getSession().getAttribute("userInfo") != null && member.getAuthority() == 2) {
+			logger.trace("page : {}", (Integer)request.getSession().getAttribute("authority"));
 			System.out.println("세션 인증!!");
 			userFlag = true;
 		}
 		else {
 			System.out.println("no session");
+			logger.trace("page : {}", (Integer)request.getSession().getAttribute("authority"));
 			response.sendRedirect(request.getContextPath()+"/index.jsp");
 			
 			userFlag = false;

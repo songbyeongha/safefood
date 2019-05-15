@@ -7,7 +7,22 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div class="container">
+<div class="card card-cascade wider reverse">
+
+  <!-- Card image -->
+  <div class="view view-cascade overlay">
+    <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Slides/img%20(70).jpg" alt="Card image cap">
+    <a href="#!">
+      <div class="mask rgba-white-slight"></div>
+    </a>
+  </div>
+
+  <!-- Card content -->
+  <div class="card-body card-body-cascade text-center">
+
+    <!-- Title -->
+    <h4 class="card-title"><strong>My adventure</strong></h4>
+    <div class="container">
 		<div>
 			<div class="col-md-6 col-md-offset-3">
 				<h3>LOGIN</h3>
@@ -38,6 +53,12 @@
 					찾기</a></span>
 		</form>
 	</div>
+    
+
+  </div>
+
+</div>
+
 </body>
 
 <script>

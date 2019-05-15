@@ -13,10 +13,10 @@
 		<mvc:mapping path="/food/food_detail.jsp"/>
 		<bean class="com.ssafy.intercepter.SessionInterceptor" />
 	</mvc:interceptor>
-	  <mvc:interceptor>
-   <mvc:mapping path="/admin/adminpage"/>
-   <bean class="com.ssafy.intercepter.AdminInterceptor" />
-  </mvc:interceptor>
+	 <mvc:interceptor>
+   		<mvc:mapping path="/admin/adminpage.jsp"/>
+   		<bean class="com.ssafy.intercepter.AdminInterceptor" />
+ 	 </mvc:interceptor>
 </mvc:interceptors>
 
 </beans>
