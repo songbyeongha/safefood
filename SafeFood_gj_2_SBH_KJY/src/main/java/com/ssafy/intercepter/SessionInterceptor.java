@@ -22,7 +22,7 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 		System.out.println("page interceptor");
 		Member member = (Member) request.getSession().getAttribute("userInfo");
 		System.out.println("page : " + " "+(Integer)request.getSession().getAttribute("authority"));
-		if(request.getSession().getAttribute("userInfo") != null && member.getAuthority() == 2) {
+		if(request.getSession().getAttribute("userInfo") != null) {
 			logger.trace("page : {}", (Integer)request.getSession().getAttribute("authority"));
 			System.out.println("세션 인증!!");
 			userFlag = true;
