@@ -64,5 +64,11 @@ public class FoodServiceImpl implements FoodService{
 		return mapper.deleteFood(code);
 	}
 
+	@Override
+	public List<Food> bestSelect() {
+		// TODO Auto-generated method stub
+		return mapper.bestSelect();
+	}
+
 
 }
