@@ -6,7 +6,11 @@
 	<select id="selectAll" resultType="myintake">
 		select * from myintake where id=#{id}
 	</select>
-
+	
+	<select id="total" resultType="Integer">
+		select count(*) from myintake where intake_date between #{startDate} and #{endDate} and id=#{id}
+	</select>
+	
 	<select id="select" resultType="myintake" parameterType="String">
 		select * from myintake where id=#{id} and code=#{code}
 	</select>

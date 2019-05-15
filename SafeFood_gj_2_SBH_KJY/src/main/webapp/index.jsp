@@ -8,6 +8,13 @@
 <jsp:include page="/WEB-INF/view/include/header.jsp" />
 
 <style>
+	h1{
+	    background: #213242;
+	    padding: 40px;
+	    margin: 0;
+	    color: #fff;
+	    text-shadow: 1px 1px 3px #000000;
+	}
 	.contentButton{
 	    bottom: 15px;
 	}/* 
@@ -39,7 +46,7 @@
 					let material = item.material;
 					let image = item.img;
 					let str = "";
-					if (idx < 10) {
+					if (idx < 12) {
 						str += "<div class='bhProductContent'>";
 						str += "<div class='ProductImgCover'></div>"
 						//"+ maker + "
@@ -141,7 +148,10 @@
         </div>
     </div>
     <div class="search"></div>
-    <div id="productPlace" class="productWrapper"></div>
+    <h1>베스트 식품</h1>
+    <div id="productPlace" class="productWrapper">
+    
+    </div>
    	<c:url value="/static/images/basket.png" var="basket"/>
     <c:if test="${!empty userInfo}">
     	<img class='basket' src="${basket }"  id="${userInfo.id}" ondragenter="return false;" ondragover="return false;" ondrop="onDrop(this,event)" onclick="layerAlertOpen('상품을 드래그해서 넣어주세요')"/>

@@ -16,20 +16,24 @@
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script type="text/x-template" id="listhrmtemplate">
 <div>
+<div class="layerPopUp1 layerPopUp">
+<div class="layerPopUpContent"></div>
+<button class="layerPopUpButton" @click='show_list1()'>확인</button>
+</div>
 <div>
 <table class='board_list_table'>
-<col width="3%"><col width="70%">
-<col width="10%"><col width="10%"><col width="7%">
+<col width="3%"><col width="50%">
+<col width="20%"><col width="20%"><col width="7%">
 <tr>
-  <th><input type="checkbox"></th>
+  <th><input type="checkbox" @click="selectAll" v-model="allSelected"></th>
   <th>제목</th>
   <th>글쓴이</th>
   <th>등록일</th>
   <th>조회수</th>
 </tr>
 <tr v-for="board in info">
-  <td><input type="checkbox"></td>
-  <td v-html="board.title" @click="show_detail(board.qno)" ></td>
+  <td><input type="checkbox" v-model="boardNos" @click="select" :value="board.qno"></td>
+  <td v-html="board.title" @click="show_detail(board.qno)" class="table_title"></td>
   <td v-html="board.writer"></td>
   <td>{{board.inDate|formatDate}}</td>
   <td>{{ board.hit }}</td>
@@ -38,15 +42,15 @@
 </div>
 <div class="pagebox">
 <span @click="changepage(1)" class="page glyphicon glyphicon-backward"></span>
-<span v-show="pagelist[0]!=1" @click="rowpagelist(-5)" class="page glyphicon glyphicon-chevron-left"></span>
 <span @click="changepage(page)" class="page" v-for="page in pagelist" v-bind:class="{curpage:page===curpage}">{{page}}</span>
-<span v-show="pagelist[0]+5<maxpage" @click="rowpagelist(5)" class="page glyphicon glyphicon-chevron-right"></span>
 <span @click="changepage(maxpage)" class="page glyphicon glyphicon glyphicon-forward"></span>
 </div>
+<c:if test="${!empty userInfo}">
 <div class='search_box'>
 	<button @click='show_add()'>글쓰기</button>
 	<button @click='delete_list()'>삭제</button>
 </div>
+</c:if>
 </script>
 
 <script type="text/x-template" id="addhrmtemplate">
@@ -72,7 +76,7 @@
 </tr>
 </table>
 <div class='search_box'>
-<button type="submit" name="button" @click='show_list()'>확인</button>
+<button type="submit" name="button">확인</button>
 <button @click='show_list()'>취소</button>
 </div>
 </form>
@@ -80,9 +84,7 @@
 </div>
 
 </script>
-<script>
-	
-</script>
+
 <script type="text/x-template" id="detailtemplate">
 <div>
 	<div>
@@ -93,15 +95,50 @@
 			</colgroup>	
 			<tr>
 				<th>제목</th>
-				<td v-text="board.title"></td>
+				<td v-text="board.title" class="detailTitle"></td>
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td v-text="board.content"></td>
+				<td v-text="board.content" class="detailContent"></td>
 			</tr>
 		</table>
 		<div class='search_box'>
+			<c:if test="${!empty userInfo}">
+			<button @click='modify_list()'>수정</button>
+			</c:if>
 			<button @click='show_list()'>리스트</button>
+		</div>
+	</div>
+</div>
+</script>
+<script type="text/x-template" id="modifytemplate">
+<div>
+	<div class="layerPopUp1 layerPopUp">
+		<div class="layerPopUpContent"></div>
+		<button class="layerPopUpButton" @click='show_list()'>확인</button>
+	</div>
+	<div>
+		<table class="board_list_table">
+			<colgroup>
+				<col style="width:10%;" />
+				<col style="width:90%;" />	
+			</colgroup>	
+			<tr>
+				<th>제목</th>
+				<td class="detailTitle">
+					<input data-msg="제목" type="text" name="title" id="_title" size="30" v-model="ctitle"/>
+				</td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td class="detailContent">
+					<textarea data-msg="내용" name="content" v-model="content"></textarea>
+				</td>
+			</tr>
+		</table>
+		<div class='search_box'>
+			<button @click='modify()'>확인</button>
+			<button @click='show_list()'>취소</button>
 		</div>
 	</div>
 </div>
@@ -118,11 +155,15 @@ var listhrm = Vue.component('listhrm',{
           maxpage:[],
           curpage:1,
           pagelist:[],
-          iscurpage:""
+          iscurpage:"",
+          selected: [],
+          allSelected: false,
+          boardNos: []
         }
       },
       methods:{
     	  show_detail:function(boardId){
+    		  axios.put('http://localhost:9090/api/boards/hit/'+boardId)
     		  App.qnaId=boardId; 
     		  App.currentview = 'detailhrm';
     		  App.showlist(3);
@@ -132,10 +173,17 @@ var listhrm = Vue.component('listhrm',{
     		  App.showlist(1);
     	  },
     	  delete_list:function(){
-    		  
-    		  //this.checkNum
+    		  let flag = false;
+    		  for(var no in this.boardNos) {
+    			  axios.delete('http://localhost:9090/api/boards/'+this.boardNos[no])
+    			  flag = true;
+              }
+    		  if(flag)
+    		  	  layerAlertOpen1("삭제되었습니다.");
+    		  else
+    			  layerAlertOpen1("선택해주세요.");
     		  App.currentview = 'listhrm';
-    		  App.showlist(0);  
+    		  App.showlist(0); 
     	  },
     	  rowpagelist(interval){
     		  var startpage=this.pagelist[0]+interval;
@@ -172,7 +220,7 @@ var listhrm = Vue.component('listhrm',{
 			  this.pagelist=[];
 			  var startpage=this.curpage-2;
 			  var endpage=this.curpage+2;
-
+			  
 			  for(var ii=startpage;ii<=endpage;ii++){
 			  	if(ii<=0){
 			  		endpage++;
@@ -186,7 +234,22 @@ var listhrm = Vue.component('listhrm',{
 			  		this.pagelist.push(i);
 			 	} 
 			  }
-		  }		  
+		  },
+		  selectAll: function() {
+	            this.boardNos = [];
+
+	            if (!this.allSelected) {
+	                for (board in this.info) {
+	                    this.boardNos.push(this.info[board].qno);
+	                }
+	            }
+	      },
+	      select: function() {
+	            this.allSelected = false;
+	      },
+	      show_list1:function(){
+    		    window.location.reload();
+    	  }
       },
       filters: {
     	  formatDate(value) {
@@ -210,48 +273,6 @@ var listhrm = Vue.component('listhrm',{
           })
       }
 });
-/*var idhrm = Vue.component('idhrm',{
-    template: '#idhrmtemplate',
-    data () {
-        return {
-          info: [],
-          loading: true,
-          errored: false ,
-          cid:'',
-          cemp:{}
-        }
-      },
-      filters: {
-    	   salarydecimal (value) {
-          return value.toFixed(2)
-        }
-      }, 
-      mounted () {
-        axios
-          .get('http://localhost:8197/ssafyvue/api/findAllEmployees')
-           //.get('./emp.json')
-          .then(response => (this.info = response.data))
-          .catch(error => {
-            console.log(error)
-            this.errored = true
-          })
-          .finally(() => this.loading = false);
-      },
-      methods: {
-    	   findbyid() {
-    		   axios
-    		    .get('http://localhost:8197/ssafyvue/api/findEmployeeById/'+this.cid)
-    		     //.get('./emp.json')
-    		    .then(response => (this.cemp = response.data))
-    		    .catch(error => {
-    		      console.log(error)
-    		      this.errored = true
-    		    })
-    		    .finally(() => this.loading = false);
-    	   }
-      }
-});
-*/
 var detailhrm = Vue.component('detailhrm',{
     template: '#detailtemplate',
     data () {
@@ -267,6 +288,10 @@ var detailhrm = Vue.component('detailhrm',{
     	  show_list:function(){
     		  App.currentview = 'listhrm';
     		  App.showlist(0);
+    	  },
+    	  modify_list(){
+    		  App.currentview = 'modifyhrm';
+    		  App.showlist(2);
     	  }
       },
       mounted () {
@@ -281,52 +306,65 @@ var detailhrm = Vue.component('detailhrm',{
       }
       
 });
-/*
-var namehrm = Vue.component('namehrm',{
-    template: '#namehrmtemplate',
+var modifyhrm = Vue.component('modifyhrm',{
+    template: '#modifytemplate',
     data () {
         return {
           info: [],
           loading: true,
           errored: false ,
-          cname:'',
-          cemps:[]
+	      deps:null,
+          cid:'',
+          ctitle:'',
+          titls:null,
+		  content:'',
+	      writer:'${userInfo.id}',
+          board:{}
         }
       },
-      filters: {
-    	   salarydecimal (value) {
-          return value.toFixed(2)
-        }
-      }, 
+      methods:{
+    	  show_list:function(){
+    		  App.currentview = 'listhrm';
+    		  App.showlist(0);
+    	  },
+    	  modify(){
+			if(this.ctitle==''){ alert('제목를 입력하세요.'); return ;}
+			if(this.content==''){ alert('내용을 입력하세요'); return ;}
+			axios.put('http://localhost:9090/api/boards/'+App.qnaId, {
+				title: this.ctitle,
+				content: this.content,
+				writer: this.writer
+			})
+			.then(response => {
+				if(response.data.status=='OK'){
+					console.log("ok");
+					layerAlertOpen1("수정 성공");
+					layerCenter();
+				}
+			})
+			.catch(error => {
+				console.log(error)
+				this.errored = true
+			})
+			.finally(() => this.loading = false);
+    	  }
+      },
       mounted () {
-        axios
-          .get('http://localhost:8197/ssafyvue/api/findAllEmployees')
-           //.get('./emp.json')
-          .then(response => (this.info = response.data))
-          .catch(error => {
-            console.log(error)
-            this.errored = true
-          })
-          .finally(() => this.loading = false);
-      },
-      methods: {
-    	  searchname() {
-    		   axios
-    		    .get('http://localhost:8197/ssafyvue/api/findLikeEmployees/'+this.cname)
-    		     //.get('./emp.json')
-    		    .then(response => (this.cemps = response.data))
-    		    .catch(error => {
-    		      console.log(error)
-    		      this.errored = true
-    		    })
-    		    .finally(() => this.loading = false);
-    	   },
-    	   currentEmp(){
-    		   console.log();
-    	   }
+    	  axios
+		    .get('http://localhost:9090/api/boards/'+App.qnaId)
+		    .then(response => {
+		    	this.board = response.data.data;
+		    	this.ctitle = this.board.title;
+		    	this.content = this.board.content;
+		    })
+		    .catch(error => {
+		      console.log(error)
+		      this.errored = true
+		    })
+		    .finally(() => this.loading = false);
       }
+      
 });
-*/
 var addhrm = Vue.component('addhrm',{
 	template: '#addhrmtemplate',
 	data () {
@@ -392,10 +430,9 @@ var App=new Vue({
       cutt:['게시판>리스트','게시판>글쓰기','게시판>수정','게시판>보기']
    },
    components: {
-	   addhrm: addhrm,
-	   //idhrm: idhrm,
-	   //namehrm: namehrm,
        listhrm: listhrm,
+	   addhrm: addhrm,
+	   modifyhrm: modifyhrm,
        detailhrm: detailhrm
      },
      methods:{

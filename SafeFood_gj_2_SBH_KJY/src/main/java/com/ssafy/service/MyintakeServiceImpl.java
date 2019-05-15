@@ -47,5 +47,11 @@ public class MyintakeServiceImpl implements MyintakeService{
 		return mapper.selectPaging(id, startDate, endDate, page);
 	}
 
+	@Override
+	public int total(String id, String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return mapper.total(id,startDate,endDate);
+	}
+
 
 }
