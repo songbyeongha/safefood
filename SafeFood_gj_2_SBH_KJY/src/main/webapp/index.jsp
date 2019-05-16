@@ -52,6 +52,9 @@
                     <div>
                         <h6>검색 단어</h6>
                         <input class="search_button" type="text" name="val" id="searchInput">
+                        <div id="searchHistroy">
+							
+						</div>
                         <a href="#" class="searchButton btn btn-primary btn-lg active" role="button" id="searchButton">검색</a>
                     </div>
                 </div>
@@ -110,6 +113,7 @@
 			}
 		});
 		$("#searchButton").on("click",function(){
+			addCookie($("#searchInput").val());
 			location.href =  "./foodList?select="+$("#searchSelect").val()+"&input="+$("#searchInput").val();
 		});
 		$(".search_button").keypress(function (e) {
@@ -117,7 +121,19 @@
 			   $("#searchButton").trigger("click");
 		   }
 		});
-		
+		$(".search_button").focus(function(){
+			let searchHistory = getCookie('productItems').split(',');
+			let str = "";
+			for(let i in searchHistory){
+				str += "<div class='searchItem'>"+searchHistory[i]+"</div>";
+			}
+			$("#searchHistroy").addClass("displayblock");
+			$("#searchHistroy").html(str);
+			$(".searchItem").on("click",function(){
+				$("#searchInput").val($(this).text());
+				$("#searchHistroy").removeClass("displayblock");
+			});
+		});
 	});
 
 	</script>

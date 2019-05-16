@@ -39,7 +39,9 @@ $(function(){
 	<script type="text/javascript">
  	$(function(){
  		let allergyArray = [
-
+ 			<c:forEach var="item" items="${allergy}">
+	 		   "${item.name}",
+	 		</c:forEach>
 		];
 		console.log(allergyArray);
 		$("input[name=allergy]").each(function(){

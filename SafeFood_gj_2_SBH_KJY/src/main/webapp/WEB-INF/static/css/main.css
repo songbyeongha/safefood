@@ -636,8 +636,92 @@ section .section-title {
 	width:50%;
 	height:500px;
 }
+#google-visualization-errors-all-1{
+	display: none !important;
+}
+#dateSearch{
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    border: 0;
+    border-radius: 6px;
+    padding: 5px 11px 5px 7px;
+    color: #fff;
+    background: #265a88;
+    cursor: pointer;
+}
+#searchHistroy{
+	display:none;
+    position: absolute;
+    width: 212px;
+    background: #3f3f3f;
+    z-index: 20;
+    text-align: left;
+    font-size: 17px;
+    font-weight: bold;
+    color: #fff;
+    text-indent: 9px;
+}
+.searchItem{
+	padding: 5px 0;
+	cursor: pointer;
+}
+.searchItem:first-of-type{
+	padding-top: 10px;
+}
+.searchItem:last-of-type{
+	padding-bottom: 10px;
+}
+.searchItem:hover,.searchItem:focus{
+	background: #4b6d19;
+}
+.search_menu .displayblock{
+	display: block !important;
+}
 
-
+.allergyCk{
+    background: red;
+    color: #fff;
+    border-radius: 12px;
+    padding: 4px 8px;
+    font-size: 16px;
+    font-weight: bold;
+}
+.totalAllergyP{
+    text-align: center;
+    font-size: 15px;
+    margin-top: 30px;
+    font-weight: bold;
+    background: #464646;
+    padding: 12px 0;
+    color: #fff;
+}
+#allergyProduct{
+    color: #e07272;
+    font-size: 20px;
+    margin-right: 30px;
+}
+#nonAllergyProduct{
+    color: #7275e0;
+    font-size: 20px;
+}
+#oneDayhalf{
+    text-align: center;
+    font-size: 15px;
+    margin-top: 30px;
+    font-weight: bold;
+    background: #464646;
+    padding: 12px 0;
+    color: #fff;
+}
+.oneDayTitle{
+	font-size: 19px;
+    line-height: 37px;
+}
+.oneDayContent span{
+	color: #f90;
+    margin: 15px;
+}
 @media ( max-width : 1650px) {
 	.productWrapper .bhProductContent{
 		width: 21%;
