@@ -163,7 +163,7 @@ var listhrm = Vue.component('listhrm',{
       },
       methods:{
     	  show_detail:function(boardId){
-    		  axios.put('http://121.147.32.115:9090/api/boards/hit/'+boardId)
+    		  axios.put('http://localhost:9090/api/boards/hit/'+boardId)
     		  App.qnaId=boardId; 
     		  App.currentview = 'detailhrm';
     		  App.showlist(3);
@@ -175,7 +175,7 @@ var listhrm = Vue.component('listhrm',{
     	  delete_list:function(){
     		  let flag = false;
     		  for(var no in this.boardNos) {
-    			  axios.delete('http://121.147.32.115:9090/api/boards/'+this.boardNos[no])
+    			  axios.delete('http://localhost:9090/api/boards/'+this.boardNos[no])
     			  flag = true;
               }
     		  if(flag)
@@ -204,7 +204,7 @@ var listhrm = Vue.component('listhrm',{
    		  },
    		  changepage(page){
     		  axios
-    		  .get('http://121.147.32.115:9090/api/boards/page/'+page)
+    		  .get('http://localhost:9090/api/boards/page/'+page)
     		  .then(response => {
     			  this.info = response.data.data
     		  	  this.maxpage=response.data.maxpage;
@@ -258,7 +258,7 @@ var listhrm = Vue.component('listhrm',{
       },
       mounted () {
         axios
-          .get('http://121.147.32.115:9090/api/boards/page/1')
+          .get('http://localhost:9090/api/boards/page/1')
           .then(response => {
         	  this.info = response.data.data
         	  this.maxpage=response.data.maxpage;
@@ -296,7 +296,7 @@ var detailhrm = Vue.component('detailhrm',{
       },
       mounted () {
     	  axios
-		    .get('http://121.147.32.115:9090/api/boards/'+App.qnaId)
+		    .get('http://localhost:9090/api/boards/'+App.qnaId)
 		    .then(response => (this.board = response.data.data))
 		    .catch(error => {
 		      console.log(error)
@@ -330,7 +330,7 @@ var modifyhrm = Vue.component('modifyhrm',{
     	  modify(){
 			if(this.ctitle==''){ alert('제목를 입력하세요.'); return ;}
 			if(this.content==''){ alert('내용을 입력하세요'); return ;}
-			axios.put('http://121.147.32.115:9090/api/boards/'+App.qnaId, {
+			axios.put('http://localhost:9090/api/boards/'+App.qnaId, {
 				title: this.ctitle,
 				content: this.content,
 				writer: this.writer
@@ -351,7 +351,7 @@ var modifyhrm = Vue.component('modifyhrm',{
       },
       mounted () {
     	  axios
-		    .get('http://121.147.32.115:9090/api/boards/'+App.qnaId)
+		    .get('http://localhost:9090/api/boards/'+App.qnaId)
 		    .then(response => {
 		    	this.board = response.data.data;
 		    	this.ctitle = this.board.title;
@@ -382,7 +382,7 @@ var addhrm = Vue.component('addhrm',{
 	
 	mounted () {
 		axios
-		.get('http://121.147.32.115:9090/api/boards')
+		.get('http://localhost:9090/api/boards')
 		.then(response => (this.info = response.data))
 		.catch(error => {
 			console.log(error)
@@ -395,7 +395,7 @@ var addhrm = Vue.component('addhrm',{
 		addhrmtemplate() {
 			if(this.ctitle==''){ alert('제목를 입력하세요.'); return ;}
 			if(this.content==''){ alert('내용을 입력하세요'); return ;}
-			axios.post('http://121.147.32.115:9090/api/boards', {
+			axios.post('http://localhost:9090/api/boards', {
 				title: this.ctitle,
 				content: this.content,
 				writer: this.writer
