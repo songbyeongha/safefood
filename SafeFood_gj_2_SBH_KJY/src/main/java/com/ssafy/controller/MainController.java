@@ -219,7 +219,6 @@ public class MainController {
 
 	@GetMapping("/intake")
 	public ResponseEntity<Map<String, Object>> intakeList(Model model,String id, String startDate, String endDate, Integer page){
-		logger.trace("page1111111111111 : {}",page);
 		List<Myintake> list = myintakeService.selectPaging(id, startDate.trim()+" 00:00:00", endDate.trim()+" 23:59:59", (page-1)*10);
 		List<Myintake> total = myintakeService.total(id, startDate.trim()+" 00:00:00", endDate.trim()+" 23:59:59");
 		List<Food> food = new ArrayList<>();
@@ -500,7 +499,7 @@ public class MainController {
 	
 	@GetMapping("/foodwishget")
 	@ResponseBody
-	public List<Map<String, Object> > wish_form(Model model, HttpSession session) {
+	public List<Map<String, Object>> wish_form(Model model, HttpSession session) {
 		Member member = (Member) session.getAttribute("userInfo");
 		List<Map<String, Object>> wish = wishService.selectsum(member.getId());
 		return wish;
@@ -508,6 +507,22 @@ public class MainController {
 	
 	@GetMapping("/adminuser")
 	public String adminuserForm(Model model) {
-		return "/admin/adminUser";
+		return "admin/adminUser";
 	}
+	
+	@PostMapping("/adminuser")
+	public ResponseEntity<Map<String, Object>> adminuserInfo(Model model){
+		List<Member> list = memberService.selectAll();
+		Map<String, Object> resultMap = new HashMap<>();
+		resultMap.put("data", list);
+		
+		ResponseEntity<Map<String, Object>> ent = null;
+		if(list.size()>0) {
+			ent = new ResponseEntity<Map<String, Object>>(resultMap,HttpStatus.OK);			//200
+		}else {
+			ent = new ResponseEntity<Map<String, Object>>(resultMap,HttpStatus.NO_CONTENT);	//204
+		}
+		return ent;
+	}
+	
 }
