@@ -45,4 +45,9 @@ public class WishServiceImpl implements WishService{
 	public List<Map<String, Object> > selectsum(String id) {
 		return mapper.selectsum(id);
 	}
+
+	@Override
+	public int deleteId(String id) {
+		return mapper.deleteId(id);
+	}
 }

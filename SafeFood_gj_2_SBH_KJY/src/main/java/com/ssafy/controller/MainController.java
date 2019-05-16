@@ -443,8 +443,11 @@ public class MainController {
 	// TODO: 20 회원 정보 수정 처리
 	@PostMapping("/userremove")
 	public String remove(Model model, HttpSession session, String id) {
-		memberService.deleteMember(id);
+		
 		allergyService.delete(id);
+		myintakeService.deleteId(id);
+		wishService.deleteId(id);
+		memberService.deleteMember(id);
 		session.invalidate();
 		return "redirect:/index.jsp";
 	}

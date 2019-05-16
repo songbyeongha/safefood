@@ -27,4 +27,7 @@
 		delete from myintake where id=#{id} and code=#{code} and intake_date=#{intakeDate}
 	</delete>
 
+	<delete id="deleteId" parameterType="String">
+		delete from myintake where id=#{id}
+	</delete>
 </mapper>

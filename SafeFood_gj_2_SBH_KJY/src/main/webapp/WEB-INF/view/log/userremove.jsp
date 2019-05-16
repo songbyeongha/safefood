@@ -47,4 +47,5 @@
         </div>
 
     </article>
+ 
 	<jsp:include page="/WEB-INF/view/include/footer.jsp"/>

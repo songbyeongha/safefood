@@ -28,7 +28,7 @@
 	</update>
 	
 	<delete id="deleteMember" parameterType="String">
-		delete form userinfo where id=#{id}
+		delete from userinfo where id=#{id}
 	</delete>
 	
 

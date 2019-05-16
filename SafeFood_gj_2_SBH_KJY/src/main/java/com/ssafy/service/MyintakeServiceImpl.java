@@ -1,6 +1,5 @@
 package com.ssafy.service;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +50,11 @@ public class MyintakeServiceImpl implements MyintakeService{
 	public List<Myintake> total(String id, String startDate, String endDate) {
 		// TODO Auto-generated method stub
 		return mapper.total(id,startDate,endDate);
+	}
+
+	@Override
+	public int deleteId(String id) {
+		return mapper.deleteId(id);
 	}
 
 

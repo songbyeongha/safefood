@@ -29,4 +29,8 @@
 		where wish.code = food.code
 		and id=#{id}
 	</select>
+	
+	<delete id="deleteId" parameterType="String">
+		delete from wish where id=#{id}
+	</delete>
 </mapper>
