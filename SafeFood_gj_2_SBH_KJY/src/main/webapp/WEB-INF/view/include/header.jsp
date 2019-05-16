@@ -54,24 +54,16 @@
 							<li><a href="${userInfo}">MYPAGE</a></li>
 						</ul>
 					</c:if>
-					<c:choose>
-						<c:when test="${!empty adminInfo}">
-							<ul>
-								<c:url value="/logout" var="logout"></c:url>
-								<li><a href="${logout }">LOGOUT</a></li>
-								<c:url value="/userInfo" var="userInfo" />
-								<li><a href="${userInfo}">MYPAGE</a></li>
-							</ul>
-						</c:when>
-						<c:when test="${empty userInfo}">
-							<ul>
-								<c:url value="/login" var="login" />
-								<c:url value="/joinus" var="joinus" />
-								<li><a href="${login}">LOGIN</a></li>
-								<li><a href="${joinus}">회원가입</a></li>
-							</ul>
-						</c:when>
-					</c:choose>
+					
+					<c:if test="${empty userInfo}">
+						<ul>
+							<c:url value="/login" var="login" />
+							<c:url value="/joinus" var="joinus" />
+							<li><a href="${login}">LOGIN</a></li>
+							<li><a href="${joinus}">회원가입</a></li>
+						</ul>
+					</c:if>
+				
 				</nav>
 			</div>
 		</div>
@@ -90,20 +82,14 @@
 						<li class="col-lg-2"><a href="${foodList }">상품 정보</a></li>
 						<c:url value="/foodmap" var="foodmap" />
 						<li class="col-lg-2"><a href="${foodmap }">친환경음식점</a></li>
-						<c:choose>
-							<c:when test="${!empty userInfo}">
-								<c:url value="/foodWish" var="foodWish" />
-								<li class="col-lg-2"><a href="${foodWish }">찜 목록</a></li>
-								<c:url value="/foodIntake" var="foodIntake" />
-								<li class="col-lg-2"><a href="${foodIntake }">내 섭취 정보</a></li>
-							</c:when>
-							<c:when test="${!empty adminInfo}">
-								<c:url value="/foodWish" var="foodWish" />
-								<li class="col-lg-2"><a href="${foodWish }">찜 목록</a></li>
-								<c:url value="/foodIntake" var="foodIntake" />
-								<li class="col-lg-2"><a href="${foodIntake }">내 섭취 정보</a></li>
-							</c:when>
-						</c:choose>
+						<c:if test="${!empty userInfo}">
+							<c:url value="/foodWish" var="foodWish" />
+							<li class="col-lg-2"><a href="${foodWish }">찜 목록</a></li>
+							<c:url value="/foodIntake" var="foodIntake" />
+							<li class="col-lg-2"><a href="${foodIntake }">내 섭취 정보</a></li>
+						</c:if>
+							
+					
 					</ul>
 				</nav>
 			</div>

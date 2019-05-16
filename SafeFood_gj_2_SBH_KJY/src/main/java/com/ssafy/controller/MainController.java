@@ -306,6 +306,7 @@ public class MainController {
 		if (result != null) {
 			if(result.getAuthority() == 1) {
 				session.setAttribute("adminInfo", result);
+				session.setAttribute("userInfo", result);
 				logger.trace("admin : {}", result);
 			}
 			else if(result.getAuthority() == 2){

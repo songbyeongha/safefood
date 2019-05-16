@@ -23,6 +23,17 @@
 </script>
 <title>비밀번호 찾기</title>
 </head>
+<style>
+.article-title {
+    font-size: 4rem;
+      font-weight: bold;
+    font-family: sans-serif;
+    color: white;
+    background: linear-gradient(to bottom, #33ccff 0%, #ff99cc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+</style>
 <body>
 	<div class="w3-content w3-container w3-margin-top">
 		
