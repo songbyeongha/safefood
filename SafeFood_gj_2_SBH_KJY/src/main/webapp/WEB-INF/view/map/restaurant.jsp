@@ -26,7 +26,7 @@
 <body>
 	<center>
 		<div>
-			<h1>유기농음식점 위치</h1>
+			<h1>유기농 음식점 위치</h1>
 		</div>
 		<br>
 		<div id="map" style="width: 700px; height: 600px;"></div>
