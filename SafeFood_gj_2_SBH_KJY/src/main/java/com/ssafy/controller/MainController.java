@@ -1,7 +1,6 @@
 package com.ssafy.controller;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -306,12 +305,14 @@ public class MainController {
 		
 		if (result != null) {
 			if(result.getAuthority() == 1) {
-				session.setAttribute("admininfo", result);
+				session.setAttribute("adminInfo", result);
+				logger.trace("admin : {}", result);
 			}
 			else if(result.getAuthority() == 2){
 				session.setAttribute("userInfo", result);
 				List<String> allergy = allergyService.selectId(result.getId());
 				session.setAttribute("allergy", allergy);
+				logger.trace("user : {}", result);
 			}
 			
 		} else {
@@ -327,8 +328,6 @@ public class MainController {
 
 	@RequestMapping("/logout")
 	public String doLogout(Model model, HttpSession session) {
-		Member member = (Member) session.getAttribute("userInfo");
-		logger.trace("logout: {}", member.getId());
 		session.invalidate();
 		return "/log/logout";
 	}
@@ -501,5 +500,10 @@ public class MainController {
 		Member member = (Member) session.getAttribute("userInfo");
 		List<Map<String, Object>> wish = wishService.selectsum(member.getId());
 		return wish;
+	}
+	
+	@GetMapping("/adminuser")
+	public String adminuserForm(Model model) {
+		return "/admin/adminUser";
 	}
 }

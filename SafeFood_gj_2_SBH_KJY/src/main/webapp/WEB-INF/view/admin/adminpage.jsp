@@ -136,7 +136,8 @@ ul{
       <li class="col-12 col-md-6 col-lg-3">
           <div class="cnt-block equal-hight" style="height: 349px;">
             <figure><img src="https://images.unsplash.com/photo-1546820389-44d77e1f3b31?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" class="img-responsive" alt=""></figure>
-            <h3><a href="http://www.webcoderskull.com/">유저 정보</a></h3>
+           	<c:url value="/adminuser" var="adminuser" />
+            <h3><a href="${adminuser }">유저 정보</a></h3>
             <p>SafeFood페이지 회원 정보</p>
             <ul class="follow-us clearfix">
           </div>
