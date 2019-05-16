@@ -140,3 +140,47 @@ function calFattyacid(age, calory){
 function calTransfat(calory){
 		return calory*0.01;
 }
+
+function addCookie(item) {
+	var items = getCookie('productItems');
+	var maxItemNum = 5;
+	var expire = 7;
+	if (items) {
+	    var itemArray = items.split(',');
+		if (itemArray.indexOf(item) != -1) {
+			console.log('Already exists.');
+		}
+		else {
+			itemArray.unshift(item);
+			if (itemArray.length > maxItemNum ) itemArray.length = 5;
+			items = itemArray.join(',');
+			setCookie('productItems', items, expire);
+		}
+	}
+	else {
+		setCookie('productItems', item, expire);
+	}
+}
+
+function getCookie(cookie_name) {
+	var x, y;
+	var val = document.cookie.split(';');
+
+	for (var i = 0; i < val.length; i++) {
+		x = val[i].substr(0, val[i].indexOf('='));
+		y = val[i].substr(val[i].indexOf('=') + 1);
+		x = x.replace(/^\s+|\s+$/g, ''); // 앞과 뒤의 공백 제거하기
+		if (x == cookie_name) {
+			return unescape(y); // unescape로 디코딩 후 값 리턴
+		}
+	}
+}
+
+function setCookie(cookie_name, value, days) {
+	  var exdate = new Date();
+	  exdate.setDate(exdate.getDate() + days);
+	  // 설정 일수만큼 현재시간에 만료값으로 지정
+
+	  var cookie_value = escape(value) + ((days == null) ? '' : ';    expires=' + exdate.toUTCString());
+	  document.cookie = cookie_name + '=' + cookie_value;
+}

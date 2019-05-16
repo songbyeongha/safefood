@@ -220,7 +220,7 @@ public class MainController {
 
 	@GetMapping("/intake")
 	public ResponseEntity<Map<String, Object>> intakeList(Model model,String id, String startDate, String endDate, Integer page){
-
+		logger.trace("page1111111111111 : {}",page);
 		List<Myintake> list = myintakeService.selectPaging(id, startDate.trim()+" 00:00:00", endDate.trim()+" 23:59:59", (page-1)*10);
 		List<Myintake> total = myintakeService.total(id, startDate.trim()+" 00:00:00", endDate.trim()+" 23:59:59");
 		List<Food> food = new ArrayList<>();

@@ -54,6 +54,11 @@
 
 <div id="productPlace" class="container"></div>
 <div id="chart_div" class="container"></div>
+<div id="oneDayhalf" class="container">
+	<span class="oneDayTitle">하루 섭취량 50% 넘은 영양분 </span>
+	<div class="oneDayContent">
+	</div>
+</div>
 	<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 	<title>Insert title here</title>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -182,8 +187,8 @@
 				}
 			});
 		    $.ajax({
-		        url: "<c:url value='/intake' />", // 요청 할 주소
-		        type: 'GET', // GET, PUT
+		        url: "<c:url value='/intake' />",
+		        type: 'GET',
 		        data: {
 		        	id : "${userInfo.id}",
 		        	startDate:nowDate,
@@ -191,7 +196,7 @@
 		        	page:1
 		        }, // 전송할 데이터
 				success: function (result) {
-					console.log(result.totalInfo);
+					//console.log(result.totalInfo);
 					for(let i = 0;i<result.totalInfo.length;i++){
 						calory+=result.totalInfo[i].calory;
 			  			carbo+=result.totalInfo[i].carbo;
@@ -252,11 +257,20 @@
 							layerAlertOpen("error")
 						}
 					});
-			  	    
+			  	    let ostr = "";
+						for(let i=1;i<10;i++){
+							if(arrayDate[1][i]>50){
+								console.log(arrayDate[0][i]);
+								ostr += "<span>"+arrayDate[0][i]+"</span>";
+							}
+						}
+					$(".oneDayContent").html(ostr);
+					//$(".oneDayContent").html();
+			  	  	console.log(arrayDate[1][1]);
 				}, // 요청 완료 시
 		        error: function(resTxt) {} // 요청 실패.
 		    });
-			
+		    
 		});
 	</script>
 	

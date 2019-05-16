@@ -177,7 +177,7 @@ body .frame .content h1 {
 	
 		<div id="nav">
 			<nav id="menu_bar">
-				<button type='button' class='btn btn-info intakeButton' code-data="${param.code}">추가</button>
+				<button type='button' class='btn btn-info intakeButton' code-data="${param.code}">섭취</button>
 				<button type='button' class='btn btn-info'>찜</button>
 			</nav>
 		</div>
