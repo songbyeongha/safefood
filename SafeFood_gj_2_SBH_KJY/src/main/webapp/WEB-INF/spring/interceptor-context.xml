@@ -11,11 +11,11 @@
 <mvc:interceptors>
 	<mvc:interceptor>
 		<mvc:mapping path="/food/food_detail.jsp"/>
-		<bean class="com.ssafy.intercepter.SessionInterceptor" />
+		<bean class="com.safefood.intercepter.SessionInterceptor" />
 	</mvc:interceptor>
 	 <mvc:interceptor>
    		<mvc:mapping path="/admin/adminpage.jsp"/>
-   		<bean class="com.ssafy.intercepter.AdminInterceptor" />
+   		<bean class="com.safefood.intercepter.AdminInterceptor" />
  	 </mvc:interceptor>
 </mvc:interceptors>
 

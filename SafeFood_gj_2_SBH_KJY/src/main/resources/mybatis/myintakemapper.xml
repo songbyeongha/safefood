@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ssafy.repository.MyintakeMapper">
+<mapper namespace="com.safefood.repository.MyintakeMapper">
 	<select id="selectAll" resultType="myintake">
 		select * from myintake where id=#{id}
 	</select>

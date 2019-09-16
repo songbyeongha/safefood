@@ -8,11 +8,11 @@
 		<setting name="jdbcTypeForNull" value="NULL" />
 	</settings>
 	<typeAliases>
-		<typeAlias type="com.ssafy.dto.Member" alias="member" />
-		<typeAlias type="com.ssafy.dto.Allergy" alias="allergy" />
-		<typeAlias type="com.ssafy.dto.Food" alias="food" />
-		<typeAlias type="com.ssafy.dto.Myintake" alias="myintake" />
-		<typeAlias type="com.ssafy.dto.Wish" alias="wish" />
+		<typeAlias type="com.safefood.dto.Member" alias="member" />
+		<typeAlias type="com.safefood.dto.Allergy" alias="allergy" />
+		<typeAlias type="com.safefood.dto.Food" alias="food" />
+		<typeAlias type="com.safefood.dto.Myintake" alias="myintake" />
+		<typeAlias type="com.safefood.dto.Wish" alias="wish" />
 	</typeAliases>
 
 	<mappers>
