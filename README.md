@@ -16,3 +16,14 @@
 - 프론트엔드 프레임워크 :  **JSP**, **Vue** js
 - DB: **MyBatis**를 사용한 **CRUD**
 - REST API: **Axios**를 사용한 **비동기** 처리
+
+### 프로젝트 상세 기술
+
+- Spring 백엔드
+  - 음식, 알레르기, 회원, 장바구니, 섭취 DTO 
+  - **LoggerFactory**를 사용하여 log 제공
+  - **Session**를 통한 회원에게만 기능 제공
+- 반응형
+  - **@media**를 사용하여 반응형
+- Drag and Drop
+  - **Drag and Drop**으로 섭취 음식 등록 기능
